@@ -1,8 +1,9 @@
+import heroBg from "../../assets/hero.webp";
 export default function Hero() {
   return (
     <div className="relative -mt-20 h-[800px] w-full overflow-hidden bg-slate-900">
       <img
-        src="https://concepto.de/wp-content/uploads/2025/05/investigacion-scaled.jpg"
+        src={heroBg}
         className="absolute inset-0 object-cover w-full h-full opacity-60 brightness-50"
         alt="Hero Background"
         data-aos="zoom-out"
