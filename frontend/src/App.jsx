@@ -11,10 +11,6 @@ export default function App() {
       once: true,
       easing: "ease-out-cubic",
     });
-
-    if (window.HSStaticMethods) {
-      window.HSStaticMethods.autoInit();
-    }
   }, []);
 
   return (

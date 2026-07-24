@@ -1,6 +1,9 @@
+import { useState } from "react";
 import logo from "../../assets/logo.webp";
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <header className="fixed top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm">
       <nav className="mt-4 relative max-w-5xl w-full bg-white/80 backdrop-blur-md border border-white/20 shadow-sm rounded-2xl md:rounded-full mx-2 flex flex-wrap md:flex-nowrap items-center justify-between p-2 px-5 sm:mx-auto transition-all">
@@ -17,7 +20,10 @@ export default function Navbar() {
             />
 
             <div className="flex flex-col justify-center leading-tight">
-              <span className="text-brand-dark font-bold text-sm md:text-base whitespace-nowrap">
+              <span className="text-brand-dark font-bold text-sm block sm:hidden whitespace-nowrap">
+                VRI
+              </span>
+              <span className="text-brand-dark font-bold text-sm md:text-base hidden sm:block whitespace-nowrap">
                 Vicerrectorado de Investigación
               </span>
               <span className="text-slate-500 font-normal text-[10px] md:text-xs hidden sm:block">
@@ -38,55 +44,54 @@ export default function Navbar() {
           <div className="md:hidden">
             <button
               type="button"
-              className="hs-collapse-toggle flex justify-center items-center size-8 bg-slate-100 border border-slate-200 text-slate-600 rounded-full hover:bg-slate-200 focus:outline-none"
-              id="hs-pro-pnm-collapse"
-              aria-expanded="false"
-              aria-controls="hs-pro-pnm"
+              onClick={() => setIsOpen(!isOpen)}
+              className="flex justify-center items-center size-8 bg-slate-100 border border-slate-200 text-slate-600 rounded-full hover:bg-slate-200 focus:outline-none transition-colors"
               aria-label="Toggle navigation"
-              data-hs-collapse="#hs-pro-pnm"
             >
-              <svg
-                className="hs-collapse-open:hidden shrink-0 size-3.5"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="3" x2="21" y1="6" y2="6" />
-                <line x1="3" x2="21" y1="12" y2="12" />
-                <line x1="3" x2="21" y1="18" y2="18" />
-              </svg>
-              <svg
-                className="hs-collapse-open:block hidden shrink-0 size-3.5"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 6 6 18" />
-                <path d="m6 6 12 12" />
-              </svg>
+              {isOpen ? (
+                <svg
+                  className="shrink-0 size-3.5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              ) : (
+                <svg
+                  className="shrink-0 size-3.5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="3" x2="21" y1="6" y2="6" />
+                  <line x1="3" x2="21" y1="12" y2="12" />
+                  <line x1="3" x2="21" y1="18" y2="18" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
 
         <div
-          id="hs-pro-pnm"
-          className="hidden hs-collapse overflow-hidden transition-all duration-300 basis-full grow md:block"
-          aria-labelledby="hs-pro-pnm-collapse"
-          role="region"
+          className={`${
+            isOpen ? "block" : "hidden"
+          } md:block overflow-hidden transition-all duration-300 basis-full grow`}
         >
-          <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-5 mt-3 md:mt-0 pt-2 md:pt-0 border-t border-slate-100 md:border-t-0">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-5 mt-3 md:mt-0 pt-2 md:pt-0  md:border-t-0">
             <a
               className="py-0.5 px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-slate-700 hover:text-brand-primary transition-colors ps-2 md:ps-0"
               href="#"
