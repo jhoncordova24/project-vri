@@ -167,7 +167,7 @@ export default function FeaturesPreline() {
                         >
                           {office.title}
                         </span>
-                        <span className="block mt-1 text-sm text-slate-600 leading-relaxed">
+                        <span className="hidden md:block mt-1 text-sm text-slate-600 leading-relaxed">
                           {office.description}
                         </span>
                       </span>
@@ -220,7 +220,6 @@ export default function FeaturesPreline() {
                           className="inline-flex items-center gap-x-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-lg shadow"
                         >
                           <span>Ir a esta sección</span>
-                          
                         </a>
                       </div>
                     </div>

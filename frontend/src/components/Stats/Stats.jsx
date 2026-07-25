@@ -48,12 +48,10 @@ export default function Stats() {
           >
             <div className="lg:pe-6 xl:pe-12">
               <div className="flex items-center">
-                {/* Ancho fijo para el número: evita que el contador empuje el badge */}
                 <div className="text-6xl sm:text-7xl font-extrabold tracking-tight text-brand-dark min-w-[130px] sm:min-w-[160px]">
                   <CountUp value={mainStat.number} />
                 </div>
 
-                {/* Badge fijo a la derecha con margen manual */}
                 <span className="inline-flex items-center gap-x-1.5 bg-brand-primary/10 text-brand-primary font-semibold text-xs py-1 px-3 rounded-full shrink-0">
                   <svg
                     className="shrink-0 size-3.5"
