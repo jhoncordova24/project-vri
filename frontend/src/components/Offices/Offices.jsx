@@ -120,7 +120,7 @@ export default function FeaturesPreline() {
         <div className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
           <div
             className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-7 lg:order-2"
-            data-aos="fade-left"
+            data-aos="fade-up"
             data-aos-duration="800"
           >
             <h2 className="text-2xl font-bold text-slate-800 sm:text-3xl lg:text-4xl leading-tight">
@@ -180,7 +180,7 @@ export default function FeaturesPreline() {
 
           <div
             className="lg:col-span-6 lg:order-1"
-            data-aos="fade-right"
+            data-aos="fade-up"
             data-aos-duration="800"
           >
             <div className="relative">
@@ -220,19 +220,7 @@ export default function FeaturesPreline() {
                           className="inline-flex items-center gap-x-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-lg shadow"
                         >
                           <span>Ir a esta sección</span>
-                          <svg
-                            className="shrink-0 size-4"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M5 12h14" />
-                            <path d="m12 5 7 7-7 7" />
-                          </svg>
+                          
                         </a>
                       </div>
                     </div>
