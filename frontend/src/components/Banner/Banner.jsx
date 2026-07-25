@@ -43,6 +43,7 @@ export default function Banner() {
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#1e3a8a_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
 
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl pointer-events-none"></div>
+
       <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-slate-200/40 rounded-full blur-2xl pointer-events-none"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,14 +53,12 @@ export default function Banner() {
             data-aos="fade-right"
             data-aos-duration="600"
           >
-            {/* Header Superior: Tag + Filtro (SOLO VISIBLE EN DESKTOP) */}
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center justify-between gap-4">
               <span className="text-xs font-bold tracking-widest text-blue-900 uppercase">
                 CONVOCATORIAS INSTITUCIONALES
               </span>
 
-              {/* Selector de Años (Versión DESKTOP) */}
-              <div className="hidden sm:inline-flex bg-slate-200/60 p-1 rounded-full border border-slate-300/70">
+              <div className="inline-flex bg-slate-200/60 p-1 rounded-full border border-slate-300/70">
                 {bannerData.years.map((yearData, idx) => (
                   <button
                     key={yearData.year}
@@ -84,31 +83,13 @@ export default function Banner() {
               {bannerData.description}
             </p>
 
-            {/* Fila Inferior: Botón + Filtro (SOLO VISIBLE EN MÓVIL) */}
-            <div className="pt-2 flex flex-wrap items-center gap-4">
-              {/* Selector de Años (Versión MÓVIL - abajo al lado del botón) */}
-              <div className="inline-flex sm:hidden bg-slate-200/60 p-1 rounded-full border border-slate-300/70">
-                {bannerData.years.map((yearData, idx) => (
-                  <button
-                    key={yearData.year}
-                    onClick={() => setSelectedYearIndex(idx)}
-                    className={`px-4 py-1.5 rounded-full text-xs font-extrabold transition-all duration-300 ${
-                      selectedYearIndex === idx
-                        ? "bg-blue-900 text-white shadow-sm"
-                        : "text-slate-600 hover:text-blue-900"
-                    }`}
-                  >
-                    {yearData.year}
-                  </button>
-                ))}
-              </div>
-
-              {/* Botón Acción */}
+            <div className="pt-2 flex items-center gap-4">
               <a
                 href="#"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-blue-900 hover:bg-blue-800 text-white font-medium text-sm transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"
               >
                 <span>Ver proyectos {currentCall.year}</span>
+
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -139,6 +120,7 @@ export default function Banner() {
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">
                       Concurso
                     </span>
+
                     <h3 className="text-3xl font-black text-blue-900 leading-none">
                       {currentCall.year}
                     </h3>
@@ -155,6 +137,7 @@ export default function Banner() {
                   <div className="text-2xl sm:text-3xl font-extrabold text-slate-800">
                     {currentCall.budget}
                   </div>
+
                   <div className="text-[11px] text-slate-500 font-semibold uppercase tracking-wider mt-0.5">
                     Presupuesto
                   </div>
@@ -164,6 +147,7 @@ export default function Banner() {
                   <div className="text-2xl sm:text-3xl font-extrabold text-slate-800">
                     {currentCall.projects}
                   </div>
+
                   <div className="text-[11px] text-slate-500 font-semibold uppercase tracking-wider mt-0.5">
                     Proyectos
                   </div>
@@ -176,6 +160,7 @@ export default function Banner() {
                 <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-3">
                   Líneas prioritarias
                 </h4>
+
                 <div className="flex flex-wrap gap-1.5">
                   {currentCall.features.map((feature, idx) => (
                     <span
