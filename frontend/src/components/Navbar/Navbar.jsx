@@ -6,7 +6,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm">
-      <nav className="mt-4 relative max-w-5xl w-full bg-white/80 backdrop-blur-md border border-white/20 shadow-sm rounded-2xl md:rounded-full mx-2 flex flex-wrap md:flex-nowrap items-center justify-between p-2 px-5 sm:mx-auto transition-all">
+      <nav className="mt-4 relative max-w-5xl w-full bg-white/75 backdrop-blur-xl backdrop-saturate-150 border border-slate-200/50 rounded-2xl shadow-lg shadow-slate-900/5 md:rounded-full mx-2 flex flex-wrap md:flex-nowrap items-center justify-between p-2 px-5 sm:mx-auto transition-all">
         <div className="flex items-center">
           <a
             className="flex items-center gap-3 rounded-md text-xl font-semibold focus:outline-none"
