@@ -45,12 +45,12 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="flex justify-center items-center size-8 bg-slate-100 border border-slate-200 text-slate-600 rounded-full hover:bg-slate-200 focus:outline-none transition-colors"
+              className="flex justify-center items-center size-8 text-slate-600 rounded-full focus:outline-none transition-transform duration-300"
               aria-label="Toggle navigation"
             >
               {isOpen ? (
                 <svg
-                  className="shrink-0 size-3.5"
+                  className="shrink-0 size-3.5 transition-transform duration-300 rotate-0"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -66,7 +66,7 @@ export default function Navbar() {
                 </svg>
               ) : (
                 <svg
-                  className="shrink-0 size-3.5"
+                  className="shrink-0 size-3.5 transition-transform duration-300"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -88,10 +88,10 @@ export default function Navbar() {
 
         <div
           className={`${
-            isOpen ? "block" : "hidden"
-          } md:block overflow-hidden transition-all duration-300 basis-full grow`}
+            isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          } md:max-h-none md:opacity-100 overflow-hidden transition-all duration-300 ease-in-out basis-full grow`}
         >
-          <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-5 mt-3 md:mt-0 pt-2 md:pt-0  md:border-t-0">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-5 mt-3 md:mt-0 pt-2 md:pt-0 md:border-t-0">
             <a
               className="py-0.5 px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-slate-700 hover:text-brand-primary transition-colors ps-2 md:ps-0"
               href="#"

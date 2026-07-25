@@ -4,7 +4,7 @@ export default function Hero() {
     <div className="relative -mt-20 h-[800px] w-full overflow-hidden bg-slate-900">
       <img
         src={heroBg}
-        className="absolute inset-0 object-cover w-full h-full opacity-60 brightness-50"
+        className="absolute inset-0 object-cover w-full h-full opacity-60 brightness-40"
         alt="Hero Background"
         data-aos="zoom-out"
         data-aos-duration="1200"
