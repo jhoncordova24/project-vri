@@ -33,7 +33,7 @@ export default function Stats() {
           <p className="text-xs font-bold tracking-widest text-brand-primary uppercase mb-3">
             Nuestro Impacto
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-800 leading-relaxed tracking-tight">
+          <h2 className="text-1xl sm:text-3xl md:text-4xl font-semibold text-slate-800 leading-relaxed tracking-tight">
             Transformamos el conocimiento en soluciones reales, impulsando la
             investigación científica y el desarrollo sostenible de nuestra
             región.
@@ -48,7 +48,7 @@ export default function Stats() {
           >
             <div className="lg:pe-6 xl:pe-12">
               <div className="flex items-center">
-                <div className="text-6xl sm:text-7xl font-extrabold tracking-tight text-brand-dark min-w-[130px] sm:min-w-[160px]">
+                <div className="text-5xl sm:text-7xl font-extrabold tracking-tight text-brand-dark min-w-[130px] sm:min-w-[160px]">
                   <CountUp value={mainStat.number} />
                 </div>
 

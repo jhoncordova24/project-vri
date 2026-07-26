@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChevronRight } from "lucide-react";
 
 const bannerData = {
   title: "Gestión de proyectos de investigación básica y aplicada",
@@ -11,7 +12,7 @@ const bannerData = {
       year: "2025",
       status: "En ejecución",
       projects: 13,
-      budget: "S/ 850,000",
+      budget: "S/ 1,850,000",
       deadline: "En curso",
       features: [
         "Investigación básica",
@@ -23,7 +24,7 @@ const bannerData = {
       year: "2024",
       status: "Finalizado",
       projects: 15,
-      budget: "S/ 920,000",
+      budget: "S/ 1,920,000",
       deadline: "Finalizado",
       features: [
         "Investigación básica",
@@ -53,7 +54,7 @@ export default function Banner() {
             data-aos-duration="600"
           >
             <div className="flex items-center justify-between gap-4">
-              <span className="text-xs font-bold tracking-widest text-blue-900 uppercase">
+              <span className="text-xs font-bold tracking-widest text-brand-primary uppercase">
                 CONVOCATORIAS INSTITUCIONALES
               </span>
 
@@ -64,8 +65,8 @@ export default function Banner() {
                     onClick={() => setSelectedYearIndex(idx)}
                     className={`px-4 py-1.5 rounded-full text-xs font-extrabold transition-all duration-300 ${
                       selectedYearIndex === idx
-                        ? "bg-blue-900 text-white shadow-sm"
-                        : "text-slate-600 hover:text-blue-900"
+                        ? "bg-brand-primary text-white shadow-sm"
+                        : "text-slate-600 hover:text-brand-primary"
                     }`}
                   >
                     {yearData.year}
@@ -74,7 +75,7 @@ export default function Banner() {
               </div>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-900 tracking-tight leading-tight">
               {bannerData.title}
             </h2>
 
@@ -90,8 +91,8 @@ export default function Banner() {
                     onClick={() => setSelectedYearIndex(idx)}
                     className={`px-4 py-1.5 rounded-full text-xs font-extrabold transition-all duration-300 ${
                       selectedYearIndex === idx
-                        ? "bg-blue-900 text-white shadow-sm"
-                        : "text-slate-600 hover:text-blue-900"
+                        ? "bg-brand-primary text-white shadow-sm"
+                        : "text-slate-600 hover:text-brand-primary"
                     }`}
                   >
                     {yearData.year}
@@ -101,22 +102,10 @@ export default function Banner() {
 
               <a
                 href="#"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-blue-900 hover:bg-blue-800 text-white font-medium text-sm transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+                className="inline-flex items-center gap-1.5 md:gap-2 px-4 py-2.5 md:px-7 md:py-3.5 rounded-full bg-brand-primary hover:bg-brand-hover text-white font-medium text-xs md:text-sm transition-all duration-300 shadow-sm hover:shadow-md"
               >
                 <span>Ver proyectos {currentCall.year}</span>
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+                <ChevronRight className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
               </a>
             </div>
           </div>
@@ -134,13 +123,13 @@ export default function Banner() {
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">
                       Concurso
                     </span>
-                    <h3 className="text-3xl font-black text-blue-900 leading-none">
+                    <h3 className="text-3xl font-black text-brand-primary leading-none">
                       {currentCall.year}
                     </h3>
                   </div>
                 </div>
 
-                <span className="px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-blue-50 text-blue-900 border border-blue-200/60">
+                <span className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary">
                   {currentCall.status}
                 </span>
               </div>

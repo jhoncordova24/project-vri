@@ -1,6 +1,7 @@
 import { useState } from "react";
 import heroVideo from "../../assets/hero-video.mp4";
 import heroBg from "../../assets/hero.webp";
+import { ChevronRight } from "lucide-react";
 
 export default function Hero() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -59,22 +60,10 @@ export default function Hero() {
             <div data-aos="fade-up" data-aos-delay="400">
               <a
                 href="#"
-                className="inline-flex items-center gap-2 py-3 px-7 font-semibold text-sm text-white bg-brand-primary hover:bg-brand-hover transition-colors rounded-full shadow-md focus:outline-none"
+                className="inline-flex items-center gap-1.5 md:gap-2 py-2 px-5 md:py-3 md:px-7 font-semibold text-xs md:text-sm text-white bg-brand-primary hover:bg-brand-hover transition-colors rounded-full shadow-md focus:outline-none"
               >
                 Conocer más
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+                <ChevronRight className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
               </a>
             </div>
           </div>
