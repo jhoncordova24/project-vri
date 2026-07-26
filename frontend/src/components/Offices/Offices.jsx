@@ -189,7 +189,7 @@ export default function FeaturesPreline() {
             data-aos-duration="800"
           >
             <div className="relative">
-              <div className="relative min-h-[380px] sm:min-h-[480px]">
+              <div className="relative min-h-[180px] sm:min-h-[480px]">
                 {offices.map((office, idx) => {
                   const isActive = activeTab === idx;
                   return (
@@ -203,11 +203,10 @@ export default function FeaturesPreline() {
                       role="tabpanel"
                     >
                       <img
-                        className="w-full h-[380px] sm:h-[480px] object-cover rounded-xl"
+                        className="w-full h-[240px] sm:h-[480px] object-cover rounded-xl"
                         src={office.image}
                         alt={office.title}
                       />
-
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
 
                       <div className="absolute top-4 left-4 flex gap-2">
