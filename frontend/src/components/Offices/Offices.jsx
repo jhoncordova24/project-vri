@@ -130,7 +130,7 @@ export default function FeaturesPreline() {
               <p className="text-xs font-bold tracking-widest text-brand-primary uppercase mb-2 sm:mb-3">
                 Nuestras oficinas
               </p>
-              <p className="text-xm sm:text-xl font-semibold text-slate-800 leading-snug sm:leading-relaxed tracking-tight">
+              <p className="hidden sm:block text-base sm:text-xl font-semibold text-slate-800 leading-snug sm:leading-relaxed tracking-tight">
                 Conoce nuestras dependencias encargadas de impulsar la ciencia,
                 la innovación y la transferencia tecnológica.
               </p>
