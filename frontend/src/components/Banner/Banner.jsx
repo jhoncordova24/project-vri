@@ -52,13 +52,11 @@ export default function Banner() {
             data-aos="fade-right"
             data-aos-duration="600"
           >
-            {/* Header Superior: Tag + Filtro (SOLO VISIBLE EN DESKTOP) */}
             <div className="flex items-center justify-between gap-4">
               <span className="text-xs font-bold tracking-widest text-blue-900 uppercase">
                 CONVOCATORIAS INSTITUCIONALES
               </span>
 
-              {/* Selector de Años (Versión DESKTOP) */}
               <div className="hidden sm:inline-flex bg-slate-200/60 p-1 rounded-full border border-slate-300/70">
                 {bannerData.years.map((yearData, idx) => (
                   <button
@@ -76,7 +74,7 @@ export default function Banner() {
               </div>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-slate-900 tracking-tight leading-tight">
               {bannerData.title}
             </h2>
 
@@ -84,9 +82,7 @@ export default function Banner() {
               {bannerData.description}
             </p>
 
-            {/* Fila Inferior: Botón + Filtro (SOLO VISIBLE EN MÓVIL) */}
             <div className="pt-2 flex flex-wrap items-center gap-4">
-              {/* Selector de Años (Versión MÓVIL - abajo al lado del botón) */}
               <div className="inline-flex sm:hidden bg-slate-200/60 p-1 rounded-full border border-slate-300/70">
                 {bannerData.years.map((yearData, idx) => (
                   <button
@@ -103,7 +99,6 @@ export default function Banner() {
                 ))}
               </div>
 
-              {/* Botón Acción */}
               <a
                 href="#"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-blue-900 hover:bg-blue-800 text-white font-medium text-sm transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5"

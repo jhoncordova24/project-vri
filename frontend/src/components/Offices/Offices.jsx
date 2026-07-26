@@ -123,13 +123,18 @@ export default function FeaturesPreline() {
             data-aos="fade-up"
             data-aos-duration="800"
           >
-            <h2 className="text-2xl font-bold text-slate-800 sm:text-3xl lg:text-4xl leading-tight">
-              Direcciones que{" "}
-              <span className="text-brand-primary">
-                Transforman el Conocimiento
-              </span>
-            </h2>
-
+            <div
+              className="max-w-3xl mx-auto text-left mb-4 lg:mb-8"
+              data-aos="fade-up"
+            >
+              <p className="text-xs font-bold tracking-widest text-brand-primary uppercase mb-2 sm:mb-3">
+                Nuestras oficinas
+              </p>
+              <p className="text-xm sm:text-xl font-semibold text-slate-800 leading-snug sm:leading-relaxed tracking-tight">
+                Conoce nuestras dependencias encargadas de impulsar la ciencia,
+                la innovación y la transferencia tecnológica.
+              </p>
+            </div>
             <nav
               className="grid gap-3 mt-5 md:mt-8"
               aria-label="Tabs"
@@ -151,17 +156,17 @@ export default function FeaturesPreline() {
                     role="tab"
                     aria-selected={isActive}
                   >
-                    <span className="flex gap-x-4 md:gap-x-6">
+                    <span className="flex items-center md:items-start gap-x-2.5 sm:gap-x-4 md:gap-x-6">
                       <span
-                        className={
+                        className={`shrink-0 text-lg sm:text-xl md:text-2xl ${
                           isActive ? "text-brand-primary" : "text-slate-500"
-                        }
+                        }`}
                       >
                         {office.icon}
                       </span>
                       <span className="grow">
                         <span
-                          className={`block text-base md:text-lg font-semibold ${
+                          className={`block text-xs sm:text-sm md:text-lg font-semibold ${
                             isActive ? "text-brand-primary" : "text-slate-800"
                           }`}
                         >

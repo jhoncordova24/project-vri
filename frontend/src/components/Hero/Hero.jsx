@@ -1,15 +1,32 @@
+import { useState } from "react";
+import heroVideo from "../../assets/hero-video.mp4";
 import heroBg from "../../assets/hero.webp";
+
 export default function Hero() {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
   return (
     <div className="relative -mt-20 h-[800px] w-full overflow-hidden bg-slate-900">
-      <img
-        src={heroBg}
-        className="absolute inset-0 object-cover w-full h-full opacity-60 brightness-40"
-        alt="Hero Background"
-        data-aos="zoom-out"
-        data-aos-duration="1200"
-      />
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster={heroBg}
+        onLoadedData={() => setIsVideoLoaded(true)}
+        onError={() => setIsVideoLoaded(true)}
+        className={`
+          absolute inset-0 object-cover w-full h-full 
+          brightness-40
+          transition-all duration-[1500ms] ease-out
+          ${isVideoLoaded ? "opacity-60 scale-100" : "opacity-0 scale-105"}
+        `}
+      >
+        <source src={heroVideo} type="video/mp4" />
+      </video>
 
+      {/* Hero Content */}
       <div className="relative h-full flex items-center pt-28">
         <div className="max-w-7xl w-full mx-auto px-6 sm:px-8 z-10">
           <div className="max-w-xl">
