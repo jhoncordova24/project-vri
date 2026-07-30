@@ -3,6 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 export default function App() {
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function App() {
       <Navbar />
       <main>
         <Home />
+        <ScrollToTop />
       </main>
     </div>
   );

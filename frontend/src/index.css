@@ -1,11 +1,11 @@
-  @import "tailwindcss";
+@import "tailwindcss";
 
-  @source "../node_modules/preline/dist/*.js";
-  @import "../node_modules/preline/variants.css";
+@source "../node_modules/preline/dist/*.js";
+@import "../node_modules/preline/variants.css";
 
-  @theme {
-    --color-brand-primary: #1e3a8a; 
-    --color-brand-secondary: #0284c7; 
-    --color-brand-dark: #0f172a; 
-    --color-brand-hover: #1d4ed8; 
-  }
+@theme {
+  --color-brand-primary: #1e3a8a;
+  --color-brand-secondary: #0284c7;
+  --color-brand-dark: #0f172a;
+  --color-brand-hover: #1d4ed8;
+}

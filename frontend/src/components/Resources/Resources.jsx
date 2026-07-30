@@ -5,7 +5,7 @@ import {
   Atom,
   ShieldCheck,
   Library,
-  ChevronRight,
+  ArrowRight,
 } from "lucide-react";
 
 export default function Resources() {
@@ -85,7 +85,7 @@ export default function Resources() {
             className="inline-flex items-center justify-center h-11 px-6 font-semibold text-xs tracking-wide text-white transition-colors duration-200 rounded-full bg-brand-primary hover:bg-brand-hover focus:outline-none"
           >
             Ver todos los servicios
-            <ChevronRight className="w-4 h-4 ml-1 -mr-1" />
+            <ArrowRight className="w-4 h-4 ml-1 -mr-1" />
           </a>
         </div>
       </div>
