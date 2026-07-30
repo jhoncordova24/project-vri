@@ -1,3 +1,4 @@
+import SectionLabel from "../common/SectionLabel";
 import {
   BookOpen,
   Search,
@@ -5,8 +6,8 @@ import {
   Atom,
   ShieldCheck,
   Library,
-  ArrowRight,
 } from "lucide-react";
+import Button from "../common/Button";
 
 export default function Resources() {
   const resources = [
@@ -45,10 +46,8 @@ export default function Resources() {
           className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12"
           data-aos="fade-up"
         >
-          <span className="text-xs font-bold tracking-widest text-brand-primary uppercase block mb-2">
-            Recursos Digitales
-          </span>
-          <h2 className="max-w-lg mb-4 text-2xl font-bold tracking-tight text-brand-dark sm:text-3xl md:mx-auto">
+          <SectionLabel>Recursos Digitales</SectionLabel>
+          <h2 className="max-w-lg mb-4 text-2xl font-semibold text-brand-dark tracking-tight sm:text-3xl md:mx-auto">
             Plataformas e Información
           </h2>
           <p className="text-sm text-slate-600 md:text-base">
@@ -80,13 +79,7 @@ export default function Resources() {
         </div>
 
         <div className="text-center" data-aos="fade-up">
-          <a
-            href="#"
-            className="inline-flex items-center justify-center h-11 px-6 font-semibold text-xs tracking-wide text-white transition-colors duration-200 rounded-full bg-brand-primary hover:bg-brand-hover focus:outline-none"
-          >
-            Ver todos los servicios
-            <ArrowRight className="w-4 h-4 ml-1 -mr-1" />
-          </a>
+          <Button href="#">Ver todos los servicios</Button>
         </div>
       </div>
     </section>

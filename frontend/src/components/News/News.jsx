@@ -1,4 +1,6 @@
+import SectionLabel from "../common/SectionLabel";
 import { Calendar, ArrowRight } from "lucide-react";
+import Button from "../common/Button";
 
 export default function News() {
   const news = [
@@ -39,10 +41,8 @@ export default function News() {
           data-aos="fade-up"
         >
           <div>
-            <span className="text-xs font-bold tracking-widest text-brand-primary uppercase block mb-2">
-              Actualidad Institucional
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark">
+            <SectionLabel>Actualidad Institucional</SectionLabel>
+            <h2 className="text-2xl sm:text-3xl font-semibold text-brand-dark tracking-tight leading-tight">
               Últimas Noticias
             </h2>
           </div>
@@ -98,13 +98,7 @@ export default function News() {
         </div>
 
         <div className="mt-12 text-center" data-aos="fade-up">
-          <a
-            href="/noticias"
-            className="inline-flex items-center justify-center h-11 px-7 font-semibold text-xs tracking-wide text-white transition-colors duration-200 rounded-full bg-brand-primary hover:bg-brand-hover shadow-md focus:outline-none"
-          >
-            Ver todas las noticias
-            <ArrowRight className="w-4 h-4 ml-2 -mr-1" />
-          </a>
+          <Button href="/noticias">Ver todas las noticias</Button>
         </div>
       </div>
     </section>

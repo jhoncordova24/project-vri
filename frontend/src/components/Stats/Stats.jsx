@@ -1,3 +1,4 @@
+import SectionLabel from "../common/SectionLabel";
 import CountUp from "../CountUp/CountUp";
 
 const mainStat = {
@@ -30,9 +31,7 @@ export default function Stats() {
           className="max-w-3xl mx-auto text-center mb-12 lg:mb-16"
           data-aos="fade-up"
         >
-          <p className="text-xs font-bold tracking-widest text-brand-primary uppercase mb-3">
-            Nuestro Impacto
-          </p>
+          <SectionLabel>Nuestro Impacto</SectionLabel>
           <h2 className="text-1xl sm:text-3xl md:text-4xl font-semibold text-slate-800 leading-relaxed tracking-tight">
             Transformamos el conocimiento en soluciones reales, impulsando la
             investigación científica y el desarrollo sostenible de nuestra

@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Navbar from "./components/Navbar/Navbar";
+
+import Navbar from "./components/layout/Navbar/Navbar";
+import Footer from "./components/layout/Footer/Footer";
+
 import Home from "./pages/Home";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
@@ -15,12 +18,15 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased selection:bg-brand-primary selection:text-white">
+    <div>
       <Navbar />
+
       <main>
         <Home />
-        <ScrollToTop />
       </main>
+
+      <Footer />
+      <ScrollToTop />
     </div>
   );
 }

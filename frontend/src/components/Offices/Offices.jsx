@@ -1,5 +1,7 @@
+import SectionLabel from "../common/SectionLabel";
 import { useState } from "react";
 import { Microscope, Wrench, Lightbulb, Rocket } from "lucide-react";
+import Button from "../common/Button";
 
 const OFFICES = [
   {
@@ -65,9 +67,7 @@ export default function FeaturesPreline() {
             data-aos-duration="800"
           >
             <div className="max-w-3xl mx-auto text-left mb-4 lg:mb-8">
-              <p className="text-xs font-bold tracking-widest text-brand-primary uppercase mb-2 sm:mb-3">
-                Nuestras oficinas
-              </p>
+              <SectionLabel>Nuestras oficinas</SectionLabel>
               <p className="text-sm sm:text-base md:text-base font-medium text-slate-600 leading-normal sm:leading-relaxed tracking-tight">
                 Conoce nuestras dependencias encargadas de impulsar la ciencia,
                 la innovación y la transferencia tecnológica.
@@ -165,12 +165,7 @@ export default function FeaturesPreline() {
                       </div>
 
                       <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
-                        <a
-                          href={office.link}
-                          className="inline-flex items-center gap-x-2 px-4 py-2.5 bg-brand-primary hover:bg-brand-primary/90 text-white text-sm font-semibold rounded-lg shadow transition-colors"
-                        >
-                          <span>Ir a esta sección</span>
-                        </a>
+                        <Button href={office.link}>Ir a esta sección</Button>
                       </div>
                     </div>
                   );

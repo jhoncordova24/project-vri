@@ -1,5 +1,7 @@
+import SectionLabel from "../common/SectionLabel";
 import { useState } from "react";
-import { ArrowRight, TrendingUp } from "lucide-react";
+import { TrendingUp } from "lucide-react";
+import Button from "../common/Button";
 
 const bannerData = {
   title: "Gestión de proyectos de investigación básica y aplicada",
@@ -46,9 +48,7 @@ export default function Banner() {
             data-aos-duration="600"
           >
             <div className="flex items-center justify-between gap-4">
-              <span className="text-xs font-bold tracking-widest text-brand-primary uppercase">
-                CONVOCATORIAS INTERNAS
-              </span>
+              <SectionLabel>CONVOCATORIAS INTERNAS</SectionLabel>
 
               <div className="hidden sm:inline-flex bg-slate-200/60 p-1 rounded-full border border-slate-300/70">
                 {bannerData.years.map((yearData, idx) => (
@@ -67,7 +67,7 @@ export default function Banner() {
               </div>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-brand-dark tracking-tight leading-tight">
               {bannerData.title}
             </h2>
 
@@ -92,13 +92,9 @@ export default function Banner() {
                 ))}
               </div>
 
-              <a
-                href="#"
-                className="inline-flex items-center gap-1.5 md:gap-2 px-4 py-2.5 md:px-7 md:py-3.5 rounded-full bg-brand-primary hover:bg-brand-hover text-white font-medium text-xs md:text-sm transition-all duration-300 shadow-sm hover:shadow-md"
-              >
-                <span>Ver proyectos {currentCall.year}</span>
-                <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
-              </a>
+              <Button href={`/proyectos/${currentCall.year}`}>
+                Ver proyectos {currentCall.year}
+              </Button>
             </div>
           </div>
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import heroVideo from "../../assets/hero-video.mp4";
 import heroBg from "../../assets/hero.webp";
-import { ArrowRight } from "lucide-react";
+import Button from "../common/Button";
 
 export default function Hero() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -27,7 +27,6 @@ export default function Hero() {
         <source src={heroVideo} type="video/mp4" />
       </video>
 
-      {/* Hero Content */}
       <div className="relative h-full flex items-center pt-28">
         <div className="max-w-7xl w-full mx-auto px-6 sm:px-8 z-10">
           <div className="max-w-xl">
@@ -58,13 +57,7 @@ export default function Hero() {
             </p>
 
             <div data-aos="fade-up" data-aos-delay="400">
-              <a
-                href="#"
-                className="inline-flex items-center gap-1.5 md:gap-2 py-2 px-5 md:py-3 md:px-7 font-semibold text-xs md:text-sm text-white bg-brand-primary hover:bg-brand-hover transition-colors rounded-full shadow-md focus:outline-none"
-              >
-                Conocer más
-                <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4 shrink-0" />
-              </a>
+              <Button href="#nosotros">Conocer más</Button>
             </div>
           </div>
         </div>
