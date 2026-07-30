@@ -42,7 +42,7 @@ const OFFICES = [
     id: "incubadora",
     title: "Dirección de Incubadora de Empresas",
     badge: "Startups",
-    stats: "10+ startups incubadas",
+    stats: "70+ emprendimientos capacitados",
     description:
       "Impulsamos startups y emprendimientos de base tecnológica con mentoría especializada y acompañamiento estratégico.",
     image:
@@ -59,7 +59,6 @@ export default function FeaturesPreline() {
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
       <div className="relative p-6 md:p-16">
         <div className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
-          {/* Navegación y pestañas */}
           <div
             className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-7 lg:order-2"
             data-aos="fade-up"
@@ -126,8 +125,6 @@ export default function FeaturesPreline() {
               })}
             </nav>
           </div>
-
-          {/* Galería de imágenes e información contextual */}
           <div
             className="lg:col-span-6 lg:order-1"
             data-aos="fade-up"
@@ -182,8 +179,6 @@ export default function FeaturesPreline() {
             </div>
           </div>
         </div>
-
-        {/* Fondo decorativo */}
         <div className="absolute inset-0 grid grid-cols-12 size-full">
           <div className="col-span-full lg:col-span-7 lg:col-start-6 bg-slate-100 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full" />
         </div>

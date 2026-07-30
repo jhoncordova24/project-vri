@@ -22,10 +22,10 @@ const bannerData = {
     },
     {
       year: "2024",
-      status: "Finalizado",
+      status: "En ejecución",
       projects: 15,
       budget: "S/ 1,920,000",
-      deadline: "Finalizado",
+      deadline: "En curso",
       features: [
         "Investigación básica",
         "Investigación aplicada",
@@ -55,7 +55,7 @@ export default function Banner() {
           >
             <div className="flex items-center justify-between gap-4">
               <span className="text-xs font-bold tracking-widest text-brand-primary uppercase">
-                CONVOCATORIAS INSTITUCIONALES
+                CONVOCATORIAS INTERNAS
               </span>
 
               <div className="hidden sm:inline-flex bg-slate-200/60 p-1 rounded-full border border-slate-300/70">
