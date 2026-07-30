@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer
       className="relative mt-16 bg-brand-dark text-slate-100"
-      data-aos="fade-up"
+      data-aos="fade"
       data-aos-duration="800"
     >
       <svg
