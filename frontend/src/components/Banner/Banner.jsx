@@ -18,18 +18,24 @@ const bannerData = {
         "Investigación básica",
         "Investigación aplicada",
         "Proyectos interdisciplinarios",
+        "Gestión Sostenible del Ambiente",
+        "Economía y Negocios",
+        "Educación, Familia y Sociedad",
       ],
     },
     {
       year: "2024",
       status: "En ejecución",
       projects: 15,
-      budget: "S/ 1,920,000",
+      budget: "S/ 2,084,580",
       deadline: "En curso",
       features: [
-        "Investigación básica",
-        "Investigación aplicada",
-        "Transferencia tecnológica",
+        "Informática y Telecomunicaciones",
+        "Biodiversidad y M. Genético",
+        "Salud Pública",
+        "Gestión Sostenible del Ambiente",
+        "Economía y Negocios",
+        "Educación, Familia y Sociedad",
       ],
     },
   ],
@@ -134,7 +140,7 @@ export default function Banner() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-8">
                 <div>
                   <div className="text-2xl sm:text-3xl font-extrabold text-slate-800">
                     {currentCall.budget}
