@@ -1,12 +1,15 @@
 import { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 import Navbar from "./components/layout/Navbar/Navbar";
 import Footer from "./components/layout/Footer/Footer";
+import ScrollToTop from "./components/common/ScrollToTop";
+import ScrollToTopButton from "./components/common/ScrollToTopButton";
 
 import Home from "./pages/Home";
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import NewsDetail from "./pages/NewsDetail";
 
 export default function App() {
   useEffect(() => {
@@ -18,15 +21,20 @@ export default function App() {
   }, []);
 
   return (
-    <div>
-      <Navbar />
+    <BrowserRouter>
+      <div>
+        <Navbar />
 
-      <main>
-        <Home />
-      </main>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/noticias/:id" element={<NewsDetail />} />
+          </Routes>
+        </main>
 
-      <Footer />
-      <ScrollToTop />
-    </div>
+        <Footer />
+        <ScrollToTop />
+      </div>
+    </BrowserRouter>
   );
 }

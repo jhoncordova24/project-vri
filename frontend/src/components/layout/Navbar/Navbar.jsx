@@ -1,8 +1,13 @@
 import { useState } from "react";
+import { Link } from "react-router-dom"; 
 import logo from "../../../assets/logo.webp";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleNavClick = () => {
+    setIsOpen(false);
+  };
 
   return (
     <header className="fixed top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm">
@@ -13,9 +18,10 @@ export default function Navbar() {
         className="mt-4 relative max-w-5xl w-full bg-white/75 backdrop-blur-xl backdrop-saturate-150 border border-slate-200/50 rounded-2xl shadow-lg shadow-slate-900/5 md:rounded-full mx-2 flex flex-wrap md:flex-nowrap items-center justify-between p-2 px-5 sm:mx-auto transition-all"
       >
         <div className="flex items-center">
-          <a
+          <Link
             className="flex items-center gap-3 rounded-md text-xl font-semibold focus:outline-none"
-            href="#"
+            to="/"
+            onClick={handleNavClick}
             aria-label="Logo"
           >
             <img
@@ -35,16 +41,17 @@ export default function Navbar() {
                 Universidad Nacional de Piura
               </span>
             </div>
-          </a>
+          </Link>
         </div>
 
         <div className="flex items-center gap-2 md:order-4 md:ms-4">
-          <a
+          <Link
             className="whitespace-nowrap py-2 px-5 inline-flex justify-center items-center text-xs font-semibold rounded-full bg-brand-primary border border-transparent text-white hover:bg-brand-hover focus:outline-none transition-colors"
-            href="#"
+            to="/contacto"
+            onClick={handleNavClick}
           >
             Contacto
-          </a>
+          </Link>
 
           <div className="md:hidden">
             <button
@@ -97,24 +104,29 @@ export default function Navbar() {
           } md:max-h-none md:opacity-100 overflow-hidden transition-all duration-300 ease-in-out basis-full grow`}
         >
           <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-5 mt-3 md:mt-0 pt-2 md:pt-0 md:border-t-0">
-            <a
+            <Link
               className="py-0.5 px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-slate-700 hover:text-brand-primary transition-colors ps-2 md:ps-0"
-              href="#"
+              to="/"
+              onClick={handleNavClick}
             >
               Inicio
-            </a>
-            <a
+            </Link>
+
+            <Link
               className="py-0.5 px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-slate-700 hover:text-brand-primary transition-colors ps-2 md:ps-0"
-              href="#"
+              to="/nosotros"
+              onClick={handleNavClick}
             >
               Nosotros
-            </a>
-            <a
+            </Link>
+
+            <Link
               className="py-0.5 px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-slate-700 hover:text-brand-primary transition-colors ps-2 md:ps-0"
-              href="#"
+              to="/noticias"
+              onClick={handleNavClick}
             >
               Noticias
-            </a>
+            </Link>
           </div>
         </div>
       </nav>

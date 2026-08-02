@@ -14,3 +14,18 @@ export const getLatestNews = async (limit = 3) => {
 
   return data;
 };
+
+export const getNewsById = async (id) => {
+  const { data, error } = await supabase
+    .from("noticias")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error("Error fetching news detail:", error.message);
+    throw error;
+  }
+
+  return data;
+};

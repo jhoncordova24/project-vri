@@ -1,4 +1,5 @@
 import SectionLabel from "../common/SectionLabel";
+import SectionTitle from "../common/SectionTitle";
 import CountUp from "../CountUp/CountUp";
 
 const mainStat = {
@@ -32,11 +33,11 @@ export default function Stats() {
           data-aos="fade-up"
         >
           <SectionLabel>Nuestro Impacto</SectionLabel>
-          <h2 className="text-1xl sm:text-3xl md:text-4xl font-semibold text-slate-800 leading-relaxed tracking-tight">
+          <SectionTitle>
             Transformamos el conocimiento en soluciones reales, impulsando la
             investigación científica y el desarrollo sostenible de nuestra
             región.
-          </h2>
+          </SectionTitle>
         </div>
 
         <div className="grid items-center lg:grid-cols-12 gap-8 lg:gap-12">

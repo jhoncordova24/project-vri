@@ -1,9 +1,9 @@
-import Hero from "../components/Hero/Hero";
-import Stats from "../components/Stats/Stats";
-import Offices from "../components/Offices/Offices";
-import Resources from "../components/Resources/Resources";
-import Banner from "../components/Banner/Banner";
-import News from "../components/News/News";
+import Hero from "../components/common/Hero"; 
+import Stats from "../components/Home/Stats";
+import Offices from "../components/Home/Offices";
+import Resources from "../components/Home/Resources";
+import Banner from "../components/Home/Banner";
+import News from "../components/Home/News";
 
 export default function Home() {
   return (

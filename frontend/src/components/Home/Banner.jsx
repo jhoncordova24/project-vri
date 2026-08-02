@@ -1,4 +1,5 @@
 import SectionLabel from "../common/SectionLabel";
+import SectionTitle from "../common/SectionTitle";
 import { useState } from "react";
 import { TrendingUp } from "lucide-react";
 import Button from "../common/Button";
@@ -67,9 +68,7 @@ export default function Banner() {
               </div>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-brand-dark tracking-tight leading-tight">
-              {bannerData.title}
-            </h2>
+            <SectionTitle>{bannerData.title}</SectionTitle>
 
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal max-w-2xl">
               {bannerData.description}

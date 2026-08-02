@@ -6,7 +6,6 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      // Muestra el botón si scrolleó más de 300px
       if (window.scrollY > 300) {
         setIsVisible(true);
       } else {

@@ -1,8 +1,10 @@
 import SectionLabel from "../common/SectionLabel";
+import SectionTitle from "../common/SectionTitle";
 import { Calendar, ArrowRight } from "lucide-react";
 import Button from "../common/Button";
 import { useLatestNews } from "../../hooks/useNews";
 import { formatDate } from "../../utils/formatDate";
+import { Link } from "react-router-dom";
 
 export default function News() {
   const { news, loading, error } = useLatestNews(3);
@@ -16,9 +18,7 @@ export default function News() {
         >
           <div>
             <SectionLabel>Actualidad Institucional</SectionLabel>
-            <h2 className="text-2xl sm:text-3xl font-semibold text-brand-dark tracking-tight leading-tight">
-              Últimas Noticias
-            </h2>
+            <SectionTitle>Últimas Noticias</SectionTitle>
           </div>
           <p className="mt-2 md:mt-0 text-sm text-slate-500 max-w-md">
             Entérate de los últimos avances, eventos y logros científicos de
@@ -77,13 +77,13 @@ export default function News() {
                 </div>
 
                 <div className="px-5 pb-5 pt-2">
-                  <a
-                    href={`/noticias/${item.id}`}
+                  <Link
+                    to={`/noticias/${item.id}`}
                     className="inline-flex items-center gap-1 text-xs font-semibold text-brand-primary group-hover:text-brand-hover transition-colors"
                   >
                     <span>Leer noticia</span>
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                  </a>
+                  </Link>
                 </div>
               </article>
             ))}

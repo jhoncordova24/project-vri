@@ -1,4 +1,5 @@
 import SectionLabel from "../common/SectionLabel";
+import SectionTitle from "../common/SectionTitle";
 import {
   BookOpen,
   Search,
@@ -52,9 +53,9 @@ export default function Resources() {
         >
           <SectionLabel>Recursos Digitales</SectionLabel>
 
-          <h2 className="mb-4 max-w-lg text-2xl font-semibold tracking-tight text-brand-dark sm:text-3xl md:mx-auto">
+          <SectionTitle>
             Plataformas e Información
-          </h2>
+          </SectionTitle>
 
           <p className="text-sm text-slate-600 md:text-base">
             Acceso directo a las principales herramientas y bases de datos
