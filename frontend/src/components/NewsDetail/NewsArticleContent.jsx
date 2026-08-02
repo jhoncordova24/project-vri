@@ -25,12 +25,8 @@ export default function NewsArticleContent({ newsItem }) {
       </h1>
 
       {imagen_url && (
-        <div className="aspect-[16/9] w-full overflow-hidden rounded-xl mb-8 bg-slate-100 border border-slate-100">
-          <img
-            src={imagen_url}
-            alt={titulo}
-            className="w-full h-full object-cover"
-          />
+        <div className="w-full rounded-xl mb-8 bg-slate-100 border border-slate-100 overflow-hidden">
+          <img src={imagen_url} alt={titulo} className="w-full h-auto" />
         </div>
       )}
 
