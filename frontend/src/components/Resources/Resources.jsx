@@ -26,7 +26,11 @@ export default function Resources() {
       icon: FileText,
       link: "https://www.sciencedirect.com/",
     },
-    { title: "IOPscience", icon: Atom, link: "https://iopscience.iop.org/" },
+    {
+      title: "IOPscience",
+      icon: Atom,
+      link: "https://iopscience.iop.org/",
+    },
     {
       title: "Turnitin",
       icon: ShieldCheck,
@@ -40,40 +44,80 @@ export default function Resources() {
   ];
 
   return (
-    <section className="py-16 bg-white">
-      <div className="px-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+    <section className="bg-white py-16">
+      <div className="mx-auto px-4 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
         <div
-          className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12"
+          className="mb-10 max-w-xl sm:text-center md:mx-auto md:mb-12 lg:max-w-2xl"
           data-aos="fade-up"
         >
           <SectionLabel>Recursos Digitales</SectionLabel>
-          <h2 className="max-w-lg mb-4 text-2xl font-semibold text-brand-dark tracking-tight sm:text-3xl md:mx-auto">
+
+          <h2 className="mb-4 max-w-lg text-2xl font-semibold tracking-tight text-brand-dark sm:text-3xl md:mx-auto">
             Plataformas e Información
           </h2>
+
           <p className="text-sm text-slate-600 md:text-base">
             Acceso directo a las principales herramientas y bases de datos
             científicas de la universidad.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 mb-10 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="mb-10 grid grid-cols-3 gap-3 sm:gap-6 lg:grid-cols-6">
           {resources.map((item, index) => {
             const IconComponent = item.icon;
+
             return (
-              <a
-                key={index}
-                href={item.link}
+              <div
+                key={item.title}
+                className="flex flex-col items-center justify-start"
                 data-aos="fade-up"
                 data-aos-delay={index * 50}
-                className="group text-center flex flex-col items-center justify-center p-3 rounded-2xl transition-colors duration-200"
               >
-                <div className="flex items-center justify-center w-16 h-16 mb-3 rounded-full bg-slate-100 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-colors duration-200 sm:w-20 sm:h-20">
-                  <IconComponent className="w-8 h-8 sm:w-9 sm:h-9" />
-                </div>
-                <h3 className="font-semibold text-xs sm:text-sm text-brand-dark group-hover:text-brand-primary transition-colors leading-snug">
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Abrir ${item.title}`}
+                  className="
+                    group
+                    inline-flex
+                    rounded-full
+                    outline-none
+                    focus-visible:ring-2
+                    focus-visible:ring-brand-primary
+                    focus-visible:ring-offset-2
+                  "
+                >
+                  <div
+                    className="
+                      flex
+                      h-14
+                      w-14
+                      shrink-0
+                      items-center
+                      justify-center
+                      rounded-full
+                      bg-slate-100
+                      text-brand-primary
+                      transition-colors
+                      duration-200
+                      group-hover:bg-brand-primary
+                      group-hover:text-white
+                      sm:h-20
+                      sm:w-20
+                    "
+                  >
+                    <IconComponent
+                      className="h-7 w-7 sm:h-9 sm:w-9"
+                      aria-hidden="true"
+                    />
+                  </div>
+                </a>
+
+                <h3 className="mt-2 text-center text-xs font-semibold leading-snug text-brand-dark sm:mt-3 sm:text-sm">
                   {item.title}
                 </h3>
-              </a>
+              </div>
             );
           })}
         </div>

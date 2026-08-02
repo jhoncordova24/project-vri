@@ -1,37 +1,11 @@
 import SectionLabel from "../common/SectionLabel";
 import { Calendar, ArrowRight } from "lucide-react";
 import Button from "../common/Button";
+import { useLatestNews } from "../../hooks/useNews";
+import { formatDate } from "../../utils/formatDate";
 
 export default function News() {
-  const news = [
-    {
-      id: 1,
-      title: "UNP impulsa nuevos proyectos de investigación en biotecnología",
-      date: "24 Jul 2026",
-      category: "Investigación",
-      image:
-        "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80",
-      link: "/noticias/1",
-    },
-    {
-      id: 2,
-      title: "Docentes investigadores son reconocidos en ranking internacional",
-      date: "18 Jul 2026",
-      category: "Reconocimiento",
-      image:
-        "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80",
-      link: "/noticias/2",
-    },
-    {
-      id: 3,
-      title: "Abren convocatoria para semilleros de investigación 2026-II",
-      date: "10 Jul 2026",
-      category: "Convocatoria",
-      image:
-        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80",
-      link: "/noticias/3",
-    },
-  ];
+  const { news, loading, error } = useLatestNews(3);
 
   return (
     <section className="py-16 bg-slate-50/60">
@@ -52,50 +26,69 @@ export default function News() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {news.map((item, index) => (
-            <article
-              key={item.id}
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
-              className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm  transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                <div className="aspect-[16/10] overflow-hidden bg-slate-100 relative">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-brand-primary text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
-                    {item.category}
-                  </span>
-                </div>
+        {loading && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[1, 2, 3].map((n) => (
+              <div
+                key={n}
+                className="h-80 bg-slate-200/60 animate-pulse rounded-2xl"
+              />
+            ))}
+          </div>
+        )}
 
-                <div className="p-5">
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-2.5">
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span>{item.date}</span>
+        {!loading && error && (
+          <div className="text-center text-red-500 py-8">
+            Ocurrió un error al obtener las noticias.
+          </div>
+        )}
+
+        {!loading && !error && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {news.map((item, index) => (
+              <article
+                key={item.id}
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+                className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
+                    <img
+                      src={item.imagen_url}
+                      alt={item.titulo}
+                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-brand-primary text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
+                      {item.categoria}
+                    </span>
                   </div>
 
-                  <h3 className="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug">
-                    {item.title}
-                  </h3>
-                </div>
-              </div>
+                  <div className="p-5">
+                    <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-2.5">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span>{formatDate(item.creado_en)}</span>
+                    </div>
 
-              <div className="px-5 pb-5 pt-2">
-                <a
-                  href={item.link}
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-brand-primary group-hover:text-brand-hover transition-colors"
-                >
-                  <span>Leer noticia</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
+                    <h3 className="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug">
+                      {item.titulo}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="px-5 pb-5 pt-2">
+                  <a
+                    href={`/noticias/${item.id}`}
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-brand-primary group-hover:text-brand-hover transition-colors"
+                  >
+                    <span>Leer noticia</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
 
         <div className="mt-12 text-center" data-aos="fade-up">
           <Button href="/noticias">Ver todas las noticias</Button>
