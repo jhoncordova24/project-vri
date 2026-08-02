@@ -8,7 +8,6 @@ import Footer from "./components/layout/Footer/Footer";
 import ScrollToTopButton from "./components/common/ScrollToTopButton";
 import ScrollToTop from "./components/common/ScrollToTop";
 
-
 import Home from "./pages/Home";
 import NewsDetail from "./pages/NewsDetail";
 
@@ -23,6 +22,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div>
         <Navbar />
 
