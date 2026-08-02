@@ -35,16 +35,16 @@ export default function Banner() {
   const currentCall = bannerData.years[selectedYearIndex];
 
   return (
-    <section className="relative w-full bg-gradient-to-br from-slate-100/90 via-blue-50/30 to-white py-16 lg:py-20 text-slate-800 overflow-hidden">
+    <section className="relative w-full bg-gradient-to-br from-slate-100/90 via-blue-50/30 to-white pt-12 pb-8 sm:py-16 lg:py-20 text-slate-800 overflow-hidden">
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#1e3a8a_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
 
       <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-slate-200/40 rounded-full blur-2xl pointer-events-none"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-12 sm:gap-16 items-center">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-12 lg:gap-16 items-center">
           <div
-            className="lg:col-span-7 space-y-6 text-left pr-0 lg:pr-4"
+            className="lg:col-span-7 space-y-1.5 sm:space-y-6 text-left pr-0 lg:pr-4"
             data-aos="fade-right"
             data-aos-duration="600"
           >
@@ -70,11 +70,11 @@ export default function Banner() {
 
             <SectionTitle>{bannerData.title}</SectionTitle>
 
-            <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal max-w-2xl">
+            <p className="text-slate-600 text-sm sm:text-lg leading-relaxed font-normal max-w-2xl">
               {bannerData.description}
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-4">
+            <div className="pt-1 sm:pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
               <div className="inline-flex sm:hidden bg-slate-200/60 p-1 rounded-full border border-slate-300/70">
                 {bannerData.years.map((yearData, idx) => (
                   <button
@@ -103,13 +103,13 @@ export default function Banner() {
             data-aos-duration="600"
             data-aos-delay="100"
           >
-            <div className="bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-md space-y-6">
-              <div className="flex justify-between items-center pb-4 border-b border-slate-100">
+            <div className="bg-white/90 backdrop-blur-md rounded-3xl p-5 sm:p-8 border border-slate-200/90 shadow-md space-y-4 sm:space-y-6">
+              <div className="flex justify-between items-center pb-3 sm:pb-4 border-b border-slate-100">
                 <div>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">
                     Concurso
                   </span>
-                  <h3 className="text-3xl font-black text-brand-primary leading-none">
+                  <h3 className="text-2xl sm:text-3xl font-black text-brand-primary leading-none">
                     {currentCall.year}
                   </h3>
                 </div>
@@ -121,7 +121,7 @@ export default function Banner() {
 
               <div className="flex items-baseline justify-between gap-3 overflow-hidden">
                 <div className="min-w-0 flex-1">
-                  <div className="text-base sm:text-2xl font-extrabold text-slate-800 tracking-tight truncate">
+                  <div className="text-lg sm:text-2xl font-extrabold text-slate-800 tracking-tight truncate">
                     {currentCall.budget}
                   </div>
                   <div className="text-[10px] sm:text-[11px] text-slate-500 font-semibold uppercase tracking-wider mt-0.5">
@@ -130,7 +130,7 @@ export default function Banner() {
                 </div>
 
                 <div className="text-right shrink-0">
-                  <div className="text-base sm:text-2xl font-extrabold text-slate-800">
+                  <div className="text-lg sm:text-2xl font-extrabold text-slate-800">
                     {currentCall.projects}
                   </div>
                   <div className="text-[10px] sm:text-[11px] text-slate-500 font-semibold uppercase tracking-wider mt-0.5">
@@ -164,7 +164,7 @@ export default function Banner() {
         </div>
 
         <p
-          className="mt-10 text-center text-slate-400 text-xs"
+          className="mt-6 sm:mt-10 text-center text-slate-400 text-xs"
           data-aos="fade-up"
           data-aos-duration="600"
           data-aos-delay="200"

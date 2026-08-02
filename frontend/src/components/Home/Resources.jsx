@@ -53,9 +53,7 @@ export default function Resources() {
         >
           <SectionLabel>Recursos Digitales</SectionLabel>
 
-          <SectionTitle>
-            Plataformas e Información
-          </SectionTitle>
+          <SectionTitle>Plataformas e información</SectionTitle>
 
           <p className="text-sm text-slate-600 md:text-base">
             Acceso directo a las principales herramientas y bases de datos
@@ -98,7 +96,7 @@ export default function Resources() {
                       items-center
                       justify-center
                       rounded-full
-                      bg-slate-100
+                     bg-brand-primary/10
                       text-brand-primary
                       transition-colors
                       duration-200

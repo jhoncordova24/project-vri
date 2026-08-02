@@ -18,7 +18,7 @@ export default function News() {
         >
           <div>
             <SectionLabel>Actualidad Institucional</SectionLabel>
-            <SectionTitle>Últimas Noticias</SectionTitle>
+            <SectionTitle>Últimas noticias</SectionTitle>
           </div>
           <p className="mt-2 md:mt-0 text-sm text-slate-500 max-w-md">
             Entérate de los últimos avances, eventos y logros científicos de

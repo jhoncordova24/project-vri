@@ -26,7 +26,7 @@ const secondaryStats = [
 
 export default function Stats() {
   return (
-    <section className="pt-4 pb-12 lg:pt-6 lg:pb-16 bg-white overflow-hidden">
+    <section className="pt-4 pb-12 lg:pt-10 lg:pb-16 bg-white overflow-hidden">
       <div className="max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto">
         <div
           className="max-w-3xl mx-auto text-center mb-12 lg:mb-16"

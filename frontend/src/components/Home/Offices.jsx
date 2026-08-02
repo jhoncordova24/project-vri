@@ -58,7 +58,7 @@ export default function FeaturesPreline() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-12 mx-auto">
       <div className="relative p-6 md:p-16">
         <div className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
           <div
@@ -175,7 +175,7 @@ export default function FeaturesPreline() {
           </div>
         </div>
         <div className="absolute inset-0 grid grid-cols-12 size-full">
-          <div className="col-span-full lg:col-span-7 lg:col-start-6 bg-slate-100 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full" />
+          <div className="col-span-full lg:col-span-7 lg:col-start-6 bg-brand-primary/10 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full" />
         </div>
       </div>
     </div>

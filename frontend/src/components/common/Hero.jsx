@@ -1,6 +1,5 @@
 import { useState } from "react";
-import heroVideo from "../../assets/hero-video.mp4";
-import heroBg from "../../assets/hero.webp";
+import heroVideo from "../../assets/hero-home.mp4";
 import Button from "./Button";
 
 export default function Hero({
@@ -14,8 +13,9 @@ export default function Hero({
   showButton = true,
   buttonText = "Conocer más",
   buttonHref = "#nosotros",
-  type = "video", 
-  imageSrc = heroBg,
+  type = "video",
+  imageSrc,
+  posterSrc,
 }) {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
@@ -28,7 +28,7 @@ export default function Hero({
           muted
           playsInline
           preload="auto"
-          poster={imageSrc}
+          poster={posterSrc}
           onLoadedData={() => setIsVideoLoaded(true)}
           onError={() => setIsVideoLoaded(true)}
           className={`
@@ -44,6 +44,10 @@ export default function Hero({
         <img
           src={imageSrc}
           alt="Banner de sección"
+          loading="eager"
+          fetchpriority="high"
+          data-aos="zoom-out"
+          data-aos-duration="1000" 
           className="absolute inset-0 object-cover w-full h-full brightness-40 opacity-60"
         />
       )}

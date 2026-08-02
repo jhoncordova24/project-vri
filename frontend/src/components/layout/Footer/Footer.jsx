@@ -3,7 +3,7 @@ import logo from "../../../assets/logo.webp";
 export default function Footer() {
   return (
     <footer
-      className="relative mt-16 bg-white border-t border-slate-200/80 text-slate-700"
+      className="relative  bg-white border-t border-slate-200/80 text-slate-700"
       data-aos="fade"
       data-aos-duration="800"
     >
