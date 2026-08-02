@@ -5,8 +5,9 @@ import "aos/dist/aos.css";
 
 import Navbar from "./components/layout/Navbar/Navbar";
 import Footer from "./components/layout/Footer/Footer";
-import ScrollToTop from "./components/common/ScrollToTop";
 import ScrollToTopButton from "./components/common/ScrollToTopButton";
+import ScrollToTop from "./components/common/ScrollToTop";
+
 
 import Home from "./pages/Home";
 import NewsDetail from "./pages/NewsDetail";
@@ -33,7 +34,7 @@ export default function App() {
         </main>
 
         <Footer />
-        <ScrollToTop />
+        <ScrollToTopButton />
       </div>
     </BrowserRouter>
   );
