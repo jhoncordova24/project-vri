@@ -1,84 +1,60 @@
-import { useState } from "react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.webp";
+import logo2 from "../../../assets/logo-2.webp";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleNavClick = () => {
-    setIsOpen(false);
-  };
-
   return (
-    <header className="fixed top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm">
-      <nav
-        data-aos="fade-down"
-        data-aos-duration="1000"
-        data-aos-delay="100"
-        className="mt-4 relative max-w-5xl w-full bg-white/75 backdrop-blur-xl backdrop-saturate-150 border border-slate-200/50 rounded-2xl shadow-lg shadow-slate-900/5 md:rounded-full mx-2 flex flex-wrap md:flex-nowrap items-center justify-between p-2 px-5 sm:mx-auto transition-all"
-      >
-        <div className="flex items-center">
-          <Link
-            className="flex items-center gap-3 rounded-md text-xl font-semibold focus:outline-none"
-            to="/"
-            onClick={handleNavClick}
-            aria-label="Logo"
-          >
-            <img
-              src={logo}
-              alt="Logo Vicerrectorado"
-              className="h-9 w-auto shrink-0"
-            />
-
-            <div className="flex flex-col justify-center leading-tight">
-              <span className="text-brand-dark font-bold text-sm block sm:hidden whitespace-nowrap">
-                VRI
-              </span>
-              <span className="text-brand-dark font-bold text-sm md:text-base hidden sm:block whitespace-nowrap">
-                Vicerrectorado de Investigación
-              </span>
-              <span className="text-slate-500 font-normal text-[10px] md:text-xs hidden sm:block">
-                Universidad Nacional de Piura
-              </span>
-            </div>
-          </Link>
-        </div>
-
-        <div className="flex items-center gap-2 md:order-4 md:ms-4">
-          <Link
-            className="whitespace-nowrap py-2 px-5 inline-flex justify-center items-center text-xs font-semibold rounded-full bg-brand-primary border border-transparent text-white hover:bg-brand-hover focus:outline-none transition-colors"
-            to="/contacto"
-            onClick={handleNavClick}
-          >
-            Contacto
-          </Link>
-
-          <div className="md:hidden">
-            <button
-              type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              className="flex justify-center items-center size-8 text-slate-600 rounded-full focus:outline-none transition-transform duration-300"
-              aria-label="Toggle navigation"
+    <>
+      <header className="sticky top-4 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full before:absolute before:inset-0 before:max-w-5xl before:mx-2 lg:before:mx-auto before:rounded-[26px] before:bg-white before:border before:border-gray-200 before:shadow-xs">
+        <nav className="relative max-w-5xl w-full flex flex-wrap md:flex-nowrap basis-full items-center justify-between py-2 ps-5 pe-2 md:py-0 mx-2 lg:mx-auto">
+          <div className="flex items-center">
+            <Link
+              className="flex-none rounded-md inline-flex items-center gap-x-1 focus:outline-hidden focus:opacity-80"
+              to="/"
+              aria-label="Inicio"
             >
-              {isOpen ? (
+              <img
+                src={logo2}
+                alt="Logo institucional"
+                className="h-10 md:h-11 w-auto object-contain py-1"
+              />
+
+              <img
+                src={logo}
+                alt="Vicerrectorado de Investigación"
+                className="h-10 md:h-12 w-auto object-contain py-1"
+              />
+
+              <span className="text-sm md:text-base font-semibold text-gray-800 leading-tight ml-2">
+                <span className="block md:hidden">VRI</span>
+                <span className="hidden md:inline">
+                  Vicerrectorado de Investigación
+                </span>
+              </span>
+            </Link>
+          </div>
+          <div className="md:order-3 flex items-center gap-x-3">
+            <div className="md:ps-3">
+              <a
+                className="group inline-flex items-center gap-x-2 py-2 px-4  bg-brand-primary text-white font-medium text-sm text-nowrap rounded-[26px] hover:bg-brand-hover focus:outline-hidden"
+                href="#"
+              >
+                Contacto
+              </a>
+            </div>
+
+            <div className="md:hidden">
+              <button
+                type="button"
+                className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-full bg-gray-100 border border-gray-200 text-gray-800 disabled:opacity-50 disabled:pointer-events-none"
+                id="hs-pro-an-collapse"
+                aria-expanded="false"
+                aria-controls="hs-pro-an"
+                aria-label="Toggle navigation"
+                data-hs-collapse="#hs-pro-an"
+              >
                 <svg
-                  className="shrink-0 size-3.5 transition-transform duration-300 rotate-0"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M18 6 6 18" />
-                  <path d="m6 6 12 12" />
-                </svg>
-              ) : (
-                <svg
-                  className="shrink-0 size-3.5 transition-transform duration-300"
+                  className="hs-collapse-open:hidden shrink-0 size-4"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -93,43 +69,122 @@ export default function Navbar() {
                   <line x1="3" x2="21" y1="12" y2="12" />
                   <line x1="3" x2="21" y1="18" y2="18" />
                 </svg>
-              )}
-            </button>
+                <svg
+                  className="hs-collapse-open:block hidden shrink-0 size-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div
-          className={`${
-            isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-          } md:max-h-none md:opacity-100 overflow-hidden transition-all duration-300 ease-in-out basis-full grow`}
-        >
-          <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-5 mt-3 md:mt-0 pt-2 md:pt-0 md:border-t-0">
-            <Link
-              className="py-0.5 px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-slate-700 hover:text-brand-primary transition-colors ps-2 md:ps-0"
-              to="/"
-              onClick={handleNavClick}
-            >
-              Inicio
-            </Link>
-
-            <Link
-              className="py-0.5 px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-slate-700 hover:text-brand-primary transition-colors ps-2 md:ps-0"
-              to="/nosotros"
-              onClick={handleNavClick}
-            >
-              Nosotros
-            </Link>
-
-            <Link
-              className="py-0.5 px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-slate-700 hover:text-brand-primary transition-colors ps-2 md:ps-0"
-              to="/noticias"
-              onClick={handleNavClick}
-            >
-              Noticias
-            </Link>
+          <div
+            id="hs-pro-an"
+            className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow
+              absolute top-full inset-x-0 mt-2 mx-2 max-w-[calc(100%-1rem)] rounded-2xl bg-white border border-gray-200 shadow-xl z-50
+              md:static md:mt-0 md:mx-0 md:max-w-none md:rounded-none md:bg-transparent md:border-0 md:shadow-none md:block"
+            aria-labelledby="hs-pro-an-collapse"
+            role="region"
+          >
+            <div className="overflow-hidden overflow-y-auto max-h-[75vh] [&::-webkit-scrollbar]:w-0">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-y-3 pt-6 pb-2 px-5 md:px-0 md:py-0 md:ps-7">
+                <a
+                  className="md:px-3 md:py-4 text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                  href="index.html"
+                  aria-current="page"
+                >
+                  Inicio
+                </a>
+                <a
+                  className="md:px-3 md:py-4 text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                  href="index.html"
+                  aria-current="page"
+                >
+                  Nosotros
+                </a>
+                {/* Dropdown Link */}
+                <div className="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] [--auto-close:inside] md:inline-block">
+                  {/* Link Button */}
+                  <button
+                    id="hs-pro-ancpd"
+                    type="button"
+                    className="hs-dropdown-toggle md:px-3 md:py-4 w-full md:w-auto flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                    aria-haspopup="menu"
+                    aria-expanded="false"
+                    aria-label="Dropdown"
+                  >
+                    Direcciones
+                    <svg
+                      className="hs-dropdown-open:-rotate-180 md:hs-dropdown-open:rotate-0 duration-300 ms-auto md:ms-1 shrink-0 size-3.5 text-gray-600"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+                  <div
+                    className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] lg:duration-150 hs-dropdown-open:opacity-100 opacity-0 relative w-full md:w-50 hidden z-10 top-full rounded-2xl bg-white border border-gray-200 md:shadow-xl before:absolute before:-top-4 before:inset-s-0 before:w-full before:h-5 md:after:hidden mt-2 md:mt-0"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="hs-pro-ancpd"
+                  >
+                    <div className="p-5 flex flex-col gap-y-3">
+                      <a
+                        className="text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                        href="#"
+                      >
+                        Investigación
+                      </a>
+                      <a
+                        className="text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                        href="#"
+                      >
+                        Producción de Bienes y Servicios
+                      </a>
+                      <a
+                        className="text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                        href="#"
+                      >
+                        Innovación y Transferencia Tecnológica
+                      </a>
+                      <a
+                        className="text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                        href="#"
+                      >
+                        Incubadora de Empresas
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <a
+                  className="md:px-3 md:py-4 text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                  href="index.html"
+                  aria-current="page"
+                >
+                  Noticias
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
-      </nav>
-    </header>
+        </nav>
+      </header>
+    </>
   );
 }

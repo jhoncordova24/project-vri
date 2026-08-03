@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -10,6 +10,32 @@ import ScrollToTop from "./components/common/ScrollToTop";
 
 import Home from "./pages/Home";
 import NewsDetail from "./pages/NewsDetail";
+
+function AppContent() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (window.HSStaticMethods) {
+      window.HSStaticMethods.autoInit();
+    }
+  }, [location.pathname]);
+
+  return (
+    <div>
+      <Navbar />
+
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/noticias/:id" element={<NewsDetail />} />
+        </Routes>
+      </main>
+
+      <Footer />
+      <ScrollToTopButton />
+    </div>
+  );
+}
 
 export default function App() {
   useEffect(() => {
@@ -23,19 +49,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div>
-        <Navbar />
-
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/noticias/:id" element={<NewsDetail />} />
-          </Routes>
-        </main>
-
-        <Footer />
-        <ScrollToTopButton />
-      </div>
+      <AppContent />
     </BrowserRouter>
   );
 }

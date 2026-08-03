@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Button from "../common/Button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import zapataImg from "../../assets/leadership/1.webp";
+import tumeImg from "../../assets/leadership/2.webp";
 
 export default function Leadership() {
   const authorities = [
@@ -9,20 +11,19 @@ export default function Leadership() {
       name: "Dr. Orlando Bartolomé Zapata Coloma",
       role: "Vicerrector de Investigación",
       bio: "Doctor en Ciencias con amplia trayectoria en gestión académica. Lidera la estrategia de desarrollo científico, tecnológico y humanístico de la institución.",
-      image: "https://ocri.unp.edu.pe/wp-content/uploads/2025/09/11-1.jpg",
+      image: zapataImg,
     },
     {
       id: 2,
-      name: "Mgtr. Néstor Atarma Montero",
-      role: "Coord. de la Dirección de Innovación y Transferencia Tecnológica",
+      name: "Dr. Juan Manuel Tume Ruiz",
+      role: "Director de la Dirección de Investigación",
       bio: "Especialista en gestión de la innovación, emprendimiento académico y transferencia tecnológica para el desarrollo regional.",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTot5PUQWPx10w-UpHRSu_MYu20gm54hGL6Ut7XaTGhmAYKSuXxOAdLdW1c&s=10",
+      image: tumeImg,
     },
     {
       id: 3,
-      name: "Econ. Elvis Luilly Vértiz Contreras",
-      role: "Coord. de la Unidad de Gestión de Proyectos de Investigación Básica y Aplicada",
+      name: "Dr. Robert Montero",
+      role: "Director de la Dirección de Bienes y Servicios",
       bio: "Encargado del monitoreo, evaluación y gestión presupuestal de los fondos concursables e iniciativas de investigación.",
       image:
         "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2025/06/goku-ultra-instinct-featured.jpg?w=1600&h=900&fit=crop",
@@ -77,7 +78,7 @@ export default function Leadership() {
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-2">
         <div
-          className="relative w-full aspect-[4/3] md:aspect-auto md:h-[400px] bg-brand-dark overflow-hidden"
+          className="relative w-full aspect-[4/3] md:aspect-auto md:h-[500px] bg-brand-dark overflow-hidden"
           data-aos="fade-in"
           data-aos-duration="800"
         >
