@@ -108,17 +108,6 @@ export default function Hero({
         />
       )}
 
-      <motion.div
-        className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-brand-secondary/20 blur-3xl"
-        animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="pointer-events-none absolute bottom-0 right-0 h-[28rem] w-[28rem] rounded-full bg-brand-primary/25 blur-3xl"
-        animate={{ x: [0, -30, 0], y: [0, -40, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-      />
-
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/5 to-slate-950/40" />
 
       <div className="relative h-full flex items-center pt-28">

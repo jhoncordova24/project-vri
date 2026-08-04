@@ -30,7 +30,7 @@ export default function Stats() {
       <div className="max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto">
         <div
           className="max-w-3xl mx-auto text-center mb-12 lg:mb-16"
-          data-aos="fade-up"
+          data-aos="fade"
         >
           <SectionLabel>Nuestro Impacto</SectionLabel>
           <SectionTitle>
@@ -41,11 +41,7 @@ export default function Stats() {
         </div>
 
         <div className="grid items-center lg:grid-cols-12 gap-8 lg:gap-12">
-          <div
-            className="lg:col-span-5"
-            data-aos="fade-right"
-            data-aos-delay="200"
-          >
+          <div className="lg:col-span-5" data-aos="fade">
             <div className="lg:pe-6 xl:pe-12">
               <div className="flex items-center">
                 <div className="text-5xl sm:text-7xl font-extrabold tracking-tight text-brand-dark min-w-[130px] sm:min-w-[160px]">
@@ -75,17 +71,11 @@ export default function Stats() {
 
           <div
             className="lg:col-span-7 relative lg:before:absolute lg:before:top-0 lg:before:-start-6 lg:before:w-px lg:before:h-full lg:before:bg-slate-200"
-            data-aos="fade-left"
-            data-aos-delay="300"
+            data-aos="fade"
           >
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8">
               {secondaryStats.map((stat, index) => (
-                <div
-                  key={index}
-                  className={stat.className || ""}
-                  data-aos="fade-up"
-                  data-aos-delay={400 + index * 100}
-                >
+                <div key={index} className={stat.className || ""}>
                   <p className="text-3xl sm:text-4xl font-extrabold text-brand-primary tracking-tight">
                     <CountUp value={stat.number} />
                   </p>
