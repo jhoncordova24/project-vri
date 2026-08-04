@@ -46,7 +46,7 @@ export default function Navbar() {
             <div className="md:hidden">
               <button
                 type="button"
-                className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-full bg-gray-100 border border-gray-200 text-gray-800 disabled:opacity-50 disabled:pointer-events-none"
+                className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-full border border-gray-200 text-gray-800 disabled:opacity-50 disabled:pointer-events-none"
                 id="hs-pro-an-collapse"
                 aria-expanded="false"
                 aria-controls="hs-pro-an"

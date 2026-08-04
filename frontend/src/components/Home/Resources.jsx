@@ -1,5 +1,6 @@
 import SectionLabel from "../common/SectionLabel";
 import SectionTitle from "../common/SectionTitle";
+import Button from "../common/Button";
 import {
   BookOpen,
   Search,
@@ -7,122 +8,134 @@ import {
   Atom,
   ShieldCheck,
   Library,
+  ExternalLink,
 } from "lucide-react";
-import Button from "../common/Button";
 
 export default function Resources() {
   const resources = [
     {
-      title: "Repositorio",
+      title: "Repositorio UNP",
+      description: "Tesis y publicaciones",
       icon: BookOpen,
       link: "https://repositorio.unp.edu.pe/home",
     },
     {
       title: "Scopus",
+      description: "Citas y literatura peer-reviewed",
       icon: Search,
       link: "https://www.scopus.com/pages/home",
     },
     {
       title: "ScienceDirect",
+      description: "Artículos y libros científicos",
       icon: FileText,
       link: "https://www.sciencedirect.com/",
     },
     {
       title: "IOPscience",
+      description: "Revistas de física y ciencias",
       icon: Atom,
       link: "https://iopscience.iop.org/",
     },
     {
       title: "Turnitin",
+      description: "Verificación de similitud",
       icon: ShieldCheck,
       link: "https://latam.turnitin.com/",
     },
     {
       title: "CONCYTEC",
+      description: "Biblioteca virtual CTI",
       icon: Library,
       link: "https://biblioteca.concytec.gob.pe/",
     },
   ];
 
   return (
-    <section className="bg-white py-16">
-      <div className="mx-auto px-4 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
-        <div
-          className="mb-10 max-w-xl sm:text-center md:mx-auto md:mb-12 lg:max-w-2xl"
-          data-aos="fade-up"
-        >
-          <SectionLabel>Recursos Digitales</SectionLabel>
+    <section className="relative overflow-hidden py-12 md:py-20">
+      <div
+        className="pointer-events-none absolute -left-20 top-1/2 -z-10 h-72 w-72 -translate-y-1/2 rounded-full bg-brand-primary/10 blur-3xl"
+        aria-hidden="true"
+      />
 
-          <SectionTitle>Plataformas e información</SectionTitle>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+          <div
+            className="w-full lg:sticky lg:top-28 lg:w-5/12"
+            data-aos="fade-right"
+          >
+            <SectionLabel>Recursos Digitales</SectionLabel>
 
-          <p className="text-sm text-slate-600 md:text-base">
-            Acceso directo a las principales herramientas y bases de datos
-            científicas de la universidad.
-          </p>
-        </div>
+            <SectionTitle>
+              Plataformas e información científica a tu alcance
+            </SectionTitle>
 
-        <div className="mb-10 grid grid-cols-3 gap-3 sm:gap-6 lg:grid-cols-6">
-          {resources.map((item, index) => {
-            const IconComponent = item.icon;
+            <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
+              Ofrecemos acceso directo a las principales bases de datos,
+              repositorios y herramientas de verificación académica.
+            </p>
 
-            return (
-              <div
-                key={item.title}
-                className="flex flex-col items-center justify-start"
-                data-aos="fade-up"
-                data-aos-delay={index * 50}
-              >
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Abrir ${item.title}`}
-                  className="
-                    group
-                    inline-flex
-                    rounded-full
-                    outline-none
-                    focus-visible:ring-2
-                    focus-visible:ring-brand-primary
-                    focus-visible:ring-offset-2
-                  "
-                >
-                  <div
+            <div className="mt-6 hidden sm:flex sm:items-center">
+              <Button href="#">Ver todos los servicios</Button>
+            </div>
+          </div>
+
+          <div className="w-full lg:w-7/12">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
+              {resources.map((item, index) => {
+                const IconComponent = item.icon;
+
+                return (
+                  <a
+                    key={item.title}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Abrir ${item.title}`}
+                    data-aos="fade-up"
+                    data-aos-delay={index * 40}
                     className="
-                      flex
-                      h-14
-                      w-14
-                      shrink-0
-                      items-center
-                      justify-center
-                      rounded-full
-                     bg-brand-primary/10
-                      text-brand-primary
-                      transition-colors
-                      duration-200
-                      group-hover:bg-brand-primary
-                      group-hover:text-white
-                      sm:h-20
-                      sm:w-20
+                      group relative flex items-center justify-between gap-3 rounded-xl
+                      border border-slate-200/80 bg-white p-4 
+                      transition-colors duration-200
+                      hover:border-brand-primary/40 hover:shadow-md
+                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary
                     "
                   >
-                    <IconComponent
-                      className="h-7 w-7 sm:h-9 sm:w-9"
-                      aria-hidden="true"
-                    />
-                  </div>
-                </a>
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      <div
+                        className="
+                          flex h-10 w-10 shrink-0 items-center justify-center rounded-lg
+                          bg-brand-primary/10 text-brand-primary
+                          transition-colors duration-200
+                          group-hover:bg-brand-primary group-hover:text-white
+                        "
+                      >
+                        <IconComponent className="h-5 w-5" aria-hidden="true" />
+                      </div>
 
-                <h3 className="mt-2 text-center text-xs font-semibold leading-snug text-brand-dark sm:mt-3 sm:text-sm">
-                  {item.title}
-                </h3>
-              </div>
-            );
-          })}
-        </div>
+                      <div className="truncate">
+                        <h3 className="truncate text-sm font-semibold text-slate-900 transition-colors duration-200 group-hover:text-brand-primary">
+                          {item.title}
+                        </h3>
+                        <p className="truncate text-xs text-slate-500">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
 
-        <div className="text-center" data-aos="fade-up">
-          <Button href="#">Ver todos los servicios</Button>
+                    <div className="shrink-0 text-slate-400 transition-colors duration-200 group-hover:text-brand-primary">
+                      <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 text-center sm:hidden">
+              <Button href="#">Ver todos los servicios</Button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

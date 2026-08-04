@@ -1,4 +1,5 @@
 import SectionLabel from "../common/SectionLabel";
+import SectionTitle from "../common/SectionTitle";
 import { useState } from "react";
 import { Microscope, Wrench, Lightbulb, Rocket } from "lucide-react";
 import Button from "../common/Button";
@@ -68,10 +69,9 @@ export default function FeaturesPreline() {
           >
             <div className="max-w-3xl mx-auto text-left mb-4 lg:mb-8">
               <SectionLabel>Nuestras oficinas</SectionLabel>
-              <p className="text-sm sm:text-base md:text-base font-medium text-slate-600 leading-normal sm:leading-relaxed tracking-tight">
-                Conoce nuestras dependencias encargadas de impulsar la ciencia,
-                la innovación y la transferencia tecnológica.
-              </p>
+              <SectionTitle>
+                Conoce nuestras dependencias
+              </SectionTitle>
             </div>
 
             <nav

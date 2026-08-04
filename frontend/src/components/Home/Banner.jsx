@@ -165,7 +165,7 @@ export default function Banner() {
 
         <p
           className="mt-6 sm:mt-10 text-center text-slate-400 text-xs"
-          data-aos="fade-up"
+          data-aos="fade"
           data-aos-duration="600"
           data-aos-delay="200"
         >
