@@ -98,13 +98,13 @@ export default function Navbar() {
           >
             <div className="overflow-hidden overflow-y-auto max-h-[75vh] [&::-webkit-scrollbar]:w-0">
               <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-y-3 pt-6 pb-2 px-5 md:px-0 md:py-0 md:ps-7">
-                <a
+                <Link
                   className="md:px-3 md:py-4 text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
-                  href="index.html"
+                  to="/"
                   aria-current="page"
                 >
                   Inicio
-                </a>
+                </Link>
                 <a
                   className="md:px-3 md:py-4 text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
                   href="index.html"
@@ -112,9 +112,7 @@ export default function Navbar() {
                 >
                   Nosotros
                 </a>
-                {/* Dropdown Link */}
                 <div className="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] [--auto-close:inside] md:inline-block">
-                  {/* Link Button */}
                   <button
                     id="hs-pro-ancpd"
                     type="button"
