@@ -51,7 +51,7 @@ export default function Banner() {
             <div className="flex items-center justify-between gap-4">
               <SectionLabel>CONVOCATORIAS INTERNAS</SectionLabel>
 
-              <div className="hidden sm:inline-flex bg-slate-200/60 p-1 rounded-full border border-slate-300/70">
+              <div className="hidden sm:inline-flex p-1 rounded-full border border-slate-300/70">
                 {bannerData.years.map((yearData, idx) => (
                   <button
                     key={yearData.year}
@@ -154,7 +154,7 @@ export default function Banner() {
 
                 <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200/60">
                   <div
-                    className="h-full bg-gradient-to-r from-brand-primary to-blue-500 rounded-full transition-all duration-700 ease-out"
+                    className="h-full bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full transition-all duration-700 ease-out"
                     style={{ width: `${currentCall.progress}%` }}
                   />
                 </div>

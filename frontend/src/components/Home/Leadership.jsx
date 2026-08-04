@@ -27,14 +27,6 @@ export default function Leadership() {
         bio: "Especialista en gestión de la innovación, emprendimiento académico y transferencia tecnológica para el desarrollo regional.",
         image: tumeImg,
       },
-      {
-        id: 3,
-        name: "Mgtr. Robert Moises Montero Timaná",
-        role: "Director de la Dirección de Bienes y Servicios",
-        bio: "Encargado del monitoreo, evaluación y gestión presupuestal de los fondos concursables e iniciativas de investigación.",
-        image:
-          "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2025/06/goku-ultra-instinct-featured.jpg?w=1600&h=900&fit=crop",
-      },
     ],
     [],
   );
@@ -113,7 +105,7 @@ export default function Leadership() {
       if (raf2) cancelAnimationFrame(raf2);
     };
   }, [currentIndex]);
-  
+
   const handleMouseMove = useCallback(() => {
     setIsHovering(true);
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
