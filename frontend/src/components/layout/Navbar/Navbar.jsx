@@ -27,9 +27,9 @@ export default function Navbar() {
                 className="h-10 md:h-12 w-auto object-contain py-1"
               />
 
-              <span className="text-sm md:text-base font-semibold text-gray-800 leading-tight ml-2">
+              <span className="text-sm md:text-base font-semibold text-gray-800 leading-tight">
                 <span className="block md:hidden">VRI</span>
-                <span className="hidden md:inline">
+                <span className="hidden md:inline md:ml-2">
                   Vicerrectorado de Investigación
                 </span>
               </span>
