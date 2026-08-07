@@ -7,7 +7,7 @@ import NewsDetailSkeleton from "./NewsDetailSkeleton";
 import NewsArticleContent from "./NewsArticleContent";
 import NewsSidebarWidget from "./NewsSidebarWidget";
 
-export default function NewsDetailSection() {
+export default function NewsDetail() {
   const { id } = useParams();
   const { newsItem, otherNews, loading, error } = useNewsDetail(id);
 

@@ -131,13 +131,12 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
-                <a
+                <Link
                   className="md:px-3 md:py-4 text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
-                  href="index.html"
-                  aria-current="page"
+                  to="/noticias"
                 >
                   Noticias
-                </a>
+                </Link>
               </div>
             </div>
           </div>

@@ -9,6 +9,7 @@ import ScrollToTopButton from "./components/common/ScrollToTopButton";
 import ScrollToTop from "./components/common/ScrollToTop";
 
 import Home from "./pages/Home";
+import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
 
 function AppContent() {
@@ -27,6 +28,7 @@ function AppContent() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/noticias" element={<News />} />{" "}
           <Route path="/noticias/:id" element={<NewsDetail />} />
         </Routes>
       </main>
