@@ -1,17 +1,18 @@
+import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.webp";
 
 export default function Footer() {
   return (
     <footer
-      className="relative  bg-white text-slate-700"
+      className="relative bg-white text-slate-700"
       data-aos="fade"
       data-aos-duration="800"
     >
       <div className="px-4 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div className="grid gap-16 row-gap-10 mb-10 lg:grid-cols-6">
           <div className="md:max-w-md lg:col-span-2">
-            <a
-              href="/"
+            <Link
+              to="/"
               aria-label="Ir al inicio"
               title="Vicerrectorado de Investigación"
               className="inline-flex items-center gap-3"
@@ -21,10 +22,10 @@ export default function Footer() {
                 alt="Logo Vicerrectorado de Investigación"
                 className="w-10 h-auto object-contain"
               />
-              <span className="text-sm font-bold  text-brand-dark uppercase">
+              <span className="text-sm font-bold text-brand-dark uppercase">
                 Vicerrectorado de Investigación
               </span>
-            </a>
+            </Link>
             <div className="mt-4 lg:max-w-sm">
               <p className="text-sm text-slate-500 leading-relaxed">
                 Promovemos el desarrollo científico, tecnológico y humanístico
@@ -40,36 +41,36 @@ export default function Footer() {
               </p>
               <ul className="mt-3 space-y-2 text-sm">
                 <li>
-                  <a
-                    href="/"
+                  <Link
+                    to="/"
                     className="text-slate-600 hover:text-brand-primary transition-colors"
                   >
                     Inicio
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/nosotros"
+                  <Link
+                    to="/nosotros"
                     className="text-slate-600 hover:text-brand-primary transition-colors"
                   >
                     Nosotros
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/noticias"
+                  <Link
+                    to="/noticias"
                     className="text-slate-600 hover:text-brand-primary transition-colors"
                   >
                     Noticias
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/contacto"
+                  <Link
+                    to="/contacto"
                     className="text-slate-600 hover:text-brand-primary transition-colors"
                   >
                     Contacto
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -132,7 +133,7 @@ export default function Footer() {
                     href="#"
                     className="text-slate-600 hover:text-brand-primary transition-colors"
                   >
-                    Reglamentos
+                    Turnitin
                   </a>
                 </li>
                 <li>
@@ -140,7 +141,15 @@ export default function Footer() {
                     href="#"
                     className="text-slate-600 hover:text-brand-primary transition-colors"
                   >
-                    Formatos
+                    Scopus
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                  >
+                    ScienceDirect
                   </a>
                 </li>
               </ul>
@@ -153,7 +162,7 @@ export default function Footer() {
               <ul className="mt-3 space-y-2 text-sm text-slate-600">
                 <li>
                   <a
-                    href="#"
+                    href="https://www.unp.edu.pe"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-brand-primary transition-colors"
