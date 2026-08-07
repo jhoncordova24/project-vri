@@ -36,7 +36,7 @@ export default function NewsDetailSection() {
   }
 
   return (
-    <article className="pt-16 pb-16 bg-slate-50/60 min-h-screen">
+    <article className="pt-10 md:pt-16 pb-16 bg-slate-50/60 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           <NewsArticleContent newsItem={newsItem} />

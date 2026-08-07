@@ -3,6 +3,7 @@ import SectionTitle from "../common/SectionTitle";
 import { useState } from "react";
 import { Microscope, Wrench, Lightbulb, Rocket } from "lucide-react";
 import Button from "../common/Button";
+import incubadoraImg from "../../assets/offices/4.webp";
 
 const OFFICES = [
   {
@@ -45,11 +46,10 @@ const OFFICES = [
     id: "incubadora",
     title: "Dirección de Incubadora de Empresas",
     badge: "Startups",
-    stats: "70+ emprendimientos capacitados",
+    stats: "70+ equipos capacitados",
     description:
       "Impulsamos startups y emprendimientos de base tecnológica con mentoría especializada y acompañamiento estratégico.",
-    image:
-      "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=800",
+    image: incubadoraImg,
     link: "#incubadora",
     icon: Rocket,
   },
@@ -69,9 +69,7 @@ export default function FeaturesPreline() {
           >
             <div className="max-w-3xl mx-auto text-left mb-4 lg:mb-8">
               <SectionLabel>Nuestras oficinas</SectionLabel>
-              <SectionTitle>
-                Conoce nuestras dependencias
-              </SectionTitle>
+              <SectionTitle>Conoce nuestras dependencias</SectionTitle>
             </div>
 
             <nav

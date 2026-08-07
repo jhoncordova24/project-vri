@@ -56,7 +56,7 @@ export default function Banner() {
                   <button
                     key={yearData.year}
                     onClick={() => setSelectedYearIndex(idx)}
-                    className={`px-4 py-1.5 rounded-full text-xs font-extrabold transition-all duration-300 ${
+                    className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 ${
                       selectedYearIndex === idx
                         ? "bg-brand-primary text-white shadow-sm"
                         : "text-slate-600 hover:text-brand-primary"
