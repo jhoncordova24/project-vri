@@ -38,23 +38,6 @@ function RotatingWord() {
   );
 }
 
-const containerVariants = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.15, delayChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
-  show: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.85, ease: EASE },
-  },
-};
-
 export default function Hero({
   title,
   subtitle = "Promovemos el desarrollo científico, tecnológico y humanístico para el progreso sostenible de la región y el país.",
@@ -111,50 +94,56 @@ export default function Hero({
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/5 to-slate-950/40" />
 
       <div className="relative h-full flex items-center pt-28">
-        <motion.div
-          className="max-w-7xl w-full mx-auto px-6 sm:px-8 z-10"
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-        >
+        <div className="max-w-7xl w-full mx-auto px-6 sm:px-8 z-10">
           <div className="max-w-xl">
             {badge && (
-              <motion.span
-                variants={itemVariants}
+              <span
+                data-aos="fade-up"
+                data-aos-duration="850"
+                data-aos-delay="0"
                 className="block mb-2 text-xs sm:text-sm font-bold tracking-widest text-slate-300 uppercase"
               >
                 {badge}
-              </motion.span>
+              </span>
             )}
 
-            <motion.h1
-              variants={itemVariants}
+            <h1
+              data-aos="fade-up"
+              data-aos-duration="850"
+              data-aos-delay="150"
               className="mb-4 font-sans text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight"
             >
               {resolvedTitle}
-            </motion.h1>
+            </h1>
 
             {subtitle && (
-              <motion.p
-                variants={itemVariants}
+              <p
+                data-aos="fade-up"
+                data-aos-duration="850"
+                data-aos-delay="300"
                 className="mb-8 text-base text-slate-200 sm:text-lg font-normal leading-relaxed"
               >
                 {subtitle}
-              </motion.p>
+              </p>
             )}
 
             {showButton && (
-              <motion.div
-                variants={itemVariants}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+              <div
+                data-aos="fade-up"
+                data-aos-duration="850"
+                data-aos-delay="450"
                 className="inline-block"
               >
-                <Button href={buttonHref}>{buttonText}</Button>
-              </motion.div>
+                <Button
+                  href={buttonHref}
+                  className="transition-transform duration-200 ease-out hover:scale-[1.03] active:scale-[0.97]"
+                >
+                  {buttonText}
+                </Button>
+              </div>
             )}
           </div>
-        </motion.div>
+        </div>
 
         <svg
           className="absolute inset-x-0 bottom-0 text-white w-full h-20 sm:h-28 z-10"
