@@ -1,11 +1,12 @@
+import { memo } from "react";
 import { Calendar, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
 
-export default function NewsCard({ item, index = 0 }) {
+function NewsCard({ item, index = 0 }) {
   return (
     <article
-      data-aos="fade-up"
+      data-aos="fade"
       data-aos-delay={index * 100}
       className="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm transition-all duration-300 flex flex-col justify-between"
     >
@@ -14,6 +15,8 @@ export default function NewsCard({ item, index = 0 }) {
           <img
             src={item.imagen_url}
             alt={item.titulo}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
           />
           {item.categoria && (
@@ -47,3 +50,5 @@ export default function NewsCard({ item, index = 0 }) {
     </article>
   );
 }
+
+export default memo(NewsCard);

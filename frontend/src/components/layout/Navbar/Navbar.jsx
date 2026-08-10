@@ -1,16 +1,23 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 import logo from "../../../assets/logo.webp";
 import logo2 from "../../../assets/logo-2.webp";
 
 export default function Navbar() {
+  const linkClass = ({ isActive }) =>
+    `md:px-3 md:py-4 text-sm focus:outline-hidden transition-colors ${
+      isActive
+        ? "text-brand-primary font-semibold"
+        : "text-gray-800 hover:text-gray-500"
+    }`;
+
   return (
     <>
       <header className="sticky top-4 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full before:absolute before:inset-0 before:max-w-5xl before:mx-2 lg:before:mx-auto before:rounded-[26px] before:bg-white before:border before:border-gray-200 before:shadow-xs">
         <nav className="relative max-w-5xl w-full flex flex-wrap md:flex-nowrap basis-full items-center justify-between py-2 ps-5 pe-2 md:py-0 mx-2 lg:mx-auto">
           <div className="flex items-center">
-            <Link
+            <NavLink
               className="flex-none rounded-md inline-flex items-center gap-x-1 focus:outline-hidden focus:opacity-80"
               to="/"
               aria-label="Inicio"
@@ -20,25 +27,24 @@ export default function Navbar() {
                 alt="Logo institucional"
                 className="h-10 md:h-11 w-auto object-contain py-1"
               />
-
               <img
                 src={logo}
                 alt="Vicerrectorado de Investigación"
                 className="h-10 md:h-12 w-auto object-contain py-1"
               />
-
               <span className="text-sm md:text-base font-semibold text-gray-800 leading-tight">
                 <span className="block md:hidden">VRI</span>
                 <span className="hidden md:inline md:ml-2">
                   Vicerrectorado de Investigación
                 </span>
               </span>
-            </Link>
+            </NavLink>
           </div>
+
           <div className="md:order-3 flex items-center gap-x-3">
             <div className="md:ps-3">
               <a
-                className="group inline-flex items-center gap-x-2 py-2 px-4  bg-brand-primary text-white font-medium text-sm text-nowrap rounded-[26px] hover:bg-brand-hover focus:outline-hidden"
+                className="group inline-flex items-center gap-x-2 py-2 px-4 bg-brand-primary text-white font-medium text-sm text-nowrap rounded-[26px] hover:bg-brand-hover focus:outline-hidden"
                 href="#"
               >
                 Contacto
@@ -71,17 +77,12 @@ export default function Navbar() {
           >
             <div className="overflow-hidden overflow-y-auto max-h-[75vh] [&::-webkit-scrollbar]:w-0">
               <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-y-3 pt-6 pb-2 px-5 md:px-0 md:py-0 md:ps-7">
-                <Link
-                  className="md:px-3 md:py-4 text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
-                  to="/"
-                  aria-current="page"
-                >
+                <NavLink className={linkClass} to="/" end>
                   Inicio
-                </Link>
+                </NavLink>
                 <a
                   className="md:px-3 md:py-4 text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
                   href="index.html"
-                  aria-current="page"
                 >
                   Nosotros
                 </a>
@@ -131,12 +132,10 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
-                <Link
-                  className="md:px-3 md:py-4 text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
-                  to="/noticias"
-                >
+
+                <NavLink className={linkClass} to="/noticias">
                   Noticias
-                </Link>
+                </NavLink>
               </div>
             </div>
           </div>

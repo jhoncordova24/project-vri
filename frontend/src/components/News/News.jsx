@@ -23,13 +23,12 @@ export default function News() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Todas");
 
-  const debouncedSearch = useDebounce(search, 300);
+  const debouncedSearch = useDebounce(search, 500);
 
   const { news, loading, error, totalPages, totalCount } = useNews({
     initialPage: page,
     pageSize: 6,
     search: debouncedSearch,
-    search,
     category: selectedCategory,
   });
 
