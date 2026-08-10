@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { getLatestNews, getNews } from "../services/newsService";
 
+/**
+ * Custom hook to fetch a limited list of latest news for home/preview sections
+ */
 export const useLatestNews = (limit = 3) => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,10 +28,14 @@ export const useLatestNews = (limit = 3) => {
   return { news, loading, error };
 };
 
+/**
+ * Custom hook to handle paginated news with search and category filter state
+ */
 export const useNews = ({
   initialPage = 1,
   pageSize = 6,
   search = "",
+  category = "Todas",
 } = {}) => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -43,12 +50,17 @@ export const useNews = ({
       try {
         setLoading(true);
         setError(null);
-        const result = await getNews({ page: initialPage, pageSize, search });
+        const result = await getNews({
+          page: initialPage,
+          pageSize,
+          search,
+          category,
+        });
 
         if (isMounted) {
-          setNews(result.data);
-          setTotalPages(result.totalPages);
-          setTotalCount(result.totalCount);
+          setNews(result.data || []);
+          setTotalPages(result.totalPages || 1);
+          setTotalCount(result.totalCount || 0);
         }
       } catch (err) {
         if (isMounted) {
@@ -59,15 +71,12 @@ export const useNews = ({
       }
     };
 
-    const timer = setTimeout(() => {
-      fetchNewsData();
-    }, 300);
+    fetchNewsData();
 
     return () => {
       isMounted = false;
-      clearTimeout(timer);
     };
-  }, [initialPage, pageSize, search]);
+  }, [initialPage, pageSize, search, category]);
 
   return { news, loading, error, totalPages, totalCount };
 };

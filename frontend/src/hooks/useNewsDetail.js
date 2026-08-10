@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { getNewsById, getLatestNews } from "../services/newsService";
 
+/**
+ * Custom hook to fetch single news details and related articles for sidebar suggestions
+ */
 export const useNewsDetail = (id) => {
   const [newsItem, setNewsItem] = useState(null);
   const [otherNews, setOtherNews] = useState([]);
