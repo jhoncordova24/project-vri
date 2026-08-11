@@ -12,7 +12,7 @@ export default function ProjectsHero({
       <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
         <div
           className="lg:col-span-7 space-y-2 text-left"
-          data-aos="fade-right"
+          data-aos="fade-up"
         >
           <SectionLabel>PROGRAMA INSTITUCIONAL DE INVESTIGACIÓN</SectionLabel>
 
@@ -28,7 +28,7 @@ export default function ProjectsHero({
 
         <div
           className="lg:col-span-5 flex justify-start lg:justify-end"
-          data-aos="fade-left"
+          data-aos="fade"
         >
           <div className="w-fit bg-white/90 backdrop-blur-md p-2.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col items-start lg:items-end gap-1.5 sm:gap-2">
             <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block px-1">
@@ -44,7 +44,7 @@ export default function ProjectsHero({
                     onClick={() => onYearChange(year)}
                     className={`px-3.5 sm:px-5 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-300 ${
                       isSelected
-                        ? "bg-brand-primary text-white shadow-md shadow-brand-primary/30"
+                        ? "bg-brand-primary text-white"
                         : "text-slate-600 hover:text-brand-primary hover:bg-white/70"
                     }`}
                   >
