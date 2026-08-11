@@ -109,7 +109,7 @@ export default function ProjectList({ projects = [] }) {
                   </div>
                 </div>
 
-                <h3 className="text-sm sm:text-base font-bold text-brand-dark leading-snug group-hover:text-brand-primary transition-colors duration-200 line-clamp-3">
+                <h3 className="text-sm sm:text-base font-bold text-brand-dark leading-snug group-hover:text-brand-primary transition-colors duration-200">
                   {project.titulo}
                 </h3>
               </div>
@@ -139,37 +139,36 @@ export default function ProjectList({ projects = [] }) {
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="group bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 border-l-4 border-l-brand-primary shadow-2xs hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+              className="group bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 border-l-4 border-l-brand-primary shadow-2xs hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-3"
             >
-              <div className="flex items-start sm:items-center gap-3.5 flex-1 min-w-0">
-                <span className="shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-brand-dark font-black text-xs flex items-center justify-center border border-slate-200/80 group-hover:bg-brand-primary group-hover:text-white transition-colors duration-300">
+              {/* Fila superior: Número + Título completo sin comprimir */}
+              <div className="flex items-start gap-3.5 min-w-0 w-full">
+                <span className="shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-brand-dark font-black text-xs flex items-center justify-center border border-slate-200/80 group-hover:bg-brand-primary group-hover:text-white transition-colors duration-300 mt-0.5">
                   {project.numero || "00"}
                 </span>
 
-                <div className="space-y-1.5 min-w-0 flex-1">
-                  <h3 className="text-xs sm:text-sm font-bold text-brand-dark leading-snug group-hover:text-brand-primary transition-colors duration-200 line-clamp-2">
-                    {project.titulo}
-                  </h3>
-                  <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
-                    <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                    <span className="truncate">
-                      {project.investigador_principal}
-                    </span>
-                  </div>
-                </div>
+                <h3 className="text-xs sm:text-sm font-bold text-brand-dark leading-snug group-hover:text-brand-primary transition-colors duration-200 flex-1">
+                  {project.titulo}
+                </h3>
               </div>
 
-              <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
-                {project.linea_investigacion && (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-indigo-50/80 text-indigo-900 font-bold text-[11px] border border-indigo-100 shadow-2xs truncate">
-                    <Sparkles className="w-3 h-3 text-indigo-500 shrink-0" />
-                    <span className="truncate">
-                      {project.linea_investigacion}
-                    </span>
+              {/* Fila inferior: Autor a la izquierda, badges alineados a la derecha */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 border-t border-slate-100 text-xs">
+                <div className="flex items-center gap-1.5 font-medium text-slate-600 min-w-0">
+                  <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                  <span className="truncate">
+                    {project.investigador_principal}
                   </span>
-                )}
+                </div>
 
-                <div>
+                <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                  {project.linea_investigacion && (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-indigo-50/80 text-indigo-900 font-bold text-[11px] border border-indigo-100 shadow-2xs">
+                      <Sparkles className="w-3 h-3 text-indigo-500 shrink-0" />
+                      <span>{project.linea_investigacion}</span>
+                    </span>
+                  )}
+
                   {project.culminado ? (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200/80">
                       <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />

@@ -10,19 +10,16 @@ export default function ProjectsHero({
   return (
     <div className="py-6 sm:py-8 border-b border-slate-200/80 mb-8 sm:mb-10">
       <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-        <div
-          className="lg:col-span-7 space-y-2 text-left"
-          data-aos="fade-up"
-        >
-          <SectionLabel>PROGRAMA INSTITUCIONAL DE INVESTIGACIÓN</SectionLabel>
+        <div className="lg:col-span-7 space-y-2 text-left" data-aos="fade-up">
+          <SectionLabel>PROGRAMA INSTITUCIONAL</SectionLabel>
 
           <SectionTitle>
             Proyectos de Investigación Básica y Aplicada
           </SectionTitle>
 
           <p className="text-slate-600 text-sm sm:text-base font-normal leading-relaxed max-w-xl">
-            Explora los proyectos financiados, sus resoluciones oficiales,
-            investigadores principales y líneas de desarrollo científico.
+            Consulta resoluciones, bases, presupuestos e investigadores
+            principales por año académico.
           </p>
         </div>
 
@@ -30,8 +27,8 @@ export default function ProjectsHero({
           className="lg:col-span-5 flex justify-start lg:justify-end"
           data-aos="fade"
         >
-          <div className="w-fit bg-white/90 backdrop-blur-md p-2.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col items-start lg:items-end gap-1.5 sm:gap-2">
-            <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block px-1">
+          <div className="w-fit bg-white/90 backdrop-blur-md px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl border border-slate-200/90 shadow-sm flex items-center gap-3 sm:gap-4">
+            <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
               Seleccionar Convocatoria
             </span>
 
