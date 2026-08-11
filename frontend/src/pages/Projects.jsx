@@ -1,13 +1,12 @@
 import React from "react";
 import { useProjects } from "../hooks/useProjects";
-
+import heroBg from "../assets/projects/hero.webp";
 import PageHero from "../components/common/PageHero";
 import ProjectsHero from "../components/Projects/ProjectsHero";
 import ConvocationDocs from "../components/Projects/ConvocationDocs";
 import ProjectList from "../components/Projects/ProjectList";
 
-const DEFAULT_HERO_IMAGE =
-  "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1920&q=80";
+const DEFAULT_HERO_IMAGE = heroBg;
 
 export default function Projects() {
   const {
