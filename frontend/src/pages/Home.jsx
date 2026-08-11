@@ -1,4 +1,4 @@
-import Hero from "../components/common/Hero";
+import HomeHero from "../components/Home/HomeHero";
 import Stats from "../components/Home/Stats";
 import Offices from "../components/Home/Offices";
 import Resources from "../components/Home/Resources";
@@ -9,7 +9,7 @@ import News from "../components/Home/News";
 export default function Home() {
   return (
     <>
-      <Hero />
+      <HomeHero />
       <Stats />
       <Offices />
       <Resources />

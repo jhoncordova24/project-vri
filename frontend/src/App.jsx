@@ -11,6 +11,7 @@ import ScrollToTop from "./components/common/ScrollToTop";
 import Home from "./pages/Home";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
+import Projects from "./pages/Projects";
 
 function AppContent() {
   const location = useLocation();
@@ -28,8 +29,9 @@ function AppContent() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/noticias" element={<News />} />{" "}
+          <Route path="/noticias" element={<News />} />
           <Route path="/noticias/:id" element={<NewsDetail />} />
+          <Route path="/proyectos/:year" element={<Projects />} />
         </Routes>
       </main>
 
