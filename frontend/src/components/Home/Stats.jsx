@@ -12,7 +12,7 @@ const mainStat = {
   number: "40+",
   badge: "Calificados Concytec",
   description:
-    "Registrados en Concytec impulsando la producción científica y tecnológica de nuestra universidad.",
+    "Docentes calificados que impulsan la producción científica.",
 };
 
 const secondaryStats = [
