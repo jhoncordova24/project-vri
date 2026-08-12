@@ -4,7 +4,7 @@ import logo from "../../../assets/logo.webp";
 export default function Footer() {
   return (
     <footer
-      className="relative bg-white text-slate-700"
+      className="relative bg-slate-50 border-t border-slate-200/70 text-slate-700"
       data-aos="fade"
       data-aos-duration="800"
     >
@@ -183,7 +183,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between pt-6 pb-10 border-t border-slate-200/80 sm:flex-row items-center">
+        <div className="flex flex-col justify-between pt-6 pb-10 border-t border-slate-200 sm:flex-row items-center">
           <p className="text-xs text-slate-500">
             © {new Date().getFullYear()} Vicerrectorado de Investigación - UNP.
             Todos los derechos reservados.
@@ -193,7 +193,7 @@ export default function Footer() {
               href="https://www.facebook.com/share/199WQScC3r/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-brand-primary transition-colors p-2 rounded-full bg-slate-100"
+              className="text-slate-400 hover:text-brand-primary transition-colors p-2 rounded-full bg-slate-200/60"
               aria-label="Facebook"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">

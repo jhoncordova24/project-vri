@@ -66,7 +66,6 @@ export default function Navbar() {
               </button>
             </div>
           </div>
-
           <div
             id="hs-pro-an"
             className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow
@@ -86,7 +85,8 @@ export default function Navbar() {
                 >
                   Nosotros
                 </a>
-                <div className="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] [--auto-close:inside] md:inline-block">
+
+                <div className="hs-dropdown [--strategy:static] md:[--strategy:fixed] [--adaptive:none] md:[--adaptive:adaptive] [--is-collapse:true] md:[--is-collapse:false] md:inline-block">
                   <button
                     id="hs-pro-ancpd"
                     type="button"
@@ -98,33 +98,56 @@ export default function Navbar() {
                     Direcciones
                     <ChevronDown className="hs-dropdown-open:-rotate-180 md:hs-dropdown-open:rotate-0 duration-300 ms-auto md:ms-1 shrink-0 size-3.5 text-gray-600" />
                   </button>
+
                   <div
-                    className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] lg:duration-150 hs-dropdown-open:opacity-100 opacity-0 relative w-full md:w-50 hidden z-10 top-full rounded-2xl bg-white border border-gray-200 md:shadow-xl before:absolute before:-top-4 before:inset-s-0 before:w-full before:h-5 md:after:hidden mt-2 md:mt-0"
+                    className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] md:duration-150 hs-dropdown-open:opacity-100 opacity-0 relative w-full md:w-60 hidden z-10 top-full rounded-2xl bg-white border border-gray-200 md:shadow-xl before:absolute before:-top-4 before:inset-s-0 before:w-full before:h-5 md:after:hidden mt-2 md:mt-0"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="hs-pro-ancpd"
                   >
-                    <div className="p-5 flex flex-col gap-y-3">
+                    <div className="p-2 flex flex-col gap-y-0.5">
+                      <div className="hs-dropdown [--strategy:static] md:[--strategy:absolute] [--adaptive:none] md:[--trigger:hover] [--is-collapse:true] md:[--is-collapse:false] relative">
+                        <button
+                          id="hs-pro-ancpd-inv"
+                          type="button"
+                          className="hs-dropdown-toggle w-full py-2 px-3 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                        >
+                          Investigación
+                          <ChevronDown className="hs-dropdown-open:-rotate-180 md:hs-dropdown-open:-rotate-90 md:-rotate-90 ms-auto shrink-0 size-3.5 text-gray-600" />
+                        </button>
+
+                        <div
+                          className="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] md:duration-150 hs-dropdown-open:opacity-100 opacity-0 relative md:w-70 hidden z-10 md:mt-0 md:top-0 md:inset-e-full md:-translate-x-4 ps-4 md:ps-0 bg-white border border-gray-200 rounded-2xl md:shadow-xl before:hidden md:before:block before:absolute before:-inset-e-5 before:top-0 before:h-full before:w-5"
+                          role="menu"
+                          aria-orientation="vertical"
+                          aria-labelledby="hs-pro-ancpd-inv"
+                        >
+                          <div className="p-2 flex flex-col gap-y-1">
+                            <a
+                              className="py-1.5 px-3 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                              href="#"
+                            >
+                              Unidad de Gestión de Proyectos de Investigación
+                              Básica y Aplicada
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+
                       <a
-                        className="text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
-                        href="#"
-                      >
-                        Investigación
-                      </a>
-                      <a
-                        className="text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                        className="py-2 px-3 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
                         href="#"
                       >
                         Producción de Bienes y Servicios
                       </a>
                       <a
-                        className="text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                        className="py-2 px-3 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
                         href="#"
                       >
                         Innovación y Transferencia Tecnológica
                       </a>
                       <a
-                        className="text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                        className="py-2 px-3 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
                         href="#"
                       >
                         Incubadora de Empresas
