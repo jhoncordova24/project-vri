@@ -1,4 +1,4 @@
-import { supabase } from "../lib/supabaseClient"; 
+import { supabase } from "../lib/supabaseClient";
 
 export async function getAvailableYears() {
   const { data, error } = await supabase
@@ -14,7 +14,6 @@ export async function getAvailableYears() {
   return data.map((item) => item.anio);
 }
 
-
 export async function getProjectsByYear(year) {
   const { data, error } = await supabase
     .from("convocatorias")
@@ -23,7 +22,6 @@ export async function getProjectsByYear(year) {
       *,
       proyectos:proyectos_investigacion (
         id,
-        numero,
         titulo,
         investigador_principal,
         linea_investigacion,

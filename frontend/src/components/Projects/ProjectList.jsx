@@ -14,13 +14,19 @@ export default function ProjectList({ projects = [] }) {
   const [viewMode, setViewMode] = useState("list");
 
   const filteredProjects = useMemo(() => {
-    if (!searchTerm.trim()) return projects;
-    const term = searchTerm.toLowerCase();
-    return projects.filter(
-      (p) =>
-        p.titulo.toLowerCase().includes(term) ||
-        p.investigador_principal.toLowerCase().includes(term) ||
-        p.linea_investigacion?.toLowerCase().includes(term),
+    const term = searchTerm.toLowerCase().trim();
+
+    const filtered = !term
+      ? projects
+      : projects.filter(
+          (p) =>
+            p.titulo.toLowerCase().includes(term) ||
+            p.investigador_principal.toLowerCase().includes(term) ||
+            p.linea_investigacion?.toLowerCase().includes(term),
+        );
+
+    return [...filtered].sort((a, b) =>
+      a.titulo.localeCompare(b.titulo, "es", { sensitivity: "base" }),
     );
   }, [projects, searchTerm]);
 
@@ -83,7 +89,7 @@ export default function ProjectList({ projects = [] }) {
         </div>
       ) : viewMode === "grid" ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, index) => (
             <div
               key={project.id}
               className="group bg-white rounded-2xl p-5 border border-slate-200/90 border-l-4 border-l-brand-primary shadow-2xs hover:shadow-md transition-all duration-300 flex flex-col justify-between space-y-4 h-full"
@@ -91,7 +97,7 @@ export default function ProjectList({ projects = [] }) {
               <div className="space-y-3">
                 <div className="flex items-center justify-between gap-3">
                   <span className="shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-brand-dark font-black text-xs flex items-center justify-center border border-slate-200/80 group-hover:bg-brand-primary group-hover:text-white transition-colors duration-300">
-                    {project.numero || "00"}
+                    {String(index + 1).padStart(2, "0")}
                   </span>
 
                   <div>
@@ -136,15 +142,14 @@ export default function ProjectList({ projects = [] }) {
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-3">
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, index) => (
             <div
               key={project.id}
               className="group bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 border-l-4 border-l-brand-primary shadow-2xs hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-3"
             >
-              {/* Fila superior: Número + Título completo sin comprimir */}
               <div className="flex items-start gap-3.5 min-w-0 w-full">
                 <span className="shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-brand-dark font-black text-xs flex items-center justify-center border border-slate-200/80 group-hover:bg-brand-primary group-hover:text-white transition-colors duration-300 mt-0.5">
-                  {project.numero || "00"}
+                  {String(index + 1).padStart(2, "0")}
                 </span>
 
                 <h3 className="text-xs sm:text-sm font-bold text-brand-dark leading-snug group-hover:text-brand-primary transition-colors duration-200 flex-1">
@@ -152,7 +157,6 @@ export default function ProjectList({ projects = [] }) {
                 </h3>
               </div>
 
-              {/* Fila inferior: Autor a la izquierda, badges alineados a la derecha */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 border-t border-slate-100 text-xs">
                 <div className="flex items-center gap-1.5 font-medium text-slate-600 min-w-0">
                   <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
