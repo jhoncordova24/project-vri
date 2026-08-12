@@ -27,21 +27,21 @@ export default function ProjectsHero({
           className="lg:col-span-5 flex justify-start lg:justify-end"
           data-aos="fade"
         >
-          <div className="w-fit bg-white/90 backdrop-blur-md px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl border border-slate-200/90 shadow-sm flex items-center gap-3 sm:gap-4">
-            <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
+          <div className="w-fit bg-white/90 backdrop-blur-md p-1.5 sm:px-5 sm:py-3 rounded-xl sm:rounded-2xl border border-slate-200/90 shadow-sm flex items-center gap-2 sm:gap-4">
+            <span className="hidden sm:inline-block text-[11px] font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
               Seleccionar Convocatoria
             </span>
 
-            <div className="inline-flex p-1 rounded-full bg-slate-100/80 border border-slate-200/80 gap-1">
+            <div className="inline-flex p-0.5 sm:p-1 rounded-lg sm:rounded-full bg-slate-100/80 border border-slate-200/80 gap-0.5 sm:gap-1">
               {availableYears.map((year) => {
                 const isSelected = selectedYear === year;
                 return (
                   <button
                     key={year}
                     onClick={() => onYearChange(year)}
-                    className={`px-3.5 sm:px-5 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-300 ${
+                    className={`px-2.5 sm:px-5 py-1 sm:py-1.5 rounded-md sm:rounded-full text-[11px] sm:text-sm font-bold whitespace-nowrap transition-all duration-300 ${
                       isSelected
-                        ? "bg-brand-primary text-white"
+                        ? "bg-brand-primary text-white shadow-xs"
                         : "text-slate-600 hover:text-brand-primary hover:bg-white/70"
                     }`}
                   >

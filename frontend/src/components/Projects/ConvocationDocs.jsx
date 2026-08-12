@@ -59,10 +59,10 @@ export default function ConvocationDocs({ data }) {
 
         const CardContent = (
           <div
-            className={`relative overflow-hidden h-full bg-white/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-5 border shadow-sm transition-all duration-300 flex flex-col justify-between group ${
+            className={`relative overflow-hidden h-full bg-white/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-5 border border-slate-200/90 shadow-sm transition-all duration-300 flex flex-col justify-between group ${
               url
-                ? "border-slate-200/90 hover:shadow-md hover:border-brand-primary/40 hover:-translate-y-1 cursor-pointer"
-                : "border-emerald-100 bg-emerald-50/20 cursor-default"
+                ? "hover:shadow-md hover:border-brand-primary/40 hover:-translate-y-1 cursor-pointer"
+                : "cursor-default"
             }`}
           >
             <div className="flex items-center justify-between mb-3 sm:mb-4">
@@ -70,11 +70,15 @@ export default function ConvocationDocs({ data }) {
                 className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center transition-colors duration-300 ${
                   url
                     ? "bg-blue-50 text-brand-primary group-hover:bg-brand-primary group-hover:text-white"
-                    : "bg-emerald-50 text-emerald-600"
+                    : "bg-blue-50 text-brand-primary"
                 }`}
               >
                 <Icon className="w-4 h-4" />
               </div>
+
+              {url && (
+                <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-primary transition-colors duration-300" />
+              )}
             </div>
 
             <div>
@@ -86,13 +90,7 @@ export default function ConvocationDocs({ data }) {
               </p>
             </div>
 
-            <div
-              className={`absolute bottom-0 left-0 right-0 h-1 ${
-                url
-                  ? "bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-hover"
-                  : "bg-emerald-500/80"
-              }`}
-            />
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-hover" />
           </div>
         );
 

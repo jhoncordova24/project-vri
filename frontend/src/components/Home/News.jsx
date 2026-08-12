@@ -50,7 +50,7 @@ export default function News() {
         )}
 
         <div className="mt-12 text-center" data-aos="fade-up">
-          <Button href="/noticias">Ver todas las noticias</Button>
+          <Button to="/noticias">Ver todas las noticias</Button>
         </div>
       </div>
     </section>
