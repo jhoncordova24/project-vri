@@ -3,7 +3,6 @@ import SectionTitle from "../common/SectionTitle";
 import { useState } from "react";
 import { TrendingUp, ArrowRight } from "lucide-react";
 import Button from "../common/Button";
-import bannerBg from "../../assets/banner/1.webp";
 
 const bannerData = {
   title: "Gestión de proyectos de investigación básica y aplicada",
@@ -36,18 +35,11 @@ export default function Banner() {
   const currentCall = bannerData.years[selectedYearIndex];
 
   return (
-    <section className="relative w-full pt-12 pb-8 sm:py-16 lg:py-20 text-slate-800 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <img
-          src={bannerBg}
-          alt="Fondo Convocatorias"
-          className="w-full h-full object-cover object-center opacity-60 scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-100/90 via-white/50 to-blue-50/70 backdrop-blur-[1px]" />
-      </div>
+    <section className="relative w-full pt-12 pb-8 sm:py-16 lg:py-20 text-slate-800 overflow-hidden bg-slate-50">
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/70 via-slate-50 to-white" />
 
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl pointer-events-none z-0"></div>
-      <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-slate-200/30 rounded-full blur-2xl pointer-events-none z-0"></div>
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-200/40 rounded-full blur-3xl pointer-events-none z-0" />
+      <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-indigo-100/40 rounded-full blur-3xl pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-6 sm:gap-12 lg:gap-16 items-center">
@@ -59,7 +51,7 @@ export default function Banner() {
             <div className="flex items-center justify-between gap-4">
               <SectionLabel>CONVOCATORIAS INTERNAS</SectionLabel>
 
-              <div className="hidden sm:inline-flex p-1 rounded-full border border-slate-300/70 bg-white/60 backdrop-blur-sm">
+              <div className="hidden sm:inline-flex p-1 rounded-full border border-slate-200 bg-white/80 shadow-sm">
                 {bannerData.years.map((yearData, idx) => (
                   <button
                     key={yearData.year}
@@ -110,7 +102,7 @@ export default function Banner() {
             data-aos-duration="600"
             data-aos-delay="100"
           >
-            <div className="bg-white/90 backdrop-blur-md rounded-3xl p-5 sm:p-8 border border-slate-200/90 shadow-md space-y-4 sm:space-y-6">
+            <div className="bg-white rounded-3xl p-5 sm:p-8 border border-slate-200/80 shadow-xl shadow-slate-200/50 space-y-4 sm:space-y-6">
               <div className="flex justify-between items-center pb-3 sm:pb-4 border-b border-slate-100">
                 <div>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">
