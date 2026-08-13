@@ -173,7 +173,7 @@ export default function FeaturesPreline() {
           </div>
         </div>
         <div className="absolute inset-0 grid grid-cols-12 size-full">
-          <div className="col-span-full lg:col-span-7 lg:col-start-6 bg-brand-primary/10 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full" />
+          <div className="col-span-full lg:col-span-7 lg:col-start-6 bg-brand-primary/7 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full" />
         </div>
       </div>
     </div>

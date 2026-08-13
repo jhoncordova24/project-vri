@@ -9,7 +9,7 @@ export default function PageHero({
   buttonText = "Ver información",
   buttonHref = "#",
   imageSrc,
-  heightClass = "h-[480px] sm:h-[600px]",
+  heightClass = "h-[480px] sm:h-[650px]",
 }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
@@ -26,7 +26,7 @@ export default function PageHero({
           onLoad={() => setIsImageLoaded(true)}
           className={`
             absolute inset-0 object-cover w-full h-full
-            brightness-40
+            brightness-50
             transition-all duration-[1200ms] ease-out
             ${isImageLoaded ? "opacity-60 scale-100" : "opacity-0 scale-105"}
           `}
@@ -54,7 +54,7 @@ export default function PageHero({
                 data-aos="fade-up"
                 data-aos-duration="700"
                 data-aos-delay="100"
-                className="mb-3 sm:mb-4 font-sans text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight"
+                className="mb-3 sm:mb-4 font-sans text-4xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight"
               >
                 {title}
               </h1>

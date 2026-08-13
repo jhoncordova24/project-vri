@@ -3,6 +3,7 @@ import SectionTitle from "../common/SectionTitle";
 import { useState } from "react";
 import { TrendingUp, ArrowRight } from "lucide-react";
 import Button from "../common/Button";
+import bannerBg from "../../assets/banner/1.webp";
 
 const bannerData = {
   title: "Gestión de proyectos de investigación básica y aplicada",
@@ -35,11 +36,18 @@ export default function Banner() {
   const currentCall = bannerData.years[selectedYearIndex];
 
   return (
-    <section className="relative w-full bg-gradient-to-br from-slate-100/90 via-blue-50/30 to-white pt-12 pb-8 sm:py-16 lg:py-20 text-slate-800 overflow-hidden">
-      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#1e3a8a_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
+    <section className="relative w-full pt-12 pb-8 sm:py-16 lg:py-20 text-slate-800 overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <img
+          src={bannerBg}
+          alt="Fondo Convocatorias"
+          className="w-full h-full object-cover object-center opacity-60 scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-100/90 via-white/50 to-blue-50/70 backdrop-blur-[1px]" />
+      </div>
 
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-slate-200/40 rounded-full blur-2xl pointer-events-none"></div>
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl pointer-events-none z-0"></div>
+      <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-slate-200/30 rounded-full blur-2xl pointer-events-none z-0"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-6 sm:gap-12 lg:gap-16 items-center">
@@ -51,7 +59,7 @@ export default function Banner() {
             <div className="flex items-center justify-between gap-4">
               <SectionLabel>CONVOCATORIAS INTERNAS</SectionLabel>
 
-              <div className="hidden sm:inline-flex p-1 rounded-full border border-slate-300/70">
+              <div className="hidden sm:inline-flex p-1 rounded-full border border-slate-300/70 bg-white/60 backdrop-blur-sm">
                 {bannerData.years.map((yearData, idx) => (
                   <button
                     key={yearData.year}
