@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Microscope, Wrench, Lightbulb, Rocket } from "lucide-react";
 import Button from "../common/Button";
 import incubadoraImg from "../../assets/offices/4.webp";
+import bienesImg from "../../assets/offices/2.webp";
 
 const OFFICES = [
   {
@@ -25,8 +26,7 @@ const OFFICES = [
     stats: "12+ servicios prestados",
     description:
       "Conectamos las capacidades técnicas de la universidad con el sector productivo mediante servicios especializados.",
-    image:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
+    image: bienesImg,
     link: "#servicios",
     icon: Wrench,
   },
