@@ -135,7 +135,7 @@ export default function Resources() {
               >
                 <div>
                   <div className="flex items-center justify-between gap-2">
-                    <div className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg bg-brand-primary/10 text-brand-primary transition-colors duration-200 group-hover:bg-brand-primary group-hover:text-white">
+                    <div className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg bg-brand-icon-bg text-brand-primary transition-colors duration-200 group-hover:bg-brand-primary group-hover:text-white">
                       <IconComponent className="h-4 w-4 sm:h-5 sm:w-5" />
                     </div>
                     <span className="text-[9px] sm:text-[10px] font-medium uppercase tracking-wider text-slate-500 bg-slate-100/80 px-2 py-0.5 rounded-full border border-slate-200/60 truncate">
@@ -170,27 +170,6 @@ export default function Resources() {
           <Button href="#" className="group text-xs sm:text-sm">
             Explorar todos los servicios
           </Button>
-        </div>
-
-        <div
-          className="mt-10 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[11px] sm:text-xs text-slate-500"
-          data-aos="fade-in"
-          data-aos-delay="350"
-        >
-          <span className="flex items-center gap-1.5">
-            <Sparkles className="size-3.5 text-brand-primary" />
-            Acceso institucional
-          </span>
-          <span className="w-px h-3.5 bg-slate-200" />
-          <span className="flex items-center gap-1.5">
-            <ShieldCheck className="size-3.5 text-brand-primary" />
-            Verificado
-          </span>
-          <span className="w-px h-3.5 bg-slate-200" />
-          <span className="flex items-center gap-1.5">
-            <Library className="size-3.5 text-brand-primary" />
-            Recursos académicos
-          </span>
         </div>
       </div>
     </section>

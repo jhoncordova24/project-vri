@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import SectionLabel from "../common/SectionLabel";
 import SectionTitle from "../common/SectionTitle";
-import CountUp from "../CountUp/CountUp";
+import CountUp from "../common/CountUp";
 
 const stats = [
   {
@@ -61,7 +61,7 @@ export default function Stats() {
             const Icon = stat.icon;
             return (
               <div key={index} className={index !== 0 ? "sm:ps-4 lg:ps-6" : ""}>
-                <div className="inline-flex items-center justify-center p-2 rounded-lg bg-slate-100 text-brand-primary mb-2">
+                <div className="inline-flex items-center justify-center p-2 rounded-lg bg-brand-icon-bg text-brand-primary mb-2">
                   <Icon className="size-4 shrink-0" />
                 </div>
                 <p className="text-xl sm:text-3xl lg:text-4xl font-extrabold text-brand-primary tracking-tight">

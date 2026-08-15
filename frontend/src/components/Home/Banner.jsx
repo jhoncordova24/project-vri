@@ -45,7 +45,7 @@ export default function Banner() {
         <div className="grid lg:grid-cols-12 gap-6 sm:gap-12 lg:gap-16 items-center">
           <div
             className="lg:col-span-7 space-y-1.5 sm:space-y-6 text-left pr-0 lg:pr-4"
-            data-aos="fade-right"
+            data-aos="fade-in"
             data-aos-duration="600"
           >
             <div className="flex items-center justify-between gap-4">
@@ -98,7 +98,7 @@ export default function Banner() {
 
           <div
             className="lg:col-span-5"
-            data-aos="fade-left"
+            data-aos="fade-in"
             data-aos-duration="600"
             data-aos-delay="100"
           >
@@ -113,7 +113,7 @@ export default function Banner() {
                   </h3>
                 </div>
 
-                <span className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary">
+                <span className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-icon-bg text-brand-primary">
                   {currentCall.status}
                 </span>
               </div>

@@ -115,7 +115,7 @@ export default function ProjectList({ projects = [] }) {
                   </div>
                 </div>
 
-                <h3 className="text-sm sm:text-base font-bold text-brand-dark leading-snug group-hover:text-brand-primary transition-colors duration-200">
+                <h3 className="text-sm sm:text-base font-semibold text-brand-dark leading-snug group-hover:text-brand-primary transition-colors duration-200">
                   {project.titulo}
                 </h3>
               </div>
@@ -152,7 +152,7 @@ export default function ProjectList({ projects = [] }) {
                   {String(index + 1).padStart(2, "0")}
                 </span>
 
-                <h3 className="text-xs sm:text-sm font-bold text-brand-dark leading-snug group-hover:text-brand-primary transition-colors duration-200 flex-1">
+                <h3 className="text-xs sm:text-sm font-semibold text-brand-dark leading-snug group-hover:text-brand-primary transition-colors duration-200 flex-1">
                   {project.titulo}
                 </h3>
               </div>

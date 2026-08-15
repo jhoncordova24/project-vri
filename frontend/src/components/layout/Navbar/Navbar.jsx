@@ -70,12 +70,9 @@ export default function Navbar() {
             <NavLink className={linkClass} to="/" end>
               Inicio
             </NavLink>
-            <a
-              className="md:px-3 md:py-4 text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
-              href="index.html"
-            >
+            <NavLink className={linkClass} to="/nosotros">
               Nosotros
-            </a>
+            </NavLink>
 
             <div className="hs-dropdown [--strategy:fixed] [--adaptive:adaptive] inline-block">
               <button
@@ -196,7 +193,7 @@ export default function Navbar() {
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+          <div className="flex items-center justify-between px-5 py-4 ">
             <span className="text-sm font-semibold text-gray-800">Menú</span>
             <button
               type="button"
@@ -212,13 +209,13 @@ export default function Navbar() {
             <NavLink className={mobileLinkClass} to="/" end onClick={closeAll}>
               Inicio
             </NavLink>
-            <a
-              className="block py-3 px-4 rounded-xl text-[15px] text-gray-800 hover:bg-gray-50"
-              href="index.html"
+            <NavLink
+              className={mobileLinkClass}
+              to="/nosotros"
               onClick={closeAll}
             >
               Nosotros
-            </a>
+            </NavLink>
 
             <div>
               <button
@@ -304,7 +301,7 @@ export default function Navbar() {
             </NavLink>
           </div>
 
-          <div className="px-5 py-4 border-t border-gray-100">
+          <div className="px-5 py-4">
             <a
               className="w-full inline-flex items-center justify-center gap-x-2 py-2.5 px-4 bg-brand-primary text-white font-medium text-sm rounded-[26px] hover:bg-brand-hover focus:outline-hidden"
               href="#"
