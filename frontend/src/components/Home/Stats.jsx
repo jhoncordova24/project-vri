@@ -2,8 +2,9 @@ import {
   BadgeCheck,
   FolderKanban,
   GraduationCap,
-  HeartHandshake,
   Lightbulb,
+  Award,
+  BookOpenText,
 } from "lucide-react";
 import SectionLabel from "../common/SectionLabel";
 import SectionTitle from "../common/SectionTitle";
@@ -26,14 +27,20 @@ const stats = [
     icon: GraduationCap,
   },
   {
+    number: "12+",
+    label: "Patentes registradas",
+    icon: Award,
+  },
+  {
     number: "70+",
     label: "Emprendimientos capacitados",
     icon: Lightbulb,
   },
   {
-    number: "100%",
-    label: "Compromiso con Piura",
-    icon: HeartHandshake,
+    number: "20+",
+    label: "Artículos publicados",
+    icon: BookOpenText,
+    hideOnDesktop: true,
   },
 ];
 
@@ -54,13 +61,18 @@ export default function Stats() {
         </div>
 
         <div
-          className="grid grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-3 sm:gap-x-4 sm:divide-x divide-slate-100"
+          className="grid grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-2 sm:gap-x-4 lg:divide-x divide-slate-100"
           data-aos="fade"
         >
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
-              <div key={index} className={index !== 0 ? "sm:ps-4 lg:ps-6" : ""}>
+              <div
+                key={index}
+                className={`text-center sm:text-start ${
+                  stat.hideOnDesktop ? "lg:hidden" : ""
+                } ${index !== 0 ? "lg:ps-6" : ""}`}
+              >
                 <div className="inline-flex items-center justify-center p-2 rounded-lg bg-brand-icon-bg text-brand-primary mb-2">
                   <Icon className="size-4 shrink-0" />
                 </div>

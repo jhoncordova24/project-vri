@@ -101,12 +101,7 @@ export default function HomeHero() {
               data-aos-delay="450"
               className="inline-block"
             >
-              <Button
-                href="#nosotros"
-                className="transition-transform duration-200 ease-out hover:scale-[1.03] active:scale-[0.97]"
-              >
-                Conocer más
-              </Button>
+              <Button to="/nosotros">Conocer más</Button>
             </div>
           </div>
         </div>

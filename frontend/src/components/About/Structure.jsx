@@ -2,6 +2,7 @@ import React from "react";
 import SectionLabel from "../common/SectionLabel";
 import SectionTitle from "../common/SectionTitle";
 import vicerrectorImg from "../../assets/about/structure/vicerrector.webp";
+import directorDiImg from "../../assets/about/structure/director-di.webp";
 
 const LEADERSHIP = {
   name: "Dr. Orlando Bartolomé Zapata Coloma",
@@ -12,11 +13,10 @@ const LEADERSHIP = {
 
 const DIRECTORS = [
   {
-    name: "Dr. Carlos Mendoza Silva",
-    role: "Director General de Investigación",
-    unit: "DGI",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=320&h=320",
+    name: "Dr. Juan Manuel Tume Ruiz",
+    role: "Director de la Dirección de Investigación",
+    unit: "DDI",
+    image: directorDiImg,
   },
   {
     name: "Mg. Roberto Castro Peña",

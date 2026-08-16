@@ -5,6 +5,146 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import logo from "../../../assets/logo.webp";
 import logo2 from "../../../assets/logo-2.webp";
 
+const NAV_LINKS = [
+  { to: "/", label: "Inicio", end: true },
+  { to: "/nosotros", label: "Nosotros" },
+  { to: "/noticias", label: "Noticias" },
+];
+
+const DIRECCIONES_ITEMS = [
+  {
+    type: "submenu",
+    label: "Investigación",
+    items: [
+      {
+        label:
+          "Unidad de Gestión de Proyectos de Investigación Básica y Aplicada",
+        href: "#",
+      },
+    ],
+  },
+  {
+    type: "link",
+    label: "Producción de Bienes y Servicios",
+    href: "#",
+  },
+  {
+    type: "link",
+    label: "Innovación y Transferencia Tecnológica",
+    href: "#",
+  },
+  {
+    type: "link",
+    label: "Incubadora de Empresas",
+    href: "#",
+  },
+];
+
+function BrandLogo() {
+  return (
+    <NavLink
+      className="flex-none rounded-md inline-flex items-center gap-x-1 focus:outline-hidden focus:opacity-80"
+      to="/"
+      aria-label="Inicio"
+    >
+      <img
+        src={logo2}
+        alt="Logo institucional"
+        className="h-10 md:h-11 w-auto object-contain py-1"
+      />
+      <img
+        src={logo}
+        alt="Vicerrectorado de Investigación"
+        className="h-10 md:h-12 w-auto object-contain py-1"
+      />
+      <span className="text-sm md:text-base font-semibold text-gray-800 leading-tight">
+        <span className="block md:hidden">VRI</span>
+        <span className="hidden md:inline md:ml-2">
+          Vicerrectorado de Investigación
+        </span>
+      </span>
+    </NavLink>
+  );
+}
+
+function DireccionesList({
+  isSubmenuOpen,
+  onToggleSubmenu,
+  onCloseAll,
+  isMobile = false,
+}) {
+  return (
+    <div className="flex flex-col gap-y-1">
+      {DIRECCIONES_ITEMS.map((item) => {
+        if (item.type === "submenu") {
+          return (
+            <div key={item.label}>
+              <button
+                type="button"
+                className={`w-full flex items-center justify-between transition-colors focus:outline-hidden ${
+                  isMobile
+                    ? "py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
+                    : "py-2 px-3 text-sm text-gray-800 hover:bg-black/5 rounded-xl"
+                }`}
+                onClick={onToggleSubmenu}
+              >
+                <span>{item.label}</span>
+                <ChevronDown
+                  className={`size-3.5 text-gray-500 transition-transform duration-200 ${
+                    isSubmenuOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  isSubmenuOpen
+                    ? isMobile
+                      ? "max-h-[300px]"
+                      : "max-h-36 opacity-100"
+                    : "max-h-0 opacity-0"
+                }`}
+              >
+                <div className="pl-3 py-1 flex flex-col border-l-2 border-brand-primary/20 ml-3 my-1">
+                  {item.items.map((subItem) => (
+                    <a
+                      key={subItem.label}
+                      className={`block leading-relaxed transition-colors focus:outline-hidden ${
+                        isMobile
+                          ? "py-2 px-3 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
+                          : "py-1.5 px-2.5 text-sm text-gray-700 hover:bg-black/5 rounded-lg"
+                      }`}
+                      href={subItem.href}
+                      onClick={onCloseAll}
+                    >
+                      {subItem.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <a
+            key={item.label}
+            className={`block transition-colors focus:outline-hidden ${
+              isMobile
+                ? "py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
+                : "py-2 px-3 text-sm text-gray-800 hover:bg-black/5 rounded-xl"
+            }`}
+            href={item.href}
+            onClick={onCloseAll}
+          >
+            {item.label}
+          </a>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [direccionesOpen, setDireccionesOpen] = useState(false);
@@ -60,28 +200,7 @@ export default function Navbar() {
       <header className="sticky top-4 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full before:absolute before:inset-0 before:max-w-5xl before:mx-2 lg:before:mx-auto before:rounded-[26px] before:bg-white/70 before:backdrop-blur-xl before:backdrop-saturate-150 before:border before:border-white/40 before:shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
         <nav className="relative max-w-5xl w-full flex flex-wrap md:flex-nowrap basis-full items-center justify-between py-2 ps-5 pe-2 md:py-0 mx-2 lg:mx-auto">
           <div className="flex items-center">
-            <NavLink
-              className="flex-none rounded-md inline-flex items-center gap-x-1 focus:outline-hidden focus:opacity-80"
-              to="/"
-              aria-label="Inicio"
-            >
-              <img
-                src={logo2}
-                alt="Logo institucional"
-                className="h-10 md:h-11 w-auto object-contain py-1"
-              />
-              <img
-                src={logo}
-                alt="Vicerrectorado de Investigación"
-                className="h-10 md:h-12 w-auto object-contain py-1"
-              />
-              <span className="text-sm md:text-base font-semibold text-gray-800 leading-tight">
-                <span className="block md:hidden">VRI</span>
-                <span className="hidden md:inline md:ml-2">
-                  Vicerrectorado de Investigación
-                </span>
-              </span>
-            </NavLink>
+            <BrandLogo />
           </div>
 
           <div className="hidden md:flex md:items-center md:ps-7">
@@ -114,62 +233,14 @@ export default function Navbar() {
                     : "opacity-0 scale-95 pointer-events-none"
                 }`}
               >
-                <div className="p-2 flex flex-col gap-y-1">
-                  <div>
-                    <button
-                      type="button"
-                      className="w-full py-2 px-3 flex items-center justify-between text-sm text-gray-800 hover:bg-black/5 rounded-xl transition-colors focus:outline-hidden"
-                      onClick={() => setInvestigacionOpen((prev) => !prev)}
-                    >
-                      <span>Investigación</span>
-                      <ChevronDown
-                        className={`size-3.5 text-gray-500 transition-transform duration-200 ${
-                          investigacionOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-
-                    <div
-                      className={`overflow-hidden transition-all duration-300 ${
-                        investigacionOpen
-                          ? "max-h-36 opacity-100"
-                          : "max-h-0 opacity-0"
-                      }`}
-                    >
-                      <div className="pl-3 py-1 flex flex-col border-l-2 border-brand-primary/20 ml-3 my-1">
-                        <a
-                          className="py-1.5 px-2.5 block text-sm leading-relaxed text-gray-700 hover:bg-black/5 rounded-lg transition-colors focus:outline-hidden"
-                          href="#"
-                          onClick={closeAll}
-                        >
-                          Unidad de Gestión de Proyectos de Investigación Básica
-                          y Aplicada
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <a
-                    className="py-2 px-3 block text-sm text-gray-800 hover:bg-black/5 rounded-xl transition-colors focus:outline-hidden"
-                    href="#"
-                    onClick={closeAll}
-                  >
-                    Producción de Bienes y Servicios
-                  </a>
-                  <a
-                    className="py-2 px-3 block text-sm text-gray-800 hover:bg-black/5 rounded-xl transition-colors focus:outline-hidden"
-                    href="#"
-                    onClick={closeAll}
-                  >
-                    Innovación y Transferencia Tecnológica
-                  </a>
-                  <a
-                    className="py-2 px-3 block text-sm text-gray-800 hover:bg-black/5 rounded-xl transition-colors focus:outline-hidden"
-                    href="#"
-                    onClick={closeAll}
-                  >
-                    Incubadora de Empresas
-                  </a>
+                <div className="p-2">
+                  <DireccionesList
+                    isSubmenuOpen={investigacionOpen}
+                    onToggleSubmenu={() =>
+                      setInvestigacionOpen((prev) => !prev)
+                    }
+                    onCloseAll={closeAll}
+                  />
                 </div>
               </div>
             </div>
@@ -266,60 +337,15 @@ export default function Navbar() {
                   mobileDireccionesOpen ? "max-h-[500px]" : "max-h-0"
                 }`}
               >
-                <div className="pl-3 pt-1 flex flex-col gap-y-1">
-                  <div>
-                    <button
-                      type="button"
-                      className="w-full flex items-center justify-between py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                      onClick={() => setMobileInvestigacionOpen((v) => !v)}
-                    >
-                      Investigación
-                      <ChevronDown
-                        className={`shrink-0 size-3.5 text-gray-500 transition-transform duration-200 ${
-                          mobileInvestigacionOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-
-                    <div
-                      className={`overflow-hidden transition-all duration-300 ${
-                        mobileInvestigacionOpen ? "max-h-[300px]" : "max-h-0"
-                      }`}
-                    >
-                      <div className="pl-3 py-1 flex flex-col border-l-2 border-brand-primary/20 ml-3 my-1">
-                        <a
-                          className="block py-2 px-3 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                          href="#"
-                          onClick={closeAll}
-                        >
-                          Unidad de Gestión de Proyectos de Investigación Básica
-                          y Aplicada
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <a
-                    className="py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                    href="#"
-                    onClick={closeAll}
-                  >
-                    Producción de Bienes y Servicios
-                  </a>
-                  <a
-                    className="py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                    href="#"
-                    onClick={closeAll}
-                  >
-                    Innovación y Transferencia Tecnológica
-                  </a>
-                  <a
-                    className="py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                    href="#"
-                    onClick={closeAll}
-                  >
-                    Incubadora de Empresas
-                  </a>
+                <div className="pl-3 pt-1">
+                  <DireccionesList
+                    isSubmenuOpen={mobileInvestigacionOpen}
+                    onToggleSubmenu={() =>
+                      setMobileInvestigacionOpen((v) => !v)
+                    }
+                    onCloseAll={closeAll}
+                    isMobile={true}
+                  />
                 </div>
               </div>
             </div>
