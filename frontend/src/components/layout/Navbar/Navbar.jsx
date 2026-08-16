@@ -10,6 +10,9 @@ export default function Navbar() {
   const [direccionesOpen, setDireccionesOpen] = useState(false);
   const [investigacionOpen, setInvestigacionOpen] = useState(false);
 
+  const [mobileDireccionesOpen, setMobileDireccionesOpen] = useState(false);
+  const [mobileInvestigacionOpen, setMobileInvestigacionOpen] = useState(false);
+
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -34,6 +37,8 @@ export default function Navbar() {
     setIsOpen(false);
     setDireccionesOpen(false);
     setInvestigacionOpen(false);
+    setMobileDireccionesOpen(false);
+    setMobileInvestigacionOpen(false);
   };
 
   const linkClass = ({ isActive }) =>
@@ -246,19 +251,19 @@ export default function Navbar() {
               <button
                 type="button"
                 className="w-full flex items-center justify-between py-3 px-4 rounded-xl text-[15px] text-gray-800 hover:bg-gray-50 transition-colors"
-                onClick={() => setDireccionesOpen((v) => !v)}
+                onClick={() => setMobileDireccionesOpen((v) => !v)}
               >
                 Direcciones
                 <ChevronDown
                   className={`shrink-0 size-4 text-gray-500 transition-transform duration-200 ${
-                    direccionesOpen ? "rotate-180" : ""
+                    mobileDireccionesOpen ? "rotate-180" : ""
                   }`}
                 />
               </button>
 
               <div
                 className={`overflow-hidden transition-all duration-300 ${
-                  direccionesOpen ? "max-h-[500px]" : "max-h-0"
+                  mobileDireccionesOpen ? "max-h-[500px]" : "max-h-0"
                 }`}
               >
                 <div className="pl-3 pt-1 flex flex-col gap-y-1">
@@ -266,19 +271,19 @@ export default function Navbar() {
                     <button
                       type="button"
                       className="w-full flex items-center justify-between py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                      onClick={() => setInvestigacionOpen((v) => !v)}
+                      onClick={() => setMobileInvestigacionOpen((v) => !v)}
                     >
                       Investigación
                       <ChevronDown
                         className={`shrink-0 size-3.5 text-gray-500 transition-transform duration-200 ${
-                          investigacionOpen ? "rotate-180" : ""
+                          mobileInvestigacionOpen ? "rotate-180" : ""
                         }`}
                       />
                     </button>
 
                     <div
                       className={`overflow-hidden transition-all duration-300 ${
-                        investigacionOpen ? "max-h-[300px]" : "max-h-0"
+                        mobileInvestigacionOpen ? "max-h-[300px]" : "max-h-0"
                       }`}
                     >
                       <div className="pl-3 py-1 flex flex-col border-l-2 border-brand-primary/20 ml-3 my-1">
