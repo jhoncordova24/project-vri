@@ -13,7 +13,7 @@ export default function ProjectDetail() {
   return (
     <>
       <ProjectDetailHero
-        title={project?.titulo || "Cargando proyecto..."}
+        title={project?.titulo}
         subtitle={
           project?.linea_investigacion
             ? `Línea de investigación: ${project.linea_investigacion}`
@@ -21,6 +21,8 @@ export default function ProjectDetail() {
         }
         badge="Proyecto de Investigación"
         imageSrc={heroBg}
+        year={project?.convocatorias?.anio || 2025}
+        loading={loading}
       />
 
       {loading && (

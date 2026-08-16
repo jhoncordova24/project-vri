@@ -65,7 +65,11 @@ export async function getProjectById(projectId) {
       id,
       titulo,
       resenia,
-      linea_investigacion
+      linea_investigacion,
+      convocatorias (
+        id,
+        anio
+      )
     `,
     )
     .eq("id", projectId)

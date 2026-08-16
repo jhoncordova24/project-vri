@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import Button from "../common/Button";
 
 export default function ProjectDetailHero({
   title,
   subtitle,
-  badge = "Proyecto de Investigación",
   imageSrc,
-  heightClass = "min-h-[420px] sm:min-h-[500px]",
+  heightClass = "h-[480px] sm:h-[650px]",
+  year = 2025,
 }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
@@ -29,26 +31,15 @@ export default function ProjectDetailHero({
         />
       )}
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-slate-950/50" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-slate-950/60" />
 
-      <div className="relative w-full pt-28 pb-12 sm:pt-32 sm:pb-16 z-10">
+      <div className="relative w-full pt-32 pb-14 sm:pt-36 sm:pb-18 z-10">
         <div className="max-w-7xl w-full mx-auto px-6 sm:px-8">
           <div className="max-w-4xl">
-            {badge && (
-              <span
-                data-aos="fade-up"
-                data-aos-duration="700"
-                data-aos-delay="0"
-                className="block mb-2 text-xs sm:text-sm font-bold tracking-widest text-slate-300 uppercase"
-              >
-                {badge}
-              </span>
-            )}
-
             {title && (
               <h1
-                data-aos="fade-up"
-                data-aos-duration="700"
+                data-aos="fade-in"
+                data-aos-duration="900"
                 data-aos-delay="100"
                 className="mb-3 sm:mb-4 font-sans text-1xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug sm:leading-tight"
               >
@@ -58,14 +49,28 @@ export default function ProjectDetailHero({
 
             {subtitle && (
               <p
-                data-aos="fade-up"
+                data-aos="fade-in"
                 data-aos-duration="700"
                 data-aos-delay="200"
-                className="text-sm sm:text-base text-slate-200 font-normal leading-relaxed max-w-2xl"
+                className="text-sm sm:text-base text-slate-200 font-normal leading-relaxed max-w-2xl mb-6 sm:mb-8"
               >
                 {subtitle}
               </p>
             )}
+
+            <div
+              data-aos="fade-up"
+              data-aos-duration="800"
+              data-aos-delay="500"
+            >
+              <Button
+                to={`/proyectos/${year}`}
+                icon={ArrowLeft}
+                iconPosition="left"
+              >
+                Volver a proyectos ({year})
+              </Button>
+            </div>
           </div>
         </div>
       </div>

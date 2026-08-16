@@ -13,6 +13,7 @@ import Navbar from "./components/layout/Navbar/Navbar";
 import Footer from "./components/layout/Footer/Footer";
 import ScrollToTopButton from "./components/common/ScrollToTopButton";
 import ScrollToTop from "./components/common/ScrollToTop";
+import AccessibilityZoom from "./components/common/AccessibilityZoom";
 
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
@@ -46,7 +47,7 @@ function AppContent() {
           <Route path="/proyectos/:year" element={<Projects />} />
           <Route
             path="/proyectos"
-            element={<Navigate to="/proyectos/2026" replace />}
+            element={<Navigate to="/proyectos/2025" replace />}
           />
 
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -54,6 +55,8 @@ function AppContent() {
       </main>
 
       <Footer />
+
+      <AccessibilityZoom />
       <ScrollToTopButton />
     </div>
   );
