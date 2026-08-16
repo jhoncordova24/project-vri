@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   getAvailableYears,
@@ -74,11 +74,28 @@ export function useProjects(defaultYear = 2025) {
     }
   };
 
+  const projects = useMemo(() => {
+    if (!convocationData?.proyectos) return [];
+
+    return convocationData.proyectos.map((proyecto) => {
+      const principalRelation = proyecto.proyecto_investigadores?.find(
+        (pi) => pi.rol === "Investigador Principal",
+      );
+
+      return {
+        ...proyecto,
+        gestor: proyecto.gestores || null,
+        investigadorPrincipal: principalRelation?.investigadores || null,
+      };
+    });
+  }, [convocationData]);
+
   return {
     selectedYear,
     setSelectedYear: handleYearChange,
     availableYears,
     convocationData,
+    projects, // Lista procesada lista para mapear
     loading,
     error,
   };

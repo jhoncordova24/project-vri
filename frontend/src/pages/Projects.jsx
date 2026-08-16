@@ -2,6 +2,7 @@ import React from "react";
 import { useProjects } from "../hooks/useProjects";
 import heroBg from "../assets/projects/hero.webp";
 import PageHero from "../components/common/PageHero";
+import LoadingSpinner from "../components/common/LoadingSpinner";
 import ProjectsHero from "../components/Projects/ProjectsHero";
 import ConvocationDocs from "../components/Projects/ConvocationDocs";
 import ProjectList from "../components/Projects/ProjectList";
@@ -36,12 +37,7 @@ export default function Projects() {
         />
 
         {loading && (
-          <div className="flex flex-col items-center justify-center py-20 space-y-3">
-            <div className="w-8 h-8 border-3 border-brand-primary border-t-transparent rounded-full animate-spin" />
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-              Cargando información...
-            </p>
-          </div>
+          <LoadingSpinner message="Cargando información de convocatorias..." />
         )}
 
         {error && (

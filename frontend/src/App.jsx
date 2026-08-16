@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -13,6 +19,7 @@ import AboutUs from "./pages/AboutUs";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
 import Projects from "./pages/Projects";
+import ProjectDetail from "./pages/ProjectDetail";
 
 function AppContent() {
   const location = useLocation();
@@ -21,19 +28,28 @@ function AppContent() {
     if (window.HSStaticMethods) {
       window.HSStaticMethods.autoInit();
     }
+    AOS.refresh();
   }, [location.pathname]);
 
   return (
-    <div>
+    <div className="flex min-h-screen flex-col">
       <Navbar />
 
-      <main>
+      <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/nosotros" element={<AboutUs />} />
           <Route path="/noticias" element={<News />} />
           <Route path="/noticias/:id" element={<NewsDetail />} />
+
+          <Route path="/proyectos/detalle/:id" element={<ProjectDetail />} />
           <Route path="/proyectos/:year" element={<Projects />} />
+          <Route
+            path="/proyectos"
+            element={<Navigate to="/proyectos/2026" replace />}
+          />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
 

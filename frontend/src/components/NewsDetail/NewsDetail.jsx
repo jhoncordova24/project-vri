@@ -1,16 +1,12 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { useNewsDetail } from "../../hooks/useNewsDetail";
 
 import NewsDetailSkeleton from "./NewsDetailSkeleton";
 import NewsArticleContent from "./NewsArticleContent";
 import NewsSidebarWidget from "./NewsSidebarWidget";
 
-export default function NewsDetail() {
-  const { id } = useParams();
-  const { newsItem, otherNews, loading, error } = useNewsDetail(id);
-
+export default function NewsDetail({ newsItem, otherNews, loading, error }) {
   if (loading) return <NewsDetailSkeleton />;
 
   if (error || !newsItem) {
@@ -24,11 +20,11 @@ export default function NewsDetail() {
             La noticia que buscas no existe o fue eliminada.
           </p>
           <Link
-            to="/"
+            to="/noticias"
             className="inline-flex items-center gap-2 text-sm font-semibold text-brand-primary hover:text-brand-hover transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Volver al inicio</span>
+            <span>Volver a noticias</span>
           </Link>
         </div>
       </section>

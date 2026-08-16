@@ -23,9 +23,26 @@ export async function getProjectsByYear(year) {
       proyectos:proyectos_investigacion (
         id,
         titulo,
-        investigador_principal,
         linea_investigacion,
-        culminado
+        culminado,
+        gestores (
+          id,
+          nombres_apellidos,
+          cargo,
+          email,
+          foto_url
+        ),
+        proyecto_investigadores (
+          rol,
+          investigadores (
+            id,
+            nombres_apellidos,
+            email,
+            foto_url,
+            orcid_url,
+            cti_vitae_url
+          )
+        )
       )
     `,
     )
@@ -34,6 +51,28 @@ export async function getProjectsByYear(year) {
 
   if (error) {
     console.error(`Error fetching projects for year ${year}:`, error);
+    throw error;
+  }
+
+  return data;
+}
+
+export async function getProjectById(projectId) {
+  const { data, error } = await supabase
+    .from("proyectos_investigacion")
+    .select(
+      `
+      id,
+      titulo,
+      resenia,
+      linea_investigacion
+    `,
+    )
+    .eq("id", projectId)
+    .single();
+
+  if (error) {
+    console.error(`Error fetching project with ID ${projectId}:`, error);
     throw error;
   }
 

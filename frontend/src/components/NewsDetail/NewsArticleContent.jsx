@@ -53,7 +53,7 @@ export default function NewsArticleContent({ newsItem }) {
         {paragraphs.map((parrafo, index) => (
           <p
             key={index}
-            className="text-sm md:text-base text-gray-700 leading-relaxed mb-4 last:mb-0"
+            className="text-sm md:text-base text-slate-700 leading-relaxed mb-4 last:mb-0"
           >
             {parrafo}
           </p>

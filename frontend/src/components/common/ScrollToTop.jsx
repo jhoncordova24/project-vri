@@ -6,11 +6,27 @@ export default function ScrollToTop() {
   const prevPathname = useRef(pathname);
 
   useEffect(() => {
-    const isSamePageNavigation =
-      pathname.startsWith("/proyectos") &&
-      prevPathname.current.startsWith("/proyectos");
+    const isDetailRoute =
+      pathname.includes("/detalle/") ||
+      (pathname.startsWith("/noticias/") && pathname !== "/noticias");
 
-    if (!isSamePageNavigation) {
+    const wasDetailRoute =
+      prevPathname.current.includes("/detalle/") ||
+      (prevPathname.current.startsWith("/noticias/") &&
+        prevPathname.current !== "/noticias");
+
+    const preserveScrollSections = ["/proyectos", "/noticias"];
+
+    const isSameSection =
+      !isDetailRoute &&
+      !wasDetailRoute &&
+      preserveScrollSections.some(
+        (prefix) =>
+          pathname.startsWith(prefix) &&
+          prevPathname.current.startsWith(prefix),
+      );
+
+    if (!isSameSection) {
       window.scrollTo(0, 0);
     }
 

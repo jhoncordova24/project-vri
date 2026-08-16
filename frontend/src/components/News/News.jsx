@@ -33,9 +33,16 @@ export default function News() {
   });
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    AOS.refresh();
-  }, [page, selectedCategory]);
+    if (page > 1) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [page]);
+
+  useEffect(() => {
+    if (!loading) {
+      AOS.refresh();
+    }
+  }, [loading, news]);
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
@@ -83,6 +90,7 @@ export default function News() {
               return (
                 <button
                   key={cat.id}
+                  type="button"
                   onClick={() => handleCategoryChange(cat.id)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
                     isActive
