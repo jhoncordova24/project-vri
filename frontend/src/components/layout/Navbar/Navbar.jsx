@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 
 import logo from "../../../assets/logo.webp";
 import logo2 from "../../../assets/logo-2.webp";
@@ -10,12 +10,25 @@ export default function Navbar() {
   const [direccionesOpen, setDireccionesOpen] = useState(false);
   const [investigacionOpen, setInvestigacionOpen] = useState(false);
 
+  const dropdownRef = useRef(null);
+
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDireccionesOpen(false);
+        setInvestigacionOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const closeAll = () => {
     setIsOpen(false);
@@ -74,46 +87,55 @@ export default function Navbar() {
               Nosotros
             </NavLink>
 
-            <div className="hs-dropdown [--strategy:fixed] [--adaptive:adaptive] inline-block">
+            <div className="relative" ref={dropdownRef}>
               <button
-                id="hs-pro-ancpd"
                 type="button"
-                className="hs-dropdown-toggle md:px-3 md:py-4 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
-                aria-haspopup="menu"
-                aria-expanded="false"
-                aria-label="Dropdown"
+                className="md:px-3 md:py-4 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden transition-colors"
+                aria-expanded={direccionesOpen}
+                onClick={() => setDireccionesOpen((prev) => !prev)}
               >
                 Direcciones
-                <ChevronDown className="hs-dropdown-open:rotate-180 duration-300 ms-1 shrink-0 size-3.5 text-gray-600" />
+                <ChevronDown
+                  className={`duration-200 ms-1 shrink-0 size-3.5 text-gray-600 transition-transform ${
+                    direccionesOpen ? "rotate-180" : ""
+                  }`}
+                />
               </button>
 
               <div
-                className="hs-dropdown-menu transition-[opacity,margin] duration-150 hs-dropdown-open:opacity-100 opacity-0 relative w-60 hidden z-10 top-full rounded-2xl bg-white/90 backdrop-blur-xl border border-white/60 shadow-xl before:absolute before:-top-4 before:inset-s-0 before:w-full before:h-5"
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="hs-pro-ancpd"
+                className={`absolute top-full left-0 mt-2 w-72 z-10 rounded-2xl bg-white/90 backdrop-blur-xl backdrop-saturate-150 border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-200 origin-top overflow-hidden ${
+                  direccionesOpen
+                    ? "opacity-100 scale-100 pointer-events-auto"
+                    : "opacity-0 scale-95 pointer-events-none"
+                }`}
               >
-                <div className="p-2 flex flex-col gap-y-0.5">
-                  <div className="hs-dropdown [--strategy:absolute] [--trigger:hover] relative">
+                <div className="p-2 flex flex-col gap-y-1">
+                  <div>
                     <button
-                      id="hs-pro-ancpd-inv"
                       type="button"
-                      className="hs-dropdown-toggle w-full py-2 px-3 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                      className="w-full py-2 px-3 flex items-center justify-between text-sm text-gray-800 hover:bg-black/5 rounded-xl transition-colors focus:outline-hidden"
+                      onClick={() => setInvestigacionOpen((prev) => !prev)}
                     >
-                      Investigación
-                      <ChevronDown className="hs-dropdown-open:-rotate-90 -rotate-90 ms-auto shrink-0 size-3.5 text-gray-600" />
+                      <span>Investigación</span>
+                      <ChevronDown
+                        className={`size-3.5 text-gray-500 transition-transform duration-200 ${
+                          investigacionOpen ? "rotate-180" : ""
+                        }`}
+                      />
                     </button>
 
                     <div
-                      className="hs-dropdown-menu transition-[opacity,margin] duration-150 hs-dropdown-open:opacity-100 opacity-0 relative w-70 hidden z-10 mt-0 top-0 inset-e-full -translate-x-4 bg-white/90 backdrop-blur-xl border border-white/60 rounded-2xl shadow-xl before:absolute before:-inset-e-5 before:top-0 before:h-full before:w-5"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="hs-pro-ancpd-inv"
+                      className={`overflow-hidden transition-all duration-300 ${
+                        investigacionOpen
+                          ? "max-h-36 opacity-100"
+                          : "max-h-0 opacity-0"
+                      }`}
                     >
-                      <div className="p-2 flex flex-col gap-y-1">
+                      <div className="pl-3 py-1 flex flex-col border-l-2 border-brand-primary/20 ml-3 my-1">
                         <a
-                          className="py-1.5 px-3 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                          className="py-1.5 px-2.5 block text-sm leading-relaxed text-gray-700 hover:bg-black/5 rounded-lg transition-colors focus:outline-hidden"
                           href="#"
+                          onClick={closeAll}
                         >
                           Unidad de Gestión de Proyectos de Investigación Básica
                           y Aplicada
@@ -123,20 +145,23 @@ export default function Navbar() {
                   </div>
 
                   <a
-                    className="py-2 px-3 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                    className="py-2 px-3 block text-sm text-gray-800 hover:bg-black/5 rounded-xl transition-colors focus:outline-hidden"
                     href="#"
+                    onClick={closeAll}
                   >
                     Producción de Bienes y Servicios
                   </a>
                   <a
-                    className="py-2 px-3 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                    className="py-2 px-3 block text-sm text-gray-800 hover:bg-black/5 rounded-xl transition-colors focus:outline-hidden"
                     href="#"
+                    onClick={closeAll}
                   >
                     Innovación y Transferencia Tecnológica
                   </a>
                   <a
-                    className="py-2 px-3 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden"
+                    className="py-2 px-3 block text-sm text-gray-800 hover:bg-black/5 rounded-xl transition-colors focus:outline-hidden"
                     href="#"
+                    onClick={closeAll}
                   >
                     Incubadora de Empresas
                   </a>
@@ -152,7 +177,7 @@ export default function Navbar() {
           <div className="md:order-3 flex items-center gap-x-3">
             <div className="md:ps-3">
               <a
-                className="group inline-flex items-center gap-x-2 py-2 px-4 bg-brand-primary text-white font-medium text-sm text-nowrap rounded-[26px] hover:bg-brand-hover focus:outline-hidden"
+                className="group inline-flex items-center gap-x-2 py-2 px-4 bg-brand-primary text-white font-medium text-sm text-nowrap rounded-[26px] hover:bg-brand-hover focus:outline-hidden transition-colors"
                 href="#"
               >
                 Contacto
@@ -162,7 +187,7 @@ export default function Navbar() {
             <div className="md:hidden">
               <button
                 type="button"
-                className="size-9 flex justify-center items-center text-sm font-semibold rounded-full  text-gray-800 disabled:opacity-50 disabled:pointer-events-none"
+                className="size-9 flex justify-center items-center text-sm font-semibold rounded-full text-gray-800 disabled:opacity-50 disabled:pointer-events-none"
                 aria-expanded={isOpen}
                 aria-controls="mobile-sidebar"
                 aria-label="Abrir menú"
@@ -193,7 +218,7 @@ export default function Navbar() {
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="flex items-center justify-between px-5 py-4 ">
+          <div className="flex items-center justify-between px-5 py-4">
             <span className="text-sm font-semibold text-gray-800">Menú</span>
             <button
               type="button"
@@ -220,7 +245,7 @@ export default function Navbar() {
             <div>
               <button
                 type="button"
-                className="w-full flex items-center justify-between py-3 px-4 rounded-xl text-[15px] text-gray-800 hover:bg-gray-50"
+                className="w-full flex items-center justify-between py-3 px-4 rounded-xl text-[15px] text-gray-800 hover:bg-gray-50 transition-colors"
                 onClick={() => setDireccionesOpen((v) => !v)}
               >
                 Direcciones
@@ -240,13 +265,13 @@ export default function Navbar() {
                   <div>
                     <button
                       type="button"
-                      className="w-full flex items-center justify-between py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
+                      className="w-full flex items-center justify-between py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                       onClick={() => setInvestigacionOpen((v) => !v)}
                     >
                       Investigación
-                      <ChevronRight
+                      <ChevronDown
                         className={`shrink-0 size-3.5 text-gray-500 transition-transform duration-200 ${
-                          investigacionOpen ? "rotate-90" : ""
+                          investigacionOpen ? "rotate-180" : ""
                         }`}
                       />
                     </button>
@@ -256,33 +281,35 @@ export default function Navbar() {
                         investigacionOpen ? "max-h-[300px]" : "max-h-0"
                       }`}
                     >
-                      <a
-                        className="block py-2 px-4 ml-3 rounded-xl text-sm text-gray-600 hover:bg-gray-50"
-                        href="#"
-                        onClick={closeAll}
-                      >
-                        Unidad de Gestión de Proyectos de Investigación Básica y
-                        Aplicada
-                      </a>
+                      <div className="pl-3 py-1 flex flex-col border-l-2 border-brand-primary/20 ml-3 my-1">
+                        <a
+                          className="block py-2 px-3 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                          href="#"
+                          onClick={closeAll}
+                        >
+                          Unidad de Gestión de Proyectos de Investigación Básica
+                          y Aplicada
+                        </a>
+                      </div>
                     </div>
                   </div>
 
                   <a
-                    className="py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
+                    className="py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                     href="#"
                     onClick={closeAll}
                   >
                     Producción de Bienes y Servicios
                   </a>
                   <a
-                    className="py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
+                    className="py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                     href="#"
                     onClick={closeAll}
                   >
                     Innovación y Transferencia Tecnológica
                   </a>
                   <a
-                    className="py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
+                    className="py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                     href="#"
                     onClick={closeAll}
                   >
@@ -303,7 +330,7 @@ export default function Navbar() {
 
           <div className="px-5 py-4">
             <a
-              className="w-full inline-flex items-center justify-center gap-x-2 py-2.5 px-4 bg-brand-primary text-white font-medium text-sm rounded-[26px] hover:bg-brand-hover focus:outline-hidden"
+              className="w-full inline-flex items-center justify-center gap-x-2 py-2.5 px-4 bg-brand-primary text-white font-medium text-sm rounded-[26px] hover:bg-brand-hover focus:outline-hidden transition-colors"
               href="#"
               onClick={closeAll}
             >
