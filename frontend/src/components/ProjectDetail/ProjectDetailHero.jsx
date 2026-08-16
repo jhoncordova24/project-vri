@@ -50,7 +50,7 @@ export default function ProjectDetailHero({
                 data-aos="fade-up"
                 data-aos-duration="700"
                 data-aos-delay="100"
-                className="mb-3 sm:mb-4 font-sans text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug sm:leading-tight"
+                className="mb-3 sm:mb-4 font-sans text-1xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug sm:leading-tight"
               >
                 {title}
               </h1>
