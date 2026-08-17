@@ -81,12 +81,12 @@ export default function Footer() {
               </p>
               <ul className="mt-3 space-y-2 text-sm">
                 <li>
-                  <a
-                    href="#"
+                  <Link
+                    to="/proyectos/2025"
                     className="text-slate-600 hover:text-brand-primary transition-colors"
                   >
-                    Proyectos
-                  </a>
+                    Proyectos recientes
+                  </Link>
                 </li>
                 <li>
                   <a
@@ -122,7 +122,9 @@ export default function Footer() {
               <ul className="mt-3 space-y-2 text-sm">
                 <li>
                   <a
-                    href="#"
+                    href="https://repositorio.unp.edu.pe/home"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-slate-600 hover:text-brand-primary transition-colors"
                   >
                     Repositorio
@@ -130,7 +132,9 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="https://latam.turnitin.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-slate-600 hover:text-brand-primary transition-colors"
                   >
                     Turnitin
@@ -138,7 +142,9 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="https://www.scopus.com/pages/home"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-slate-600 hover:text-brand-primary transition-colors"
                   >
                     Scopus
@@ -146,7 +152,9 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="https://www.sciencedirect.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-slate-600 hover:text-brand-primary transition-colors"
                   >
                     ScienceDirect
