@@ -9,7 +9,7 @@ export default function PageHero({
   buttonText = "Ver información",
   buttonHref = "#",
   imageSrc,
-  heightClass = "h-[480px] sm:h-[650px]",
+  heightClass = "min-h-[500px] h-[75vh] sm:h-[85vh]",
 }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 

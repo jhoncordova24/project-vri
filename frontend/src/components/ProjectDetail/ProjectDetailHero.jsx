@@ -6,7 +6,7 @@ export default function ProjectDetailHero({
   title,
   subtitle,
   imageSrc,
-  heightClass = "h-[480px] sm:h-[650px]",
+  heightClass = "min-h-[500px] h-[75vh] sm:h-[85vh]",
   year = 2025,
 }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
