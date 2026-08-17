@@ -248,8 +248,7 @@ export default function Leadership() {
           </div>
 
           <div className="mt-6 pt-4 relative z-10 flex items-center justify-between">
-            <Button href="#">Ver más</Button>
-
+            <Button to="/nosotros">Ver más</Button>
             <div className="flex gap-1.5">
               {authorities.map((authority, idx) => (
                 <button
