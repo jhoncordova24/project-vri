@@ -42,7 +42,7 @@ export default function HomeHero() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   return (
-    <div className="relative -mt-20 h-[800px] w-full overflow-hidden bg-slate-900">
+    <div className="relative -mt-20 min-h-[500px] h-[75vh] sm:h-[85vh] w-full overflow-hidden bg-slate-900">
       <video
         autoPlay
         loop
@@ -105,18 +105,6 @@ export default function HomeHero() {
             </div>
           </div>
         </div>
-
-        <svg
-          className="absolute inset-x-0 bottom-0 text-white w-full h-20 sm:h-28 z-10"
-          viewBox="0 0 1440 120"
-          fill="none"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,32L60,42.7C120,53,240,75,360,80C480,85,600,75,720,58.7C840,43,960,21,1080,16C1200,11,1320,21,1380,26.7L1440,32L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z"
-            fill="currentColor"
-          />
-        </svg>
       </div>
     </div>
   );
