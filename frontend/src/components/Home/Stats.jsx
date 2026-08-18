@@ -46,7 +46,7 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="pt-16 pb-10 lg:pt-24 lg:pb-10 bg-white overflow-hidden">
+    <section className="pt-16 pb-10 lg:pt-16 lg:pb-10 bg-white overflow-hidden">
       <div className="max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto">
         <div
           className="max-w-3xl mx-auto text-center mb-10 lg:mb-16"
@@ -61,7 +61,7 @@ export default function Stats() {
         </div>
 
         <div
-          className="grid grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-2 sm:gap-x-4 lg:divide-x divide-slate-100"
+          className="grid grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-2 sm:gap-x-4 "
           data-aos="fade"
         >
           {stats.map((stat, index) => {

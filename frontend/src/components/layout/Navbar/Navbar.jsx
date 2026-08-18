@@ -197,7 +197,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-4 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full before:absolute before:inset-0 before:max-w-5xl before:mx-2 lg:before:mx-auto before:rounded-[26px] before:bg-white/70 before:backdrop-blur-xl before:backdrop-saturate-150 before:border before:border-white/40 before:shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+      <header className="fixed top-4 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full before:absolute before:inset-0 before:max-w-5xl before:mx-2 lg:before:mx-auto before:rounded-[26px] before:bg-white/70 before:backdrop-blur-xl before:backdrop-saturate-150 before:border before:border-white/40 before:shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
         <nav className="relative max-w-5xl w-full flex flex-wrap md:flex-nowrap basis-full items-center justify-between py-2 ps-5 pe-2 md:py-0 mx-2 lg:mx-auto">
           <div className="flex items-center">
             <BrandLogo />

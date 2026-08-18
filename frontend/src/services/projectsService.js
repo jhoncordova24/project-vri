@@ -69,6 +69,18 @@ export async function getProjectById(projectId) {
       convocatorias (
         id,
         anio
+      ),
+      proyecto_investigadores (
+        id,
+        rol,
+        investigadores (
+          id,
+          nombres_apellidos,
+          email,
+          foto_url,
+          orcid_url,
+          cti_vitae_url
+        )
       )
     `,
     )

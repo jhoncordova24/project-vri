@@ -1,7 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ProjectDetailHero from "../components/ProjectDetail/ProjectDetailHero";
-import ProjectDetailContent from "../components/ProjectDetail/ProjectDetailContent";
+import ProjectReview from "../components/ProjectDetail/ProjectReview";
+import ProjectTeam from "../components/ProjectDetail/ProjectTeam";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import { useProjectDetail } from "../hooks/useProjectDetail";
 import heroBg from "../assets/projects/hero.webp";
@@ -36,7 +37,10 @@ export default function ProjectDetail() {
       )}
 
       {!loading && !error && project && (
-        <ProjectDetailContent project={project} />
+        <div className="w-full bg-slate-50/50">
+          <ProjectReview resenia={project.resenia} />
+          <ProjectTeam team={project.proyecto_investigadores} />
+        </div>
       )}
     </>
   );
