@@ -42,7 +42,7 @@ export default function HomeHero() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   return (
-    <div className="relative  min-h-[500px] h-[100dvh] w-full overflow-hidden bg-slate-900">
+    <div className="relative min-h-[500px] h-[100svh] w-full overflow-hidden bg-slate-900">
       <video
         autoPlay
         loop
