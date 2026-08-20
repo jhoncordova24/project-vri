@@ -72,7 +72,7 @@ export default function ProjectTeam({ team = [] }) {
                 )}
 
                 <div className="relative mb-4 mt-2">
-                  <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-slate-100 ring-4 ring-slate-50 shadow-inner flex items-center justify-center bg-gradient-to-tr from-slate-900 via-slate-800 to-brand-primary text-white font-bold text-xl tracking-wider select-none">
+                  <div className="w-28 h-28 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-tr from-slate-900 via-slate-800 to-brand-primary text-white font-bold text-2xl tracking-wider select-none">
                     {member.foto_url ? (
                       <img
                         src={member.foto_url}
