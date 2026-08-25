@@ -50,11 +50,17 @@ function BrandLogo() {
       <img
         src={logo2}
         alt="Logo institucional"
+        loading="eager"
+        decoding="sync"
+        fetchPriority="high"
         className="h-10 md:h-11 w-auto object-contain py-1"
       />
       <img
         src={logo}
         alt="Vicerrectorado de Investigación"
+        loading="eager"
+        decoding="sync"
+        fetchPriority="high"
         className="h-10 md:h-12 w-auto object-contain py-1"
       />
       <span className="text-sm md:text-base font-semibold text-gray-800 leading-tight">

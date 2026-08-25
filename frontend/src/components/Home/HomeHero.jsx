@@ -99,9 +99,13 @@ export default function HomeHero() {
               data-aos="fade-up"
               data-aos-duration="850"
               data-aos-delay="450"
-              className="inline-block"
+              className="flex flex-row items-center gap-2.5 sm:gap-4 flex-wrap"
             >
-              <Button to="/nosotros">Conocer más</Button>
+              <Button to="/proyectos">Ver proyectos</Button>
+
+              <Button to="/nosotros" variant="secondary" icon={null}>
+                Conócenos
+              </Button>
             </div>
           </div>
         </div>

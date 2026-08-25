@@ -111,7 +111,7 @@ export default function Resources() {
           </div>
         </div>
 
-        <div className="mt-8 sm:mt-10 grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        <div className="mt-8 sm:mt-10 grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
           {resources.map((item, index) => {
             const IconComponent = item.icon;
 
