@@ -27,7 +27,7 @@ export default function CountUp({ value, duration = 1800 }) {
           }, stepTime);
         }
       },
-      { threshold: 0.2 }, 
+      { threshold: 0.2 },
     );
 
     if (countRef.current) {

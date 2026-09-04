@@ -38,7 +38,15 @@ export default function ProjectDetail() {
 
       {!loading && !error && project && (
         <div className="w-full bg-slate-50/50">
-          <ProjectReview resenia={project.resenia} />
+          <ProjectReview
+            resenia={project.resenia}
+            contract={project.contrato_numero}
+            contractUrl={project.contrato_pdf_url}
+            modification={project.resolucion_modificacion}
+            modificationUrl={project.resolucion_modificacion_pdf_url}
+            culmination={project.resolucion_culminacion}
+            culminationUrl={project.resolucion_culminacion_pdf_url}
+          />
           <ProjectTeam team={project.proyecto_investigadores} />
         </div>
       )}

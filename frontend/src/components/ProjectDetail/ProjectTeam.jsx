@@ -159,7 +159,6 @@ export default function ProjectTeam({ team = [] }) {
     if (!scrollRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
 
-    // Margen de tolerancia de 5px para redondeo de pixeles
     setCanScrollLeft(scrollLeft > 5);
     setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
   }, []);
@@ -187,7 +186,7 @@ export default function ProjectTeam({ team = [] }) {
 
   return (
     <section
-      className="w-full py-12 sm:py-16 bg-slate-50/50 border-t border-slate-200/60"
+      className="w-full py-12 sm:py-16 bg-slate-50/50 "
       data-aos="fade-up"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
