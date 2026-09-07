@@ -128,7 +128,7 @@ export default function ProjectReview({
           </div>
 
           {legalItems.length > 0 && (
-            <div className="lg:col-span-4 flex flex-col gap-3.5">
+            <div className="lg:col-span-4 flex flex-col gap-5">
               {legalItems.map((item) => {
                 const Icon = item.icon;
                 const hasUrl = Boolean(item.url);

@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 const VARIANTS = {
   primary: "bg-brand-primary hover:bg-brand-hover text-white shadow-md",
   secondary:
-    "bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-sm",
+    "bg-white text-slate-900 border border-transparent hover:bg-slate-100 shadow-lg hover:shadow-xl transition-all duration-200",
   outline: "border border-white text-white hover:bg-white hover:text-slate-900",
 };
 
