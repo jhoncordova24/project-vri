@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ProjectDetailHero from "../components/ProjectDetail/ProjectDetailHero";
 import ProjectReview from "../components/ProjectDetail/ProjectReview";
 import ProjectTeam from "../components/ProjectDetail/ProjectTeam";
+import ProjectPhysicalProgress from "../components/ProjectDetail/ProjectPhysicalProgress";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import { useProjectDetail } from "../hooks/useProjectDetail";
 import heroBg from "../assets/projects/hero.webp";
@@ -48,6 +49,9 @@ export default function ProjectDetail() {
             culminationUrl={project.resolucion_culminacion_pdf_url}
           />
           <ProjectTeam team={project.proyecto_investigadores} />
+          <ProjectPhysicalProgress
+            deliverables={project.proyecto_entregables}
+          />
         </div>
       )}
     </>

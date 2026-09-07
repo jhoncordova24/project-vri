@@ -87,10 +87,22 @@ export async function getProjectById(projectId) {
           orcid_url,
           cti_vitae_url
         )
+      ),
+      proyecto_entregables (
+        id,
+        entregable,
+        estado,
+        enlace_url,
+        fecha,
+        creado_en
       )
     `,
     )
     .eq("id", projectId)
+    .order("creado_en", {
+      referencedTable: "proyecto_entregables",
+      ascending: true,
+    })
     .single();
 
   if (error) {
