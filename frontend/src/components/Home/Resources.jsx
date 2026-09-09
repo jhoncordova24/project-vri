@@ -7,9 +7,8 @@ import {
   FileText,
   Atom,
   ShieldCheck,
-  Library,
+  BookMarked,
   ExternalLink,
-  Sparkles,
 } from "lucide-react";
 
 export default function Resources() {
@@ -50,10 +49,11 @@ export default function Resources() {
       category: "Herramienta",
     },
     {
-      title: "CONCYTEC",
-      description: "Biblioteca virtual de ciencia, tecnología e innovación",
-      icon: Library,
-      link: "https://biblioteca.concytec.gob.pe/",
+      title: "Revistas UNP",
+      description:
+        "Portal de revistas científicas y académicas de la institución",
+      icon: BookMarked,
+      link: "https://revistas.unp.edu.pe/index.php/index/es",
       category: "Institucional",
     },
   ];
@@ -111,7 +111,7 @@ export default function Resources() {
           </div>
         </div>
 
-        <div className="mt-8 sm:mt-10 grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+        <div className="mt-8 sm:mt-10 grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-7">
           {resources.map((item, index) => {
             const IconComponent = item.icon;
 

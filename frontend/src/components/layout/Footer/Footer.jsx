@@ -3,11 +3,7 @@ import logo from "../../../assets/logo.webp";
 
 export default function Footer() {
   return (
-    <footer
-      className="relative bg-slate-50 border-t border-slate-200/70 text-slate-700"
-      data-aos="fade"
-      data-aos-duration="800"
-    >
+    <footer className="relative bg-slate-900 border-t border-slate-800 text-slate-300">
       <div className="px-4 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <div className="grid gap-16 row-gap-10 mb-10 lg:grid-cols-6">
           <div className="md:max-w-md lg:col-span-2">
@@ -20,14 +16,14 @@ export default function Footer() {
               <img
                 src={logo}
                 alt="Logo Vicerrectorado de Investigación"
-                className="w-10 h-auto object-contain"
+                className="w-16 h-auto object-contain"
               />
-              <span className="text-sm font-bold text-brand-dark uppercase">
+              <span className="text-sm font-bold text-white uppercase">
                 Vicerrectorado de Investigación
               </span>
             </Link>
             <div className="mt-4 lg:max-w-sm">
-              <p className="text-sm text-slate-500 leading-relaxed">
+              <p className="text-sm text-slate-400 leading-relaxed">
                 Promovemos el desarrollo científico, tecnológico y humanístico
                 para el progreso sostenible de la región y el país.
               </p>
@@ -36,14 +32,14 @@ export default function Footer() {
 
           <div className="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4">
             <div>
-              <p className="font-bold text-xs tracking-widest text-brand-primary uppercase">
+              <p className="font-bold text-xs tracking-widest text-white uppercase">
                 Navegación
               </p>
               <ul className="mt-3 space-y-2 text-sm">
                 <li>
                   <Link
                     to="/"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     Inicio
                   </Link>
@@ -51,7 +47,7 @@ export default function Footer() {
                 <li>
                   <Link
                     to="/nosotros"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     Nosotros
                   </Link>
@@ -59,7 +55,7 @@ export default function Footer() {
                 <li>
                   <Link
                     to="/noticias"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     Noticias
                   </Link>
@@ -67,7 +63,7 @@ export default function Footer() {
                 <li>
                   <Link
                     to="/contacto"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     Contacto
                   </Link>
@@ -76,14 +72,14 @@ export default function Footer() {
             </div>
 
             <div>
-              <p className="font-bold text-xs tracking-widest text-brand-primary uppercase">
+              <p className="font-bold text-xs tracking-widest text-white uppercase">
                 Investigación
               </p>
               <ul className="mt-3 space-y-2 text-sm">
                 <li>
                   <Link
                     to="/proyectos/2025"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     Proyectos recientes
                   </Link>
@@ -91,7 +87,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="#"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     Publicaciones
                   </a>
@@ -99,7 +95,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="#"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     Semilleros
                   </a>
@@ -107,7 +103,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="#"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     Convocatorias
                   </a>
@@ -116,7 +112,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <p className="font-bold text-xs tracking-widest text-brand-primary uppercase">
+              <p className="font-bold text-xs tracking-widest text-white uppercase">
                 Recursos
               </p>
               <ul className="mt-3 space-y-2 text-sm">
@@ -125,7 +121,7 @@ export default function Footer() {
                     href="https://repositorio.unp.edu.pe/home"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     Repositorio
                   </a>
@@ -135,7 +131,7 @@ export default function Footer() {
                     href="https://latam.turnitin.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     Turnitin
                   </a>
@@ -145,7 +141,7 @@ export default function Footer() {
                     href="https://www.scopus.com/pages/home"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     Scopus
                   </a>
@@ -155,7 +151,7 @@ export default function Footer() {
                     href="https://www.sciencedirect.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-600 hover:text-brand-primary transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors"
                   >
                     ScienceDirect
                   </a>
@@ -164,16 +160,16 @@ export default function Footer() {
             </div>
 
             <div>
-              <p className="font-bold text-xs tracking-widest text-brand-primary uppercase">
+              <p className="font-bold text-xs tracking-widest text-white uppercase">
                 Contacto
               </p>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600">
+              <ul className="mt-3 space-y-2 text-sm text-slate-400">
                 <li>
                   <a
                     href="https://www.unp.edu.pe"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-brand-primary transition-colors"
+                    className="hover:text-white transition-colors"
                   >
                     Universidad Nacional de Piura
                   </a>
@@ -181,7 +177,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="mailto:vrinvestigacion@unp.edu.pe"
-                    className="hover:text-brand-primary transition-colors truncate block"
+                    className="hover:text-white transition-colors truncate block"
                   >
                     vrinvestigacion@unp.edu.pe
                   </a>
@@ -191,7 +187,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between pt-6 pb-10 border-t border-slate-200 sm:flex-row items-center">
+        <div className="flex flex-col justify-between pt-6 pb-10 border-t border-slate-800 sm:flex-row items-center">
           <p className="text-xs text-slate-500">
             © {new Date().getFullYear()} Vicerrectorado de Investigación - UNP.
             Todos los derechos reservados.
@@ -201,7 +197,7 @@ export default function Footer() {
               href="https://www.facebook.com/share/199WQScC3r/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-brand-primary transition-colors p-2 rounded-full bg-slate-200/60"
+              className="text-slate-400 hover:text-white transition-colors p-2 rounded-full bg-slate-800 hover:bg-slate-700"
               aria-label="Facebook"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
