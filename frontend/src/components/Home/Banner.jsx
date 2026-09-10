@@ -161,7 +161,6 @@ export default function Banner() {
             </div>
           </div>
         </div>
-
         <p
           className="mt-6 sm:mt-10 text-center text-slate-400 text-xs"
           data-aos="fade"

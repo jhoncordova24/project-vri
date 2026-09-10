@@ -153,13 +153,12 @@ export default function Leadership() {
       onMouseLeave={handleMouseLeaveImmediate}
       onFocus={() => setIsHovering(true)}
       onBlur={() => setIsHovering(false)}
+      data-aos="fade-up"
+      data-aos-duration="600"
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-2">
-        <div
-          className="relative w-full aspect-[4/3] md:aspect-auto md:h-[500px] bg-brand-dark overflow-hidden"
-          data-aos="fade-in"
-          data-aos-duration="800"
-        >
+        {/* Contenedor de Imagen: limpio de AOS para evitar parpadeos con el crossfade */}
+        <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[500px] bg-brand-dark overflow-hidden">
           {authorities.map((authority, idx) => {
             const isActive = idx === currentIndex;
             return (
@@ -194,12 +193,8 @@ export default function Leadership() {
           <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent md:hidden pointer-events-none" />
         </div>
 
-        <div
-          className="flex flex-col justify-between p-6 sm:p-10 lg:p-12 relative bg-gradient-to-br from-brand-dark via-brand-dark to-brand-primary/80"
-          data-aos="fade-up"
-          data-aos-duration="800"
-          data-aos-delay="100"
-        >
+        {/* Contenedor de Texto: limpio de AOS para responder de inmediato sin saltos */}
+        <div className="flex flex-col justify-between p-6 sm:p-10 lg:p-12 relative bg-gradient-to-br from-brand-dark via-brand-dark to-brand-primary/80">
           <div className="absolute -top-12 -right-12 w-48 h-48 bg-brand-secondary/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="flex items-center justify-between mb-4 relative z-10">

@@ -27,7 +27,7 @@ const stats = [
     icon: GraduationCap,
   },
   {
-    number: "12+",
+    number: "4+",
     label: "Patentes registradas",
     icon: Award,
   },

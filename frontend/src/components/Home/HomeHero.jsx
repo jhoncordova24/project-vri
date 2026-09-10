@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import heroVideo from "../../assets/hero-home.mp4";
 import Button from "../common/Button";
 
 const EASE = [0.22, 1, 0.36, 1];
+
+const heroImages = [
+  "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=1920&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=1920&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=1920&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1920&auto=format&fit=crop",
+];
 
 const rotatingWords = [
   "el conocimiento",
@@ -39,27 +46,32 @@ function RotatingWord() {
 }
 
 export default function HomeHero() {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setImageIndex((i) => (i + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div className="relative min-h-[500px] h-[100svh] w-full overflow-hidden bg-slate-900">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        onLoadedData={() => setIsVideoLoaded(true)}
-        onError={() => setIsVideoLoaded(true)}
-        className={`
-          absolute inset-0 object-cover w-full h-full
-          brightness-40
-          transition-all duration-[1500ms] ease-out
-          ${isVideoLoaded ? "opacity-60 scale-100" : "opacity-0 scale-105"}
-        `}
-      >
-        <source src={heroVideo} type="video/mp4" />
-      </video>
+      <AnimatePresence>
+        <motion.img
+          key={imageIndex}
+          src={heroImages[imageIndex]}
+          loading={imageIndex === 0 ? "eager" : "lazy"}
+          onLoad={() => setIsImageLoaded(true)}
+          onError={() => setIsImageLoaded(true)}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: isImageLoaded ? 0.6 : 0, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.5, ease: EASE }}
+          className="absolute inset-0 object-cover w-full h-full brightness-60"
+        />
+      </AnimatePresence>
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/5 to-slate-950/40" />
 

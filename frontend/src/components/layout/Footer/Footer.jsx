@@ -16,7 +16,7 @@ export default function Footer() {
               <img
                 src={logo}
                 alt="Logo Vicerrectorado de Investigación"
-                className="w-16 h-auto object-contain"
+                className="w-14 h-auto object-contain"
               />
               <span className="text-sm font-bold text-white uppercase">
                 Vicerrectorado de Investigación

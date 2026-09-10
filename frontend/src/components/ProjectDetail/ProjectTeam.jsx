@@ -46,8 +46,7 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
 
   return (
     <div
-      data-aos="fade-up"
-      className={`relative flex flex-col items-center p-5 sm:p-6 bg-white rounded-2xl border transition-colors duration-200 group shadow-sm w-full sm:w-[300px] lg:w-[280px] flex-shrink-0 snap-start ${
+      className={`relative flex flex-col items-center p-5 sm:p-6 bg-white rounded-2xl border group shadow-sm w-full sm:w-[300px] lg:w-[280px] flex-shrink-0 snap-start ${
         isPrincipal
           ? "border-brand-primary/40 ring-1 ring-brand-primary/10"
           : "border-slate-200/80"
@@ -66,6 +65,8 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
             <img
               src={member.foto_url}
               alt={member.nombres_apellidos}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover"
               onError={(e) => {
                 e.currentTarget.style.display = "none";
@@ -78,7 +79,7 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
       </div>
 
       <div className="min-h-[3rem] flex items-center justify-center w-full px-2">
-        <h4 className="font-bold text-slate-800 text-base sm:text-base text-center line-clamp-2 break-words leading-tight group-hover:text-brand-primary transition-colors">
+        <h4 className="font-bold text-slate-800 text-base text-center line-clamp-2 break-words leading-tight">
           {member.nombres_apellidos}
         </h4>
       </div>
@@ -91,7 +92,7 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
         <a
           href={`mailto:${member.email}`}
           title={member.email}
-          className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-brand-primary truncate max-w-full mb-5 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-brand-primary truncate max-w-full mb-5"
         >
           <Mail className="w-3.5 h-3.5 flex-shrink-0" />
           <span className="truncate">{member.email}</span>
@@ -106,7 +107,7 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
             href={member.cti_vitae_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-brand-primary bg-brand-icon-bg hover:bg-brand-primary hover:text-white rounded-xl transition-colors duration-200"
+            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-brand-primary bg-brand-icon-bg hover:bg-brand-primary hover:text-white rounded-xl"
           >
             <span>CTI Vitae</span>
             <ExternalLink className="w-3 h-3" />
@@ -118,7 +119,7 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
             href={member.orcid_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-600 hover:text-white rounded-xl transition-colors duration-200"
+            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-600 hover:text-white rounded-xl"
           >
             <Award className="w-3 h-3" />
             <span>ORCID</span>
@@ -165,13 +166,31 @@ export default function ProjectTeam({ team = [] }) {
 
   useEffect(() => {
     updateScrollState();
-    window.addEventListener("resize", updateScrollState);
-    return () => window.removeEventListener("resize", updateScrollState);
+
+    let timeoutId;
+    const handleScroll = () => {
+      if (timeoutId) cancelAnimationFrame(timeoutId);
+      timeoutId = requestAnimationFrame(updateScrollState);
+    };
+
+    const container = scrollRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll, { passive: true });
+    }
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      if (timeoutId) cancelAnimationFrame(timeoutId);
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
+      window.removeEventListener("resize", handleScroll);
+    };
   }, [updateScrollState, sortedTeam]);
 
   const scrollByAmount = useCallback((dir) => {
     if (!scrollRef.current) return;
-    const cardWidth = scrollRef.current.firstChild?.offsetWidth || 300;
+    const cardWidth = scrollRef.current.firstElementChild?.offsetWidth || 300;
     scrollRef.current.scrollBy({
       left: dir * (cardWidth + 24),
       behavior: "smooth",
@@ -180,13 +199,13 @@ export default function ProjectTeam({ team = [] }) {
 
   if (!team || team.length === 0) return null;
 
-  const navButtonBaseClass = `absolute top-1/2 -translate-y-1/2 z-20 w-9 h-9 items-center justify-center rounded-full bg-brand-primary text-white shadow-lg hover:brightness-110 active:scale-95 transition-all duration-300 ${
+  const navButtonBaseClass = `absolute top-1/2 -translate-y-1/2 z-20 w-9 h-9 items-center justify-center rounded-full bg-brand-primary text-white shadow-lg active:scale-95 ${
     showDesktopNav ? "flex" : "flex lg:hidden"
   }`;
 
   return (
     <section
-      className="w-full py-12 sm:py-16 bg-slate-50/50 "
+      className="w-full py-12 sm:py-16 bg-slate-50/50"
       data-aos="fade-up"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -198,38 +217,31 @@ export default function ProjectTeam({ team = [] }) {
         <div className="relative">
           {showMobileNav && (
             <>
-              <button
-                type="button"
-                onClick={() => scrollByAmount(-1)}
-                className={`${navButtonBaseClass} -left-3 sm:-left-4 lg:-left-5 ${
-                  canScrollLeft
-                    ? "opacity-100 scale-100 pointer-events-auto"
-                    : "opacity-0 scale-75 pointer-events-none"
-                }`}
-                aria-label="Anterior"
-                tabIndex={canScrollLeft ? 0 : -1}
-              >
-                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollByAmount(1)}
-                className={`${navButtonBaseClass} -right-3 sm:-right-4 lg:-right-5 ${
-                  canScrollRight
-                    ? "opacity-100 scale-100 pointer-events-auto"
-                    : "opacity-0 scale-75 pointer-events-none"
-                }`}
-                aria-label="Siguiente"
-                tabIndex={canScrollRight ? 0 : -1}
-              >
-                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-              </button>
+              {canScrollLeft && (
+                <button
+                  type="button"
+                  onClick={() => scrollByAmount(-1)}
+                  className={`${navButtonBaseClass} -left-3 sm:-left-4 lg:-left-5`}
+                  aria-label="Anterior"
+                >
+                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+                </button>
+              )}
+              {canScrollRight && (
+                <button
+                  type="button"
+                  onClick={() => scrollByAmount(1)}
+                  className={`${navButtonBaseClass} -right-3 sm:-right-4 lg:-right-5`}
+                  aria-label="Siguiente"
+                >
+                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+                </button>
+              )}
             </>
           )}
 
           <div
             ref={scrollRef}
-            onScroll={updateScrollState}
             className={`flex gap-6 lg:gap-8 overflow-x-auto snap-x snap-mandatory pt-4 pb-4 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${
               !showDesktopNav ? "lg:justify-center" : ""
             }`}

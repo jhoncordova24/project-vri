@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import {
   CheckCircle2,
   Clock,
@@ -13,79 +14,73 @@ import {
 import SectionLabel from "../common/SectionLabel";
 import SectionTitle from "../common/SectionTitle";
 
+const DIACRITICS_REGEX = /[\u0300-\u036f]/g;
+
+const ICON_RULES = [
+  { match: ["tesis", "sustentacion"], icon: GraduationCap },
+  { match: ["articulo", "paper", "publicacion", "revista"], icon: BookOpen },
+  { match: ["informe", "reporte"], icon: FileCheck2 },
+  { match: ["patente", "prototipo"], icon: Lightbulb },
+];
+
 const resolveIcon = (name = "") => {
   const clean = name
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-
-  if (clean.includes("tesis") || clean.includes("sustentacion")) {
-    return GraduationCap;
-  }
-  if (
-    clean.includes("articulo") ||
-    clean.includes("paper") ||
-    clean.includes("publicacion") ||
-    clean.includes("revista")
-  ) {
-    return BookOpen;
-  }
-  if (clean.includes("informe") || clean.includes("reporte")) {
-    return FileCheck2;
-  }
-  if (clean.includes("patente") || clean.includes("prototipo")) {
-    return Lightbulb;
-  }
-  return FileText;
+    .replace(DIACRITICS_REGEX, "");
+  const found = ICON_RULES.find((rule) =>
+    rule.match.some((keyword) => clean.includes(keyword)),
+  );
+  return found ? found.icon : FileText;
 };
 
 export default function ProjectPhysicalProgress({ deliverables = [] }) {
-  if (!deliverables || deliverables.length === 0) return null;
+  if (!deliverables.length) return null;
 
   const totalItems = deliverables.length;
-  const completedItems = deliverables.filter(
-    (item) => item.estado?.trim().toLowerCase() === "terminado",
-  ).length;
+  const completedItems = deliverables.reduce(
+    (acc, item) =>
+      item.estado?.trim().toLowerCase() === "terminado" ? acc + 1 : acc,
+    0,
+  );
   const progressPercentage = Math.round((completedItems / totalItems) * 100);
+  const progressScale = Math.max(progressPercentage / 100, 0.12);
 
   return (
-    <section
-      className="w-full py-12 sm:py-16 bg-slate-50/60 border-t border-slate-200/70"
-      data-aos="fade-up"
+    <motion.section
+      className="w-full py-12 sm:py-16 bg-slate-50/70 border-t border-slate-200/70"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
           <div>
             <SectionLabel>SEGUIMIENTO TÉCNICO</SectionLabel>
             <SectionTitle>Avance Físico</SectionTitle>
           </div>
 
-          <div className="flex items-center gap-4 bg-white border border-slate-200/80 p-3.5 px-5 rounded-2xl shadow-xs">
-            <div className="text-right">
-              <span className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                Cumplimiento de Metas
-              </span>
-              <span className="text-xs font-medium text-slate-600">
-                {completedItems} de {totalItems} entregables validados
-              </span>
-            </div>
-            <div className="h-9 w-px bg-slate-200" />
-            <div className="flex items-center gap-2.5">
-              <span className="text-2xl font-black text-slate-900 tracking-tight">
-                {progressPercentage}%
-              </span>
-              <div className="p-1.5 rounded-xl bg-brand-primary/10 text-brand-primary">
-                <Target className="w-4 h-4" />
-              </div>
-            </div>
+          <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 bg-slate-200/60 py-1.5 px-3 rounded-xl self-start md:self-auto">
+            <Target className="w-4 h-4 text-brand-primary" />
+            <span>
+              {completedItems} de {totalItems} entregables validados
+            </span>
           </div>
         </div>
 
-        <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200/60 mb-8">
-          <div
-            className="h-full bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full transition-all duration-700 ease-out"
-            style={{ width: `${progressPercentage}%` }}
-          />
+        <div className="relative w-full h-8 bg-slate-200/70 rounded-2xl overflow-hidden p-1 border border-slate-300/60 shadow-inner mb-8">
+          <motion.div
+            className="h-full bg-gradient-to-r from-brand-primary via-brand-primary to-brand-secondary rounded-xl flex items-center justify-end px-3 shadow-sm relative overflow-hidden origin-left will-change-transform"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: progressScale }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="relative z-10 text-xs font-black tracking-wider text-white select-none whitespace-nowrap">
+              {progressPercentage}%
+            </span>
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
@@ -93,9 +88,7 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
             const Icon = resolveIcon(item.entregable);
             const isFinished =
               item.estado?.trim().toLowerCase() === "terminado";
-            const hasUrl = Boolean(
-              item.enlace_url && item.enlace_url.trim() !== "",
-            );
+            const hasUrl = Boolean(item.enlace_url?.trim());
 
             const Component = hasUrl ? "a" : "div";
             const dynamicProps = hasUrl
@@ -114,7 +107,7 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
                 className={`group relative flex flex-col justify-between p-5 rounded-2xl border transition-all duration-200 bg-white ${
                   hasUrl
                     ? "border-slate-200/90 hover:border-brand-primary/40 hover:shadow-lg hover:-translate-y-1 cursor-pointer"
-                    : "border-slate-200/60 shadow-xs cursor-default"
+                    : "border-slate-200/60 shadow-sm cursor-default"
                 }`}
               >
                 <div>
@@ -179,6 +172,6 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
           })}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
