@@ -1,33 +1,38 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import ProjectDetailHero from "../components/ProjectDetail/ProjectDetailHero";
 import ProjectReview from "../components/ProjectDetail/ProjectReview";
 import ProjectTeam from "../components/ProjectDetail/ProjectTeam";
 import ProjectPhysicalProgress from "../components/ProjectDetail/ProjectPhysicalProgress";
+import ProjectFinancialProgress from "../components/ProjectDetail/ProjectFinancialProgress";
+import ProjectRequirements from "../components/ProjectDetail/ProjectRequirements";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import { useProjectDetail } from "../hooks/useProjectDetail";
 import heroBg from "../assets/projects/hero.webp";
 
 export default function ProjectDetail() {
   const { id } = useParams();
+  const location = useLocation();
+  const preview = location.state?.preview;
   const { project, loading, error } = useProjectDetail(id);
+
+  const displayTitle = project?.titulo || preview?.titulo;
+  const displayLine =
+    project?.linea_investigacion || preview?.linea_investigacion;
+  const displayYear = project?.convocatorias?.anio || preview?.anio || 2025;
 
   return (
     <>
       <ProjectDetailHero
-        title={project?.titulo}
-        subtitle={
-          project?.linea_investigacion
-            ? `Línea de investigación: ${project.linea_investigacion}`
-            : ""
-        }
+        title={displayTitle}
+        subtitle={displayLine ? `Línea de investigación: ${displayLine}` : ""}
         badge="Proyecto de Investigación"
         imageSrc={heroBg}
-        year={project?.convocatorias?.anio || 2025}
+        year={displayYear}
         loading={loading}
       />
 
-      {loading && (
+      {loading && !project && (
         <LoadingSpinner message="Cargando detalles del proyecto..." />
       )}
 
@@ -37,7 +42,7 @@ export default function ProjectDetail() {
         </div>
       )}
 
-      {!loading && !error && project && (
+      {!error && project && (
         <div className="w-full bg-slate-50/50">
           <ProjectReview
             resenia={project.resenia}
@@ -52,6 +57,8 @@ export default function ProjectDetail() {
           <ProjectPhysicalProgress
             deliverables={project.proyecto_entregables}
           />
+          <ProjectFinancialProgress budget={project.proyecto_presupuesto} />
+          <ProjectRequirements requirements={project.proyecto_requerimientos} />
         </div>
       )}
     </>

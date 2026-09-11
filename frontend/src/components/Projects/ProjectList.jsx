@@ -10,7 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-export default function ProjectList({ projects = [] }) {
+export default function ProjectList({ projects = [], year }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const normalizedProjects = useMemo(() => {
@@ -91,6 +91,13 @@ export default function ProjectList({ projects = [] }) {
             <Link
               key={project.id}
               to={`/proyectos/detalle/${project.id}`}
+              state={{
+                preview: {
+                  titulo: project.titulo,
+                  linea_investigacion: project.linea_investigacion,
+                  anio: year || project.convocatorias?.anio,
+                },
+              }}
               className="group block bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 border-l-4 border-l-brand-primary shadow-xs md:hover:shadow-md md:hover:border-slate-300 md:hover:border-l-brand-hover md:transition-all md:duration-200 transform-gpu"
             >
               <div className="flex flex-col justify-between gap-3">

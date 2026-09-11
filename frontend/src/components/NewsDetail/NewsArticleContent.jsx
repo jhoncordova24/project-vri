@@ -15,8 +15,8 @@ export default function NewsArticleContent({ newsItem }) {
   const readingTime = getReadingTime(contenido);
 
   return (
-    <article className="lg:col-span-2 bg-white border border-slate-300">
-      <div className="h-1.5 bg-brand-primary" />
+    <article className="lg:col-span-2 bg-white border border-slate-200">
+      <div />
 
       <div className="p-6 sm:p-10 lg:p-12">
         <div className="flex flex-wrap items-center justify-between gap-y-3 mb-6 pb-4 border-b border-slate-200">
@@ -59,7 +59,7 @@ export default function NewsArticleContent({ newsItem }) {
         </div>
 
         {imagen_url && (
-          <figure className="mt-10 pt-8 border-t border-slate-200">
+          <figure className="mt-2 pt-8">
             <div className="w-full flex justify-center bg-slate-50 border border-slate-300 p-2">
               <img
                 src={imagen_url}

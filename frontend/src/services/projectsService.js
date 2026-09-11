@@ -95,12 +95,36 @@ export async function getProjectById(projectId) {
         enlace_url,
         fecha,
         creado_en
+      ),
+      proyecto_presupuesto (
+        id,
+        generica_gasto,
+        descripcion,
+        presupuesto_aprobado,
+        presupuesto_ejecutado,
+        gasto_efectivo,
+        creado_en
+      ),
+      proyecto_requerimientos (
+        id,
+        unidad_medida,
+        cantidad,
+        descripcion,
+        creado_en
       )
     `,
     )
     .eq("id", projectId)
     .order("creado_en", {
       referencedTable: "proyecto_entregables",
+      ascending: true,
+    })
+    .order("generica_gasto", {
+      referencedTable: "proyecto_presupuesto",
+      ascending: true,
+    })
+    .order("creado_en", {
+      referencedTable: "proyecto_requerimientos",
       ascending: true,
     })
     .single();

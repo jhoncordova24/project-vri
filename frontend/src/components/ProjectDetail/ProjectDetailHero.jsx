@@ -8,6 +8,7 @@ export default function ProjectDetailHero({
   imageSrc,
   heightClass = "min-h-[500px] h-[75vh] sm:h-[85vh]",
   year = 2025,
+  loading = false,
 }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
@@ -36,26 +37,36 @@ export default function ProjectDetailHero({
       <div className="relative w-full pt-32 pb-14 sm:pt-36 sm:pb-18 z-10">
         <div className="max-w-7xl w-full mx-auto px-6 sm:px-8">
           <div className="max-w-4xl">
-            {title && (
-              <h1
-                data-aos="fade-in"
-                data-aos-duration="900"
-                data-aos-delay="100"
-                className="mb-3 sm:mb-4 font-sans text-1xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug sm:leading-tight"
-              >
-                {title}
-              </h1>
-            )}
+            {loading && !title ? (
+              <div className="space-y-4 mb-8 animate-pulse">
+                <div className="h-8 sm:h-10 bg-white/20 rounded-xl w-4/5" />
+                <div className="h-8 sm:h-10 bg-white/20 rounded-xl w-3/5" />
+                <div className="h-5 bg-white/10 rounded-lg w-2/5 mt-4" />
+              </div>
+            ) : (
+              <>
+                {title && (
+                  <h1
+                    data-aos="fade-in"
+                    data-aos-duration="900"
+                    data-aos-delay="100"
+                    className="mb-3 sm:mb-4 font-sans text-1xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug sm:leading-tight"
+                  >
+                    {title}
+                  </h1>
+                )}
 
-            {subtitle && (
-              <p
-                data-aos="fade-in"
-                data-aos-duration="700"
-                data-aos-delay="200"
-                className="text-sm sm:text-base text-slate-200 font-normal leading-relaxed max-w-2xl mb-6 sm:mb-8"
-              >
-                {subtitle}
-              </p>
+                {subtitle && (
+                  <p
+                    data-aos="fade-in"
+                    data-aos-duration="700"
+                    data-aos-delay="200"
+                    className="text-sm sm:text-base text-slate-200 font-normal leading-relaxed max-w-2xl mb-6 sm:mb-8"
+                  >
+                    {subtitle}
+                  </p>
+                )}
+              </>
             )}
 
             <div
