@@ -24,7 +24,7 @@ export default function Leadership() {
         id: 2,
         name: "Dr. Juan Manuel Tume Ruiz",
         role: "Director de la Dirección de Investigación",
-        bio: "Especialista en gestión de la innovación, emprendimiento académico y transferencia tecnológica para el desarrollo regional.",
+        bio: "Docente universitario destacado y especialista en ciencias ambientales y pesqueras en el Perú. Cuenta con calificación vigente como investigador RENACYT (Nivel 4) del Concytec, que respalda su producción científica. Desde la Dirección de Investigación propone y ejecuta políticas para proyectos con fondos concursables internos, y es Coordinador de la plataforma institucional PeruCRIS (Resolución Rectoral N.° 839-R-2025), impulsada por el Concytec para visibilizar la producción científica de la universidad.",
         image: tumeImg,
       },
     ],
@@ -157,8 +157,7 @@ export default function Leadership() {
       data-aos-duration="600"
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-2">
-        {/* Contenedor de Imagen: limpio de AOS para evitar parpadeos con el crossfade */}
-        <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[500px] bg-brand-dark overflow-hidden">
+        <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[550px] bg-brand-dark overflow-hidden">
           {authorities.map((authority, idx) => {
             const isActive = idx === currentIndex;
             return (
@@ -193,7 +192,6 @@ export default function Leadership() {
           <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent md:hidden pointer-events-none" />
         </div>
 
-        {/* Contenedor de Texto: limpio de AOS para responder de inmediato sin saltos */}
         <div className="flex flex-col justify-between p-6 sm:p-10 lg:p-12 relative bg-gradient-to-br from-brand-dark via-brand-dark to-brand-primary/80">
           <div className="absolute -top-12 -right-12 w-48 h-48 bg-brand-secondary/15 rounded-full blur-3xl pointer-events-none" />
 
@@ -237,7 +235,7 @@ export default function Leadership() {
               {display.role}
             </p>
 
-            <p className="text-slate-300 text-xs sm:text-sm lg:text-base leading-relaxed font-light max-w-lg line-clamp-4">
+            <p className="text-slate-300 text-xs sm:text-sm lg:text-base leading-relaxed font-light max-w-lg ">
               {display.bio}
             </p>
           </div>
