@@ -6,6 +6,7 @@ import ProjectTeam from "../components/ProjectDetail/ProjectTeam";
 import ProjectPhysicalProgress from "../components/ProjectDetail/ProjectPhysicalProgress";
 import ProjectFinancialProgress from "../components/ProjectDetail/ProjectFinancialProgress";
 import ProjectRequirements from "../components/ProjectDetail/ProjectRequirements";
+import ProjectGallery from "../components/ProjectDetail/ProjectGallery";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import { useProjectDetail } from "../hooks/useProjectDetail";
 import heroBg from "../assets/projects/hero.webp";
@@ -59,6 +60,7 @@ export default function ProjectDetail() {
           />
           <ProjectFinancialProgress budget={project.proyecto_presupuesto} />
           <ProjectRequirements requirements={project.proyecto_requerimientos} />
+          <ProjectGallery images={project.proyecto_galeria} />
         </div>
       )}
     </>

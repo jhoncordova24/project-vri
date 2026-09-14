@@ -111,6 +111,12 @@ export async function getProjectById(projectId) {
         cantidad,
         descripcion,
         creado_en
+      ),
+      proyecto_galeria (
+        id,
+        imagen_url,
+        descripcion,
+        creado_en
       )
     `,
     )
@@ -125,6 +131,10 @@ export async function getProjectById(projectId) {
     })
     .order("creado_en", {
       referencedTable: "proyecto_requerimientos",
+      ascending: true,
+    })
+    .order("creado_en", {
+      referencedTable: "proyecto_galeria",
       ascending: true,
     })
     .single();
