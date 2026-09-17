@@ -3,8 +3,10 @@ import SectionLabel from "../common/SectionLabel";
 import SectionTitle from "../common/SectionTitle";
 import vicerrectorImg from "../../assets/about/structure/vicerrector.webp";
 import directorDiImg from "../../assets/about/structure/director-di.webp";
+import directorBienesImg from "../../assets/about/structure/director-bienes.webp";
 import coordinadorInnovacionImg from "../../assets/about/structure/coordinador-innovacion.webp";
 import coordinadorBasicaImg from "../../assets/about/structure/coordinador-basica.webp";
+import coordinadorIncubadorasImg from "../../assets/about/structure/coordinador-incubadoras.webp";
 
 const LEADERSHIP = {
   name: "Dr. Orlando Bartolomé Zapata Coloma",
@@ -14,9 +16,14 @@ const LEADERSHIP = {
 
 const DIRECTORS = [
   {
-    name: "Dr. Juan Manuel Tume Ruiz",  
+    name: "Dr. Juan Manuel Tume Ruiz",
     role: "Director de la Dirección de Investigación",
     image: directorDiImg,
+  },
+  {
+    name: "Mgtr. Robert Moises Montero Timaná",
+    role: "Jefe de la Dirección de Bienes y Servicios",
+    image: directorBienesImg,
   },
   {
     name: "Mtro. Econ. Elvis Luilly Vertiz Contreras",
@@ -25,21 +32,15 @@ const DIRECTORS = [
   },
 
   {
-    name: " Mgtr. Néstor Atarama Montero",
+    name: "Mgtr. Néstor Atarama Montero",
     role: " Coordinador de la Dirección de Innovación y Transferencia Tecnológica",
     image: coordinadorInnovacionImg,
   },
+
   {
-    name: "Dr. Walter Arévalo Ríos",
-    role: "Director de Centros e Institutos",
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=320&h=320",
-  },
-  {
-    name: "Mg. Patricia Morales Wong",
-    role: "Jefa de Unidad de Fondos Concursables",
-    image:
-      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=320&h=320",
+    name: "Ing. Candy Yasmín Burgos Bayona",
+    role: "Coordinadora de la Dirección de Incubadoras de Empresas",
+    image: coordinadorIncubadorasImg,
   },
   {
     name: "Dr. Julio Piscoya Arbanil",
@@ -100,7 +101,7 @@ export default function Structure() {
         </div>
 
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 lg:gap-x-8 gap-y-12"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-6 lg:gap-x-8 gap-y-12"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="200"

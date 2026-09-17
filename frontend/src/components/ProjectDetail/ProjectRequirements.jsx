@@ -76,16 +76,16 @@ function ProjectRequirements({ requirements = [] }) {
             <SectionTitle>Requerimientos Atendidos</SectionTitle>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-1.5 px-3.5 rounded-full self-start md:self-auto">
+          <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full self-start md:self-auto">
             <CheckCircle2 className="w-4 h-4 text-brand-primary" />
             <span>Total provisto:</span>
-            <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-brand-icon-bg text-brand-primary font-mono">
+            <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-icon-bg text-brand-primary font-mono">
               {totalUnidades} {totalUnidades === 1 ? "ítem" : "ítems"}
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 scrollbar-none">
+        <div className="flex items-center gap-2.5 overflow-x-auto pb-2 mb-6 scrollbar-none">
           {filters.map((tab) => {
             const isActive = selectedFilter === tab.key;
             return (
@@ -94,17 +94,17 @@ function ProjectRequirements({ requirements = [] }) {
                 type="button"
                 data-key={tab.key}
                 onClick={handleFilterClick}
-                className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-150 shrink-0 border cursor-pointer ${
+                className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 shrink-0 border cursor-pointer ${
                   isActive
-                    ? "bg-brand-primary text-white border-brand-primary shadow-xs"
-                    : "bg-white text-slate-600 border-slate-200/80 hover:bg-brand-icon-bg hover:text-brand-primary hover:border-brand-secondary/30"
+                    ? "bg-brand-icon-bg text-brand-primary border-brand-primary/40 font-semibold"
+                    : "bg-white text-slate-500 border-slate-200/80 hover:border-brand-primary/30 hover:text-brand-primary"
                 }`}
               >
                 <span>{tab.label}</span>
                 <span
-                  className={`px-1.5 py-0.2 rounded-md text-[10px] font-bold font-mono ${
+                  className={`inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-md text-[11px] font-mono leading-none transition-colors ${
                     isActive
-                      ? "bg-white/20 text-white"
+                      ? "bg-brand-primary text-white font-bold"
                       : "bg-slate-100 text-slate-500"
                   }`}
                 >
@@ -118,7 +118,7 @@ function ProjectRequirements({ requirements = [] }) {
         <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs divide-y divide-slate-100 overflow-hidden">
           <AnimatePresence mode="popLayout">
             {filteredRequirements.length === 0 ? (
-              <div className="p-8 text-center text-slate-400 text-xs font-medium">
+              <div className="p-8 text-center text-slate-400 text-sm font-medium">
                 No hay requerimientos en esta categoría.
               </div>
             ) : (
@@ -139,21 +139,21 @@ function ProjectRequirements({ requirements = [] }) {
                     className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-brand-icon-bg/30 transition-colors group"
                   >
                     <div className="flex items-start sm:items-center gap-3.5 min-w-0 flex-1">
-                      <span className="font-mono text-xs font-black text-slate-500 bg-slate-100 group-hover:bg-brand-primary group-hover:text-white transition-colors duration-200 px-2 py-1 rounded-md border border-slate-200/70 shrink-0">
+                      <span className="font-mono text-xs sm:text-sm font-black text-slate-500 bg-slate-100 group-hover:bg-brand-primary group-hover:text-white transition-colors duration-200 px-2.5 py-1.5 rounded-md border border-slate-200/70 shrink-0">
                         {correlativo}
                       </span>
 
-                      <div className="p-2 rounded-xl bg-brand-icon-bg text-brand-primary shrink-0 hidden sm:flex items-center justify-center">
+                      <div className="p-2.5 rounded-xl bg-brand-icon-bg text-brand-primary shrink-0 hidden sm:flex items-center justify-center">
                         <Icon className="w-4 h-4" />
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-semibold text-brand-dark leading-snug">
+                        <p className="text-sm sm:text-base font-semibold text-brand-dark leading-snug">
                           {item.descripcion}
                         </p>
                         <div className="sm:hidden mt-2 flex items-center gap-2">
-                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold border border-slate-200 bg-brand-icon-bg text-brand-primary">
-                            <Icon className="w-3 h-3" />
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-bold border border-slate-200 bg-brand-icon-bg text-brand-primary">
+                            <Icon className="w-3.5 h-3.5" />
                             {item.unidad_medida}
                           </span>
                         </div>
@@ -161,16 +161,16 @@ function ProjectRequirements({ requirements = [] }) {
                     </div>
 
                     <div className="flex items-center justify-between sm:justify-end gap-3.5 shrink-0 pl-9 sm:pl-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
-                      <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold border border-slate-200 bg-brand-icon-bg text-brand-primary">
-                        <Icon className="w-3.5 h-3.5 shrink-0" />
+                      <span className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-bold border border-slate-200 bg-brand-icon-bg text-brand-primary">
+                        <Icon className="w-4 h-4 shrink-0" />
                         {item.unidad_medida}
                       </span>
 
-                      <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200/80 px-3.5 py-1 rounded-xl">
-                        <span className="text-[11px] uppercase tracking-wider font-semibold text-slate-400">
+                      <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 px-4 py-1.5 rounded-xl">
+                        <span className="text-xs uppercase tracking-wider font-semibold text-slate-400">
                           Cantidad:
                         </span>
-                        <span className="font-mono font-black text-sm text-brand-dark">
+                        <span className="font-mono font-black text-sm sm:text-base text-brand-dark">
                           {item.cantidad}
                         </span>
                       </div>

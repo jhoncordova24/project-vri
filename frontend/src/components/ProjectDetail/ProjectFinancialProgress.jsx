@@ -50,10 +50,10 @@ export default function ProjectFinancialProgress({ budget = [] }) {
             <SectionTitle>Avance Financiero</SectionTitle>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 bg-white border border-slate-200/80 shadow-xs py-1.5 px-3.5 rounded-full self-start md:self-auto">
+          <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full self-start md:self-auto">
             <Coins className="w-4 h-4 text-brand-primary" />
             <span>Ejecución acumulada:</span>
-            <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-brand-primary/10 text-brand-primary">
+            <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary">
               {executionPercentage}%
             </span>
           </div>
@@ -65,14 +65,14 @@ export default function ProjectFinancialProgress({ budget = [] }) {
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Presupuesto Aprobado
               </span>
-              <div className="p-2 bg-slate-100 rounded-xl text-slate-600">
+              <div className="p-2.5 bg-slate-100 rounded-xl text-slate-600">
                 <Wallet className="w-4 h-4" />
               </div>
             </div>
             <p className="text-xl font-bold text-slate-900 tracking-tight">
               {formatCurrency(totals.aprobado)}
             </p>
-            <span className="text-[11px] text-slate-400 mt-1 block">
+            <span className="text-xs text-slate-500 mt-1 block">
               Monto total asignado
             </span>
           </div>
@@ -82,14 +82,14 @@ export default function ProjectFinancialProgress({ budget = [] }) {
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Presupuesto Ejecutado
               </span>
-              <div className="p-2 bg-brand-primary/10 rounded-xl text-brand-primary">
+              <div className="p-2.5 bg-brand-primary/10 rounded-xl text-brand-primary">
                 <TrendingUp className="w-4 h-4" />
               </div>
             </div>
             <p className="text-xl font-bold text-slate-900 tracking-tight">
               {formatCurrency(totals.ejecutado)}
             </p>
-            <span className="text-[11px] font-medium text-brand-primary mt-1 block">
+            <span className="text-xs font-medium text-brand-primary mt-1 block">
               {executionPercentage}% devengado
             </span>
           </div>
@@ -99,14 +99,14 @@ export default function ProjectFinancialProgress({ budget = [] }) {
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Saldo Disponible
               </span>
-              <div className="p-2 bg-emerald-50 rounded-xl text-emerald-600">
+              <div className="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
                 <Coins className="w-4 h-4" />
               </div>
             </div>
             <p className="text-xl font-bold text-emerald-700 tracking-tight">
               {formatCurrency(totalSaldo)}
             </p>
-            <span className="text-[11px] text-slate-400 mt-1 block">
+            <span className="text-xs text-slate-500 mt-1 block">
               Remanente por comprometer
             </span>
           </div>
@@ -116,14 +116,14 @@ export default function ProjectFinancialProgress({ budget = [] }) {
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Gasto Efectivo*
               </span>
-              <div className="p-2 bg-slate-100 rounded-xl text-slate-600">
+              <div className="p-2.5 bg-slate-100 rounded-xl text-slate-600">
                 <Receipt className="w-4 h-4" />
               </div>
             </div>
             <p className="text-xl font-bold text-slate-900 tracking-tight">
               {formatCurrency(totals.gasto)}
             </p>
-            <span className="text-[11px] text-slate-400 mt-1 block">
+            <span className="text-xs text-slate-500 mt-1 block">
               Tras rendiciones de cuentas
             </span>
           </div>
@@ -133,17 +133,15 @@ export default function ProjectFinancialProgress({ budget = [] }) {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-slate-200/80 bg-slate-50/50 text-[11px] uppercase tracking-wider font-semibold text-slate-500">
-                  <th className="py-3.5 px-6">Genérica de Gasto</th>
-                  <th className="py-3.5 px-6 text-right">
-                    Presupuesto Aprobado
-                  </th>
-                  <th className="py-3.5 px-6 text-right">
+                <tr className="border-b border-slate-200/80 bg-slate-50/50 text-xs uppercase tracking-wider font-semibold text-slate-500">
+                  <th className="py-4 px-6">Genérica de Gasto</th>
+                  <th className="py-4 px-6 text-right">Presupuesto Aprobado</th>
+                  <th className="py-4 px-6 text-right">
                     Presupuesto Ejecutado
                   </th>
-                  <th className="py-3.5 px-6 text-right">Saldo</th>
-                  <th className="py-3.5 px-6 text-right">Gasto Efectivo*</th>
-                  <th className="py-3.5 px-6 text-center">Avance</th>
+                  <th className="py-4 px-6 text-right">Saldo</th>
+                  <th className="py-4 px-6 text-right">Gasto Efectivo*</th>
+                  <th className="py-4 px-6 text-center">Avance</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-sm">
@@ -164,36 +162,36 @@ export default function ProjectFinancialProgress({ budget = [] }) {
                     >
                       <td className="py-4 px-6">
                         <div className="flex items-center gap-3">
-                          <span className="inline-flex items-center justify-center font-mono font-bold text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded-md border border-slate-200/60">
+                          <span className="inline-flex items-center justify-center font-mono font-bold text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md border border-slate-200/60">
                             {row.generica_gasto}
                           </span>
                           {row.descripcion && (
-                            <span className="text-xs font-medium text-slate-600">
+                            <span className="text-xs sm:text-sm font-medium text-slate-700">
                               {row.descripcion}
                             </span>
                           )}
                         </div>
                       </td>
 
-                      <td className="py-4 px-6 text-right font-medium text-slate-700 text-xs">
+                      <td className="py-4 px-6 text-right font-medium text-slate-700 text-xs sm:text-sm">
                         {formatCurrency(aprobado)}
                       </td>
 
-                      <td className="py-4 px-6 text-right font-semibold text-slate-900 text-xs">
+                      <td className="py-4 px-6 text-right font-semibold text-slate-900 text-xs sm:text-sm">
                         {formatCurrency(ejecutado)}
                       </td>
 
-                      <td className="py-4 px-6 text-right font-medium text-emerald-600 text-xs">
+                      <td className="py-4 px-6 text-right font-medium text-emerald-600 text-xs sm:text-sm">
                         {formatCurrency(saldo)}
                       </td>
 
-                      <td className="py-4 px-6 text-right font-medium text-slate-600 text-xs">
+                      <td className="py-4 px-6 text-right font-medium text-slate-600 text-xs sm:text-sm">
                         {formatCurrency(gasto)}
                       </td>
 
                       <td className="py-4 px-6">
                         <div className="flex items-center justify-center gap-2.5">
-                          <div className="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
+                          <div className="w-20 h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
                             <motion.div
                               className="h-full bg-brand-primary rounded-full origin-left"
                               initial={{ scaleX: 0 }}
@@ -204,7 +202,7 @@ export default function ProjectFinancialProgress({ budget = [] }) {
                               transition={{ duration: 1, ease: "easeOut" }}
                             />
                           </div>
-                          <span className="text-[11px] font-bold font-mono text-slate-500 w-10 text-right">
+                          <span className="text-xs font-bold font-mono text-slate-600 w-12 text-right">
                             {rowPercentage}%
                           </span>
                         </div>
@@ -214,8 +212,8 @@ export default function ProjectFinancialProgress({ budget = [] }) {
                 })}
               </tbody>
               <tfoot>
-                <tr className="border-t-2 border-slate-200 bg-slate-50/80 font-bold text-xs text-slate-900">
-                  <td className="py-4 px-6 flex items-center gap-2">
+                <tr className="border-t-2 border-slate-200 bg-slate-50/80 font-bold text-xs sm:text-sm text-slate-900">
+                  <td className="py-4 px-6 flex items-center gap-2.5">
                     <Layers className="w-4 h-4 text-slate-400" />
                     <span>TOTAL GENERAL</span>
                   </td>
@@ -240,7 +238,7 @@ export default function ProjectFinancialProgress({ budget = [] }) {
           </div>
         </div>
 
-        <div className="flex items-start gap-2.5 px-4 py-3 rounded-xl bg-amber-50/60 border border-amber-200/50 text-[11px] text-amber-900/80 leading-relaxed">
+        <div className="flex items-start gap-3 px-4 py-3.5 rounded-xl bg-amber-50/60 border border-amber-200/50 text-xs text-amber-900/80 leading-relaxed">
           <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
           <span>
             <strong>*Gasto Efectivo:</strong> Es el presupuesto ejecutado neto.

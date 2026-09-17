@@ -116,7 +116,7 @@ export default function Identity() {
         </div>
 
         <div
-          className="relative w-full h-64 sm:h-80 lg:h-96 rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/80 group mt-7"
+          className="relative w-full aspect-[16/4] sm:h-80 lg:h-96 rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/80 group mt-10 sm:mt-14"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="300"

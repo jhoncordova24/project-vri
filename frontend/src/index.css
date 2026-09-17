@@ -10,3 +10,18 @@
   --color-brand-hover: #1d4ed8;
   --color-brand-icon-bg: #edf2f9;
 }
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}

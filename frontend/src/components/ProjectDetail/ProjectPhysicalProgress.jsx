@@ -66,7 +66,6 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
     0,
   );
   const progressPercentage = Math.round((completedItems / totalItems) * 100);
-  const progressScale = Math.max(progressPercentage / 100, 0.05);
   const showStepper = totalItems <= 6;
   const gridColsClass = getGridColsClass(totalItems);
 
@@ -85,12 +84,12 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
             <SectionTitle>Avance Físico</SectionTitle>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 bg-white border border-slate-200/80 shadow-xs py-1.5 px-3.5 rounded-full self-start md:self-auto">
+          <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full self-start md:self-auto">
             <Compass className="w-4 h-4 text-brand-primary animate-spin-slow" />
             <span>
               {completedItems} de {totalItems} entregables validados
             </span>
-            <span className="ml-1 inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-brand-primary/10 text-brand-primary">
+            <span className="ml-1 inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary">
               {progressPercentage}%
             </span>
           </div>
@@ -104,7 +103,16 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
             const isFinished =
               item.estado?.trim().toLowerCase() === "terminado";
             const hasUrl = Boolean(item.enlace_url?.trim());
-            const isLast = index === totalItems - 1;
+
+            const CardWrapper = hasUrl ? "a" : "div";
+            const cardProps = hasUrl
+              ? {
+                  href: item.enlace_url,
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  title: `Consultar ${item.entregable}`,
+                }
+              : {};
 
             return (
               <div key={item.id || index} className="relative flex flex-col">
@@ -154,71 +162,58 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
                   </div>
                 )}
 
-                <div
-                  className={`group flex-1 flex flex-col justify-between p-4.5 rounded-2xl border transition-all duration-200 bg-white ${
+                <CardWrapper
+                  {...cardProps}
+                  className={`group flex-1 flex flex-col justify-between p-5 rounded-2xl border transition-all duration-300 bg-white ${
                     hasUrl
-                      ? "border-slate-200/90 hover:border-brand-primary/40 hover:shadow-md"
+                      ? "border-slate-200/90 hover:border-brand-primary/50 hover:shadow-lg hover:-translate-y-1 cursor-pointer"
                       : "border-slate-200/60 shadow-xs"
                   }`}
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="text-[11px] font-mono font-bold text-slate-400">
+                      <span className="text-xs font-mono font-bold text-slate-500">
                         HITO #{String(index + 1).padStart(2, "0")}
                       </span>
+                      {hasUrl && (
+                        <div className="w-7 h-7 rounded-lg bg-slate-50 group-hover:bg-brand-primary/10 text-slate-400 group-hover:text-brand-primary flex items-center justify-center transition-colors">
+                          <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </div>
+                      )}
                     </div>
 
-                    <div className="flex items-start gap-3 mb-4">
-                      <div className="p-2 rounded-xl bg-slate-100 text-slate-700 group-hover:bg-brand-primary/10 group-hover:text-brand-primary transition-colors shrink-0">
+                    <div className="flex items-start gap-3.5 mb-4">
+                      <div className="p-2.5 rounded-xl bg-slate-100 text-slate-700 group-hover:bg-brand-primary/10 group-hover:text-brand-primary transition-colors shrink-0">
                         <Icon className="w-4 h-4" />
                       </div>
 
-                      <h4 className="text-xs font-semibold text-slate-900 leading-snug line-clamp-2">
+                      <h4 className="text-sm font-semibold text-slate-900 group-hover:text-brand-primary transition-colors leading-snug line-clamp-2">
                         {item.entregable}
                       </h4>
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-[11px] text-slate-400 font-medium">
-                        Emitido: {formatDateDisplay(item.fecha)}
-                      </span>
+                  <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2">
+                    <span className="text-xs text-slate-500 font-medium">
+                      {formatDateDisplay(item.fecha)}
+                    </span>
 
-                      <span
-                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
-                          isFinished
-                            ? "bg-emerald-50 text-emerald-700 border border-emerald-200/60"
-                            : "bg-amber-50 text-amber-700 border border-amber-200/60"
-                        }`}
-                      >
-                        {isFinished ? (
-                          <CheckCircle2 className="w-2.5 h-2.5" />
-                        ) : (
-                          <Clock className="w-2.5 h-2.5" />
-                        )}
-                        <span>{item.estado || "En proceso"}</span>
-                      </span>
-                    </div>
-
-                    {hasUrl ? (
-                      <a
-                        href={item.enlace_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold text-brand-primary bg-slate-50 hover:bg-brand-primary/10 border border-slate-200/60 hover:border-brand-primary/20 transition-all duration-150 group/btn"
-                        title={`Consultar ${item.entregable}`}
-                      >
-                        <span>Consultar</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-brand-primary/70 group-hover/btn:text-brand-primary group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                      </a>
-                    ) : (
-                      <span className="text-[11px] text-slate-300 italic py-1">
-                        Sin enlace público
-                      </span>
-                    )}
+                    <span
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold shrink-0 ${
+                        isFinished
+                          ? "bg-brand-primary/10 text-brand-primary border border-brand-primary/20"
+                          : "bg-amber-50 text-amber-700 border border-amber-200/60"
+                      }`}
+                    >
+                      {isFinished ? (
+                        <CheckCircle2 className="w-3 h-3" />
+                      ) : (
+                        <Clock className="w-3 h-3" />
+                      )}
+                      <span>{item.estado || "En proceso"}</span>
+                    </span>
                   </div>
-                </div>
+                </CardWrapper>
               </div>
             );
           })}
@@ -227,3 +222,4 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
     </motion.section>
   );
 }
+  

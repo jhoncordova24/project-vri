@@ -47,11 +47,11 @@ export default function NewsArticleContent({ newsItem }) {
           <span>Comunicado oficial</span>
         </div>
 
-        <div className="max-w-[68ch] text-slate-800 font-serif">
+        <div className="max-w-3xl mx-auto text-slate-800">
           {paragraphs.map((parrafo, index) => (
             <p
               key={index}
-              className="text-sm md:text-base leading-loose mb-5 last:mb-0 text-justify"
+              className="text-sm md:text-base leading-relaxed mb-5 last:mb-0 text-justify"
             >
               {parrafo}
             </p>
