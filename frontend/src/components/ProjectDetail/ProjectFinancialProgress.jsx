@@ -12,6 +12,32 @@ const formatCurrency = (amount = 0) => {
   }).format(amount);
 };
 
+const sectionVariants = {
+  initial: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
+const rowVariants = {
+  initial: {},
+  visible: {},
+};
+
+const barVariants = {
+  initial: { scaleX: 0 },
+  visible: (percentage) => ({
+    scaleX: Math.min(percentage / 100, 1),
+    transition: {
+      duration: 1.6,
+      ease: [0.25, 1, 0.5, 1],
+      delay: 0.3,
+    },
+  }),
+};
+
 export default function ProjectFinancialProgress({ budget = [] }) {
   if (!budget || budget.length === 0) return null;
 
@@ -38,10 +64,10 @@ export default function ProjectFinancialProgress({ budget = [] }) {
   return (
     <motion.section
       className="w-full py-12 sm:py-16 bg-slate-50/70 border-t border-slate-200/70"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial="initial"
+      whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      variants={sectionVariants}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
@@ -156,9 +182,13 @@ export default function ProjectFinancialProgress({ budget = [] }) {
                       : 0;
 
                   return (
-                    <tr
+                    <motion.tr
                       key={row.id || row.generica_gasto}
                       className="hover:bg-slate-50/70 transition-colors"
+                      variants={rowVariants}
+                      initial="initial"
+                      whileInView="visible"
+                      viewport={{ once: true, amount: "some" }}
                     >
                       <td className="py-4 px-6">
                         <div className="flex items-center gap-3">
@@ -194,12 +224,8 @@ export default function ProjectFinancialProgress({ budget = [] }) {
                           <div className="w-20 h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
                             <motion.div
                               className="h-full bg-brand-primary rounded-full origin-left"
-                              initial={{ scaleX: 0 }}
-                              whileInView={{
-                                scaleX: Math.min(rowPercentage / 100, 1),
-                              }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 1, ease: "easeOut" }}
+                              variants={barVariants}
+                              custom={rowPercentage}
                             />
                           </div>
                           <span className="text-xs font-bold font-mono text-slate-600 w-12 text-right">
@@ -207,7 +233,7 @@ export default function ProjectFinancialProgress({ budget = [] }) {
                           </span>
                         </div>
                       </td>
-                    </tr>
+                    </motion.tr>
                   );
                 })}
               </tbody>

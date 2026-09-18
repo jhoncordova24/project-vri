@@ -5,11 +5,10 @@ import Button from "../common/Button";
 const EASE = [0.22, 1, 0.36, 1];
 
 const heroImages = [
-  "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=1920&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=1920&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=1920&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1920&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&w=1600&q=75",
+  "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1600&q=75",
+  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=75",
+  "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=75",
 ];
 
 const rotatingWords = [
@@ -25,7 +24,7 @@ function RotatingWord() {
   useEffect(() => {
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % rotatingWords.length);
-    }, 2600);
+    }, 3000);
     return () => clearInterval(id);
   }, []);
 
@@ -33,11 +32,11 @@ function RotatingWord() {
     <AnimatePresence mode="wait">
       <motion.span
         key={rotatingWords[index]}
-        initial={{ y: 24, opacity: 0, filter: "blur(10px)" }}
-        animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-        exit={{ y: -24, opacity: 0, filter: "blur(10px)" }}
-        transition={{ duration: 0.65, ease: EASE }}
-        className="inline-block bg-white bg-clip-text text-transparent"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -20, opacity: 0 }}
+        transition={{ duration: 0.5, ease: EASE }}
+        className="inline-block text-white"
       >
         {rotatingWords[index]}
       </motion.span>
@@ -47,33 +46,38 @@ function RotatingWord() {
 
 export default function HomeHero() {
   const [imageIndex, setImageIndex] = useState(0);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  useEffect(() => {
+    heroImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
 
   useEffect(() => {
     const id = setInterval(() => {
       setImageIndex((i) => (i + 1) % heroImages.length);
-    }, 5000);
+    }, 5500);
     return () => clearInterval(id);
   }, []);
 
   return (
-    <div className="relative min-h-[500px] h-[100svh] w-full overflow-hidden bg-slate-900">
+    <div className="relative min-h-[500px] h-[100svh] w-full overflow-hidden bg-slate-950">
       <AnimatePresence>
         <motion.img
           key={imageIndex}
           src={heroImages[imageIndex]}
-          loading={imageIndex === 0 ? "eager" : "lazy"}
-          onLoad={() => setIsImageLoaded(true)}
-          onError={() => setIsImageLoaded(true)}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: isImageLoaded ? 0.6 : 0, scale: 1 }}
+          alt="Vicerrectorado de Investigación"
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 0.55, scale: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.5, ease: EASE }}
-          className="absolute inset-0 object-cover w-full h-full brightness-60"
+          transition={{ duration: 1.2, ease: EASE }}
+          style={{ willChange: "opacity, transform" }}
+          className="absolute inset-0 object-cover w-full h-full pointer-events-none select-none"
         />
       </AnimatePresence>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/5 to-slate-950/40" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/60" />
 
       <div className="relative h-full flex items-center pt-28">
         <div className="max-w-7xl w-full mx-auto px-6 sm:px-8 z-10">
@@ -81,7 +85,6 @@ export default function HomeHero() {
             <span
               data-aos="fade-up"
               data-aos-duration="850"
-              data-aos-delay="0"
               className="block mb-2 text-xs sm:text-sm font-bold tracking-widest text-slate-300 uppercase"
             >
               Vicerrectorado de Investigación
@@ -114,7 +117,6 @@ export default function HomeHero() {
               className="flex flex-row items-center gap-2.5 sm:gap-4 flex-wrap"
             >
               <Button to="/proyectos">Ver proyectos</Button>
-
               <Button to="/nosotros" variant="secondary" icon={null}>
                 Conócenos
               </Button>

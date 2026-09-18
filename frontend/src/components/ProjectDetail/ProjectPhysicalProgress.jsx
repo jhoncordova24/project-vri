@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   CheckCircle2,
@@ -56,7 +56,23 @@ const getGridColsClass = (count) => {
   return "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5";
 };
 
+const useIsDesktop = () => {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const handler = () => setIsDesktop(mq.matches);
+    handler();
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  return isDesktop;
+};
+
 export default function ProjectPhysicalProgress({ deliverables = [] }) {
+  const isDesktop = useIsDesktop();
+
   if (!deliverables.length) return null;
 
   const totalItems = deliverables.length;
@@ -103,6 +119,12 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
             const isFinished =
               item.estado?.trim().toLowerCase() === "terminado";
             const hasUrl = Boolean(item.enlace_url?.trim());
+
+            const cardDelay = isDesktop
+              ? showStepper
+                ? index * 0.15 + 0.3
+                : (index % 4) * 0.08
+              : 0;
 
             const CardWrapper = hasUrl ? "a" : "div";
             const cardProps = hasUrl
@@ -162,58 +184,70 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
                   </div>
                 )}
 
-                <CardWrapper
-                  {...cardProps}
-                  className={`group flex-1 flex flex-col justify-between p-5 rounded-2xl border transition-all duration-300 bg-white ${
-                    hasUrl
-                      ? "border-slate-200/90 hover:border-brand-primary/50 hover:shadow-lg hover:-translate-y-1 cursor-pointer"
-                      : "border-slate-200/60 shadow-xs"
-                  }`}
+                <motion.div
+                  className="flex-1 flex flex-col"
+                  initial={{ scale: 0.9, opacity: 0, y: 16 }}
+                  whileInView={{ scale: 1, opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: "some" }}
+                  transition={{
+                    duration: 0.4,
+                    delay: cardDelay,
+                    ease: "backOut",
+                  }}
                 >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="text-xs font-mono font-bold text-slate-500">
-                        HITO #{String(index + 1).padStart(2, "0")}
-                      </span>
-                      {hasUrl && (
-                        <div className="w-7 h-7 rounded-lg bg-slate-50 group-hover:bg-brand-primary/10 text-slate-400 group-hover:text-brand-primary flex items-center justify-center transition-colors">
-                          <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="flex items-start gap-3.5 mb-4">
-                      <div className="p-2.5 rounded-xl bg-slate-100 text-slate-700 group-hover:bg-brand-primary/10 group-hover:text-brand-primary transition-colors shrink-0">
-                        <Icon className="w-4 h-4" />
+                  <CardWrapper
+                    {...cardProps}
+                    className={`group flex-1 flex flex-col justify-between p-5 rounded-2xl border transition-all duration-300 bg-white ${
+                      hasUrl
+                        ? "border-slate-200/90 hover:border-brand-primary/50 hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+                        : "border-slate-200/60 shadow-xs"
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className="text-xs font-mono font-bold text-slate-500">
+                          HITO #{String(index + 1).padStart(2, "0")}
+                        </span>
+                        {hasUrl && (
+                          <div className="w-7 h-7 rounded-lg bg-slate-50 group-hover:bg-brand-primary/10 text-slate-400 group-hover:text-brand-primary flex items-center justify-center transition-colors">
+                            <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                          </div>
+                        )}
                       </div>
 
-                      <h4 className="text-sm font-semibold text-slate-900 group-hover:text-brand-primary transition-colors leading-snug line-clamp-2">
-                        {item.entregable}
-                      </h4>
+                      <div className="flex items-start gap-3.5 mb-4">
+                        <div className="p-2.5 rounded-xl bg-slate-100 text-slate-700 group-hover:bg-brand-primary/10 group-hover:text-brand-primary transition-colors shrink-0">
+                          <Icon className="w-4 h-4" />
+                        </div>
+
+                        <h4 className="text-sm font-semibold text-slate-900 group-hover:text-brand-primary transition-colors leading-snug line-clamp-2">
+                          {item.entregable}
+                        </h4>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2">
-                    <span className="text-xs text-slate-500 font-medium">
-                      {formatDateDisplay(item.fecha)}
-                    </span>
+                    <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2">
+                      <span className="text-xs text-slate-500 font-medium">
+                        {formatDateDisplay(item.fecha)}
+                      </span>
 
-                    <span
-                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold shrink-0 ${
-                        isFinished
-                          ? "bg-brand-primary/10 text-brand-primary border border-brand-primary/20"
-                          : "bg-amber-50 text-amber-700 border border-amber-200/60"
-                      }`}
-                    >
-                      {isFinished ? (
-                        <CheckCircle2 className="w-3 h-3" />
-                      ) : (
-                        <Clock className="w-3 h-3" />
-                      )}
-                      <span>{item.estado || "En proceso"}</span>
-                    </span>
-                  </div>
-                </CardWrapper>
+                      <span
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold shrink-0 ${
+                          isFinished
+                            ? "bg-brand-primary/10 text-brand-primary border border-brand-primary/20"
+                            : "bg-amber-50 text-amber-700 border border-amber-200/60"
+                        }`}
+                      >
+                        {isFinished ? (
+                          <CheckCircle2 className="w-3 h-3" />
+                        ) : (
+                          <Clock className="w-3 h-3" />
+                        )}
+                        <span>{item.estado || "En proceso"}</span>
+                      </span>
+                    </div>
+                  </CardWrapper>
+                </motion.div>
               </div>
             );
           })}
@@ -222,4 +256,3 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
     </motion.section>
   );
 }
-  
