@@ -39,7 +39,7 @@ export default function ProjectGallery({ images = [] }) {
 
   return (
     <motion.section
-      className="w-full py-12 sm:py-16 bg-slate-50/70 border-t border-slate-200/70"
+      className="w-full py-12 sm:py-16 bg-white"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}

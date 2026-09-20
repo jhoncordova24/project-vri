@@ -17,7 +17,7 @@ export default function Leadership() {
         id: 1,
         name: "Dr. Orlando Bartolomé Zapata Coloma",
         role: "Vicerrector de Investigación",
-        bio: "Doctor en Ciencias con amplia trayectoria en gestión académica. Lidera la estrategia de desarrollo científico, tecnológico y humanístico de la institución.",
+        bio: "Doctor en Ciencias y docente universitario con sólida trayectoria en la dirección y gestión académica. Lidera las políticas institucionales orientadas al fortalecimiento de la producción científica, tecnológica y humanística de la universidad. Promueve activamente la articulación con fondos concursables nacionales, el licenciamiento de laboratorios de investigación y la consolidación de alianzas estratégicas para posicionar la innovación y el desarrollo regional en beneficio de la comunidad académica.",
         image: zapataImg,
       },
       {
@@ -154,7 +154,6 @@ export default function Leadership() {
       onFocus={() => setIsHovering(true)}
       onBlur={() => setIsHovering(false)}
       data-aos="fade-up"
-      data-aos-duration="600"
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-2">
         <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[550px] bg-brand-dark overflow-hidden">
@@ -235,7 +234,7 @@ export default function Leadership() {
               {display.role}
             </p>
 
-            <p className="text-slate-300 text-xs sm:text-sm lg:text-base leading-relaxed font-light max-w-lg ">
+            <p className="text-slate-300 text-xs sm:text-sm lg:text-base leading-relaxed font-light max-w-lg">
               {display.bio}
             </p>
           </div>

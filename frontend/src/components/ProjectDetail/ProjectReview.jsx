@@ -57,7 +57,7 @@ export default function ProjectReview({
     },
     {
       id: "modification",
-      label: "Modificaciones",
+      label: "Modif.", 
       value: modification,
       url: modificationUrl,
       valid: isValid(modification),
@@ -84,7 +84,7 @@ export default function ProjectReview({
           <SectionTitle>Marco Legal y Generalidades</SectionTitle>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           <div className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-xs">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">
               RESEÑA
@@ -128,7 +128,7 @@ export default function ProjectReview({
           </div>
 
           {legalItems.length > 0 && (
-            <div className="lg:col-span-4 flex flex-col gap-6">
+            <div className="lg:col-span-4 grid grid-cols-3 lg:flex lg:flex-col gap-2 sm:gap-3 lg:gap-5 w-full">
               {legalItems.map((item) => {
                 const Icon = item.icon;
                 const hasUrl = Boolean(item.url);
@@ -146,34 +146,35 @@ export default function ProjectReview({
                   <Component
                     key={item.id}
                     {...dynamicProps}
-                    className={`group relative flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200/80 bg-slate-50/50 transition-all duration-200 ${
+                    className={`group relative flex flex-col sm:flex-row sm:items-center sm:justify-between p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 bg-slate-50/50 transition-all duration-200 gap-1.5 sm:gap-2 min-w-0 ${
                       hasUrl
                         ? "hover:bg-white hover:shadow-md hover:-translate-y-0.5 hover:border-brand-primary/40 cursor-pointer"
                         : "cursor-default"
                     }`}
                   >
-                    <div className="flex items-center gap-3.5 min-w-0 pr-2">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3.5 min-w-0 pr-0 sm:pr-2 w-full">
+                      {/* Icono compacto */}
                       <div
-                        className={`p-2.5 rounded-xl bg-brand-icon-bg text-brand-primary shrink-0 transition-transform duration-200 ${
+                        className={`p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-brand-icon-bg text-brand-primary shrink-0 transition-all duration-200 ${
                           hasUrl ? "group-hover:scale-105" : ""
                         }`}
                       >
-                        <Icon className="w-4 h-4" />
+                        <Icon className="w-4 h-4 sm:w-4 sm:h-4" />
                       </div>
 
-                      <div className="min-w-0">
-                        <span className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-0.5">
+                      <div className="min-w-0 text-center sm:text-left flex-1 w-full">
+                        <span className="block text-[9px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-0.5 truncate">
                           {item.label}
                         </span>
-                        <span className="block text-xs sm:text-sm font-bold text-slate-800 truncate group-hover:text-slate-900">
+                        <span className="block text-[10px] sm:text-sm font-bold text-slate-800 truncate group-hover:text-slate-900 w-full px-0.5">
                           {item.value}
                         </span>
                       </div>
                     </div>
 
                     {hasUrl && (
-                      <div className="shrink-0 p-1.5 rounded-lg text-slate-300 group-hover:text-brand-primary group-hover:bg-brand-primary/5 transition-all duration-200">
-                        <ExternalLink className="w-4 h-4" />
+                      <div className="absolute top-2 right-2 sm:relative sm:top-0 sm:right-0 shrink-0 p-0.5 sm:p-1.5 rounded-md text-slate-300 group-hover:text-brand-primary group-hover:bg-brand-primary/5 transition-all duration-200">
+                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                       </div>
                     )}
                   </Component>

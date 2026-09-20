@@ -5,7 +5,7 @@ import { formatDate } from "../../utils/formatDate";
 export default function NewsSidebarWidget({ newsList }) {
   return (
     <aside className="lg:col-span-1 w-full lg:sticky lg:top-28">
-      <div className="bg-white border border-slate-200 p-5 sm:p-6 shadow-sm">
+      <div className="bg-white border border-slate-200 p-5 sm:p-6">
         <h3 className="text-sm font-bold uppercase tracking-wider text-brand-dark mb-4 pb-3 border-b border-slate-100">
           Noticias recientes
         </h3>

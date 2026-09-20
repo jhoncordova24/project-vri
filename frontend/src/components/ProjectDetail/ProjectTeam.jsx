@@ -204,10 +204,7 @@ export default function ProjectTeam({ team = [] }) {
   }`;
 
   return (
-    <section
-      className="w-full py-12 sm:py-16 bg-slate-50/50"
-      data-aos="fade-up"
-    >
+    <section className="w-full py-12 sm:py-16 bg-white" data-aos="fade-up">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center mb-6 sm:mb-12">
           <SectionLabel>Participantes</SectionLabel>

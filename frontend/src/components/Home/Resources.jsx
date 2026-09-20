@@ -8,6 +8,7 @@ import {
   Atom,
   ShieldCheck,
   BookMarked,
+  Globe2,
   ExternalLink,
 } from "lucide-react";
 
@@ -56,32 +57,31 @@ export default function Resources() {
       link: "https://revistas.unp.edu.pe/index.php/index/es",
       category: "Institucional",
     },
+    {
+      title: "PeruCRIS",
+      description:
+        "Plataforma que visibiliza la producción científica de los investigadores de la universidad ",
+      icon: Globe2,
+      link: "https://perucris.concytec.gob.pe/",
+      category: "Nacional",
+    },
   ];
 
   const marqueeItems = [...resources, ...resources];
 
   return (
-    <section className="relative overflow-hidden py-14 sm:py-20 bg-white">
-      <div className="absolute top-0 left-0 w-[400px] h-[250px] bg-brand-primary/10 blur-[100px] pointer-events-none rounded-full hidden sm:block" />
-      <div className="absolute top-0 right-0 w-[400px] h-[250px] bg-brand-primary/10 blur-[100px] pointer-events-none rounded-full hidden sm:block" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f020_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f020_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-40" />
-
+    <section
+      className="relative overflow-hidden py-14 sm:py-20 bg-white"
+      data-aos="fade-up"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <div
-          className="mx-auto max-w-2xl text-center mb-10 sm:mb-4"
-          data-aos="fade-down"
-          data-aos-duration="600"
-        >
+        <div className="mx-auto max-w-2xl text-center mb-10 sm:mb-4">
           <SectionLabel>Recursos Digitales</SectionLabel>
           <SectionTitle>
             Plataformas e información científica a tu alcance
           </SectionTitle>
 
-          <div
-            className="mt-6 flex items-center justify-center gap-6 py-4 max-w-lg mx-auto"
-            data-aos="fade-in"
-            data-aos-delay="150"
-          >
+          <div className="mt-6 flex items-center justify-center gap-6 py-4 max-w-lg mx-auto">
             <div>
               <div className="text-xl sm:text-2xl font-black font-mono text-slate-900">
                 6
@@ -147,7 +147,7 @@ export default function Resources() {
                   </div>
 
                   <div className="mt-4">
-                    <h3 className="text-sm sm:text-base font-bold text-slate-900 transition-colors duration-200 group-hover:text-brand-primary line-clamp-1">
+                    <h3 className="text-sm sm:text-base font-bold text-slate-500 transition-colors duration-200 group-hover:text-slate-900 line-clamp-1">
                       {item.title}
                     </h3>
                     <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2">
@@ -166,11 +166,7 @@ export default function Resources() {
         </div>
       </div>
 
-      <div
-        className="mt-12 flex justify-center relative z-10"
-        data-aos="fade-up"
-        data-aos-delay="300"
-      >
+      <div className="mt-12 flex justify-center relative z-10">
         <Button href="#" className="group text-xs sm:text-sm">
           Explorar todos los servicios
         </Button>

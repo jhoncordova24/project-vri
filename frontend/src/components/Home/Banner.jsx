@@ -35,22 +35,21 @@ export default function Banner() {
   const currentCall = bannerData.years[selectedYearIndex];
 
   return (
-    <section className="relative w-full pt-12 pb-8 sm:py-16 lg:py-20 text-slate-800 overflow-hidden bg-white">
-      <div className="absolute top-0 left-0 w-[400px] h-[250px] bg-brand-primary/10 blur-[100px] pointer-events-none rounded-full hidden sm:block" />
-      <div className="absolute top-0 right-0 w-[400px] h-[250px] bg-brand-primary/10 blur-[100px] pointer-events-none rounded-full hidden sm:block" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f020_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f020_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-40" />
+    <section
+      className="relative w-full py-16 sm:py-20 lg:py-24 text-slate-800 overflow-hidden bg-white"
+      data-aos="fade-up"
+    >
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/80 via-blue-50/40 to-white pointer-events-none" />
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl pointer-events-none z-0" />
+      <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-blue-300/20 rounded-full blur-3xl pointer-events-none z-0" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-6 sm:gap-12 lg:gap-16 items-center">
-          <div
-            className="lg:col-span-7 space-y-1.5 sm:space-y-6 text-left pr-0 lg:pr-4"
-            data-aos="fade-in"
-            data-aos-duration="600"
-          >
+        <div className="grid lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16 items-center">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-left pr-0 lg:pr-4">
             <div className="flex items-center justify-between gap-4">
               <SectionLabel>CONVOCATORIAS INTERNAS</SectionLabel>
 
-              <div className="hidden sm:inline-flex p-1 rounded-full border border-slate-200 bg-white/80 shadow-sm">
+              <div className="hidden sm:inline-flex p-1 rounded-full border border-slate-200 bg-white/80 shadow-sm backdrop-blur-sm">
                 {bannerData.years.map((yearData, idx) => (
                   <button
                     key={yearData.year}
@@ -73,7 +72,7 @@ export default function Banner() {
               {bannerData.description}
             </p>
 
-            <div className="pt-1 sm:pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+            <div className="pt-2 sm:pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
               <div className="inline-flex sm:hidden bg-slate-200/60 p-1 rounded-full border border-slate-300/70">
                 {bannerData.years.map((yearData, idx) => (
                   <button
@@ -95,14 +94,9 @@ export default function Banner() {
             </div>
           </div>
 
-          <div
-            className="lg:col-span-5"
-            data-aos="fade-in"
-            data-aos-duration="600"
-            data-aos-delay="100"
-          >
-            <div className="bg-white rounded-3xl p-5 sm:p-8 border border-slate-200/80 shadow-xl shadow-slate-200/50 space-y-4 sm:space-y-6">
-              <div className="flex justify-between items-center pb-3 sm:pb-4 border-b border-slate-100">
+          <div className="lg:col-span-5">
+            <div className="bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-gray-100 shadow-xl space-y-5 sm:space-y-6">
+              <div className="flex justify-between items-center pb-4 border-b border-slate-100">
                 <div>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">
                     Concurso
@@ -119,7 +113,7 @@ export default function Banner() {
 
               <div className="flex items-baseline justify-between gap-3 overflow-hidden">
                 <div className="min-w-0 flex-1">
-                  <div className="text-lg sm:text-2xl font-extrabold text-slate-800 tracking-tight truncate">
+                  <div className="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight truncate">
                     {currentCall.budget}
                   </div>
                   <div className="text-[10px] sm:text-[11px] text-slate-500 font-semibold uppercase tracking-wider mt-0.5">
@@ -128,7 +122,7 @@ export default function Banner() {
                 </div>
 
                 <div className="text-right shrink-0">
-                  <div className="text-lg sm:text-2xl font-extrabold text-slate-800">
+                  <div className="text-xl sm:text-2xl font-extrabold text-slate-800">
                     {currentCall.projects}
                   </div>
                   <div className="text-[10px] sm:text-[11px] text-slate-500 font-semibold uppercase tracking-wider mt-0.5">
@@ -160,12 +154,7 @@ export default function Banner() {
             </div>
           </div>
         </div>
-        <p
-          className="mt-6 sm:mt-10 text-center text-slate-400 text-xs"
-          data-aos="fade"
-          data-aos-duration="600"
-          data-aos-delay="200"
-        >
+        <p className="mt-10 sm:mt-12 text-center text-slate-400 text-xs">
           * Programas sujetos a disponibilidad presupuestal y evaluación de
           calidad institucional (UNP).
         </p>

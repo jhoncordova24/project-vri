@@ -43,29 +43,39 @@ const DIRECCIONES_ITEMS = [
 function BrandLogo() {
   return (
     <NavLink
-      className="flex-none rounded-md inline-flex items-center gap-x-1 focus:outline-hidden focus:opacity-80"
+      className="flex-none rounded-md inline-flex items-center gap-x-1.5 focus:outline-hidden focus:opacity-80"
       to="/"
       aria-label="Inicio"
     >
-      <img
-        src={logo2}
-        alt="Logo institucional"
-        loading="eager"
-        decoding="sync"
-        fetchPriority="high"
-        className="h-10 md:h-11 w-auto object-contain py-1"
-      />
-      <img
-        src={logo}
-        alt="Vicerrectorado de Investigación"
-        loading="eager"
-        decoding="sync"
-        fetchPriority="high"
-        className="h-10 md:h-12 w-auto object-contain py-1"
-      />
-      <span className="text-sm md:text-base font-semibold text-gray-800 leading-tight">
+      <span className="h-10 md:h-11 w-9 md:w-10 shrink-0 flex items-center justify-center">
+        <img
+          src={logo2}
+          alt="Logo institucional"
+          width="40"
+          height="44"
+          loading="eager"
+          decoding="sync"
+          fetchPriority="high"
+          className="h-full w-full object-contain py-1"
+        />
+      </span>
+
+      <span className="h-10 md:h-12 w-9 md:w-11 shrink-0 flex items-center justify-center">
+        <img
+          src={logo}
+          alt="Vicerrectorado de Investigación"
+          width="44"
+          height="48"
+          loading="eager"
+          decoding="sync"
+          fetchPriority="high"
+          className="h-full w-full object-contain py-1"
+        />
+      </span>
+
+      <span className="text-sm md:text-base font-semibold text-gray-800 leading-tight shrink-0">
         <span className="block md:hidden">VRI</span>
-        <span className="hidden md:inline md:ml-2">
+        <span className="hidden md:inline md:ml-2 whitespace-nowrap">
           Vicerrectorado de Investigación
         </span>
       </span>

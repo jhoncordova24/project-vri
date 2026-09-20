@@ -63,7 +63,7 @@ export default function ProjectFinancialProgress({ budget = [] }) {
 
   return (
     <motion.section
-      className="w-full py-12 sm:py-16 bg-slate-50/70 border-t border-slate-200/70"
+      className="w-full py-12 sm:py-16 bg-white"
       initial="initial"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
@@ -85,72 +85,73 @@ export default function ProjectFinancialProgress({ budget = [] }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
-            <div className="flex items-center justify-between gap-2 mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+        {/* Modificado a grid-cols-2 en móvil */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+          <div className="bg-white p-3.5 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="flex items-center justify-between gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 line-clamp-1">
                 Presupuesto Aprobado
               </span>
-              <div className="p-2.5 bg-slate-100 rounded-xl text-slate-600">
-                <Wallet className="w-4 h-4" />
+              <div className="p-1.5 sm:p-2.5 bg-slate-100 rounded-lg sm:rounded-xl text-slate-600 shrink-0">
+                <Wallet className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
-            <p className="text-xl font-bold text-slate-900 tracking-tight">
+            <p className="text-base sm:text-xl font-bold text-slate-900 tracking-tight truncate">
               {formatCurrency(totals.aprobado)}
             </p>
-            <span className="text-xs text-slate-500 mt-1 block">
+            <span className="text-[11px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 block line-clamp-1">
               Monto total asignado
             </span>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
-            <div className="flex items-center justify-between gap-2 mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <div className="bg-white p-3.5 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="flex items-center justify-between gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 line-clamp-1">
                 Presupuesto Ejecutado
               </span>
-              <div className="p-2.5 bg-brand-primary/10 rounded-xl text-brand-primary">
-                <TrendingUp className="w-4 h-4" />
+              <div className="p-1.5 sm:p-2.5 bg-brand-primary/10 rounded-lg sm:rounded-xl text-brand-primary shrink-0">
+                <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
-            <p className="text-xl font-bold text-slate-900 tracking-tight">
+            <p className="text-base sm:text-xl font-bold text-slate-900 tracking-tight truncate">
               {formatCurrency(totals.ejecutado)}
             </p>
-            <span className="text-xs font-medium text-brand-primary mt-1 block">
+            <span className="text-[11px] sm:text-xs font-medium text-brand-primary mt-0.5 sm:mt-1 block line-clamp-1">
               {executionPercentage}% devengado
             </span>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
-            <div className="flex items-center justify-between gap-2 mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <div className="bg-white p-3.5 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="flex items-center justify-between gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 line-clamp-1">
                 Saldo Disponible
               </span>
-              <div className="p-2.5 bg-emerald-50 rounded-xl text-emerald-600">
-                <Coins className="w-4 h-4" />
+              <div className="p-1.5 sm:p-2.5 bg-emerald-50 rounded-lg sm:rounded-xl text-emerald-600 shrink-0">
+                <Coins className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
-            <p className="text-xl font-bold text-emerald-700 tracking-tight">
+            <p className="text-base sm:text-xl font-bold text-emerald-700 tracking-tight truncate">
               {formatCurrency(totalSaldo)}
             </p>
-            <span className="text-xs text-slate-500 mt-1 block">
+            <span className="text-[11px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 block line-clamp-1">
               Remanente por comprometer
             </span>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
-            <div className="flex items-center justify-between gap-2 mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <div className="bg-white p-3.5 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="flex items-center justify-between gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 line-clamp-1">
                 Gasto Efectivo*
               </span>
-              <div className="p-2.5 bg-slate-100 rounded-xl text-slate-600">
-                <Receipt className="w-4 h-4" />
+              <div className="p-1.5 sm:p-2.5 bg-slate-100 rounded-lg sm:rounded-xl text-slate-600 shrink-0">
+                <Receipt className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
-            <p className="text-xl font-bold text-slate-900 tracking-tight">
+            <p className="text-base sm:text-xl font-bold text-slate-900 tracking-tight truncate">
               {formatCurrency(totals.gasto)}
             </p>
-            <span className="text-xs text-slate-500 mt-1 block">
-              Tras rendiciones de cuentas
+            <span className="text-[11px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 block line-clamp-1">
+              Tras rendición de cuentas
             </span>
           </div>
         </div>
@@ -262,16 +263,6 @@ export default function ProjectFinancialProgress({ budget = [] }) {
               </tfoot>
             </table>
           </div>
-        </div>
-
-        <div className="flex items-start gap-3 px-4 py-3.5 rounded-xl bg-amber-50/60 border border-amber-200/50 text-xs text-amber-900/80 leading-relaxed">
-          <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-          <span>
-            <strong>*Gasto Efectivo:</strong> Es el presupuesto ejecutado neto.
-            Se consideran las devoluciones de subvenciones, pasajes, viáticos y
-            fondos no utilizados tras las rendiciones de cuentas formales
-            realizadas por el equipo investigador.
-          </span>
         </div>
       </div>
     </motion.section>

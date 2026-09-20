@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Briefcase,
@@ -23,34 +23,90 @@ const FILTER_DEFS = [
   { key: "Unidad", label: "Bienes / Unidades" },
 ];
 
+const RequirementRow = memo(function RequirementRow({ item, index }) {
+  const Icon = CATEGORY_ICONS[item.unidad_medida] || Package;
+  const correlativo = String(index + 1).padStart(2, "0");
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-brand-icon-bg/30 transition-colors group"
+    >
+      <div className="flex items-start sm:items-center gap-3.5 min-w-0 flex-1">
+        <span className="font-mono text-xs sm:text-sm font-black text-slate-500 bg-slate-100 group-hover:bg-brand-primary group-hover:text-white transition-colors duration-200 px-2.5 py-1.5 rounded-md border border-slate-200/70 shrink-0">
+          {correlativo}
+        </span>
+
+        <div className="p-2.5 rounded-xl bg-brand-icon-bg text-brand-primary shrink-0 hidden sm:flex items-center justify-center">
+          <Icon className="w-4 h-4" />
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <p className="text-sm sm:text-base font-semibold text-brand-dark leading-snug">
+            {item.descripcion}
+          </p>
+          <div className="sm:hidden mt-2 flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-bold border border-slate-200 bg-brand-icon-bg text-brand-primary">
+              <Icon className="w-3.5 h-3.5" />
+              {item.unidad_medida}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between sm:justify-end gap-3.5 shrink-0 pl-9 sm:pl-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+        <span className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-bold border border-slate-200 bg-brand-icon-bg text-brand-primary">
+          <Icon className="w-4 h-4 shrink-0" />
+          {item.unidad_medida}
+        </span>
+
+        <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 px-4 py-1.5 rounded-xl">
+          <span className="text-xs uppercase tracking-wider font-semibold text-slate-400">
+            Cantidad:
+          </span>
+          <span className="font-mono font-black text-sm sm:text-base text-brand-dark">
+            {item.cantidad}
+          </span>
+        </div>
+      </div>
+    </motion.div>
+  );
+});
+
 function ProjectRequirements({ requirements = [] }) {
   const [selectedFilter, setSelectedFilter] = useState("Todos");
 
-  const { totalUnidades, counts, filteredRequirements } = useMemo(() => {
-    const baseCounts = { Todos: 0, Servicio: 0, Subvención: 0, Unidad: 0 };
+  const { totalUnidades, counts } = useMemo(() => {
+    const baseCounts = {
+      Todos: requirements.length,
+      Servicio: 0,
+      Subvención: 0,
+      Unidad: 0,
+    };
     let total = 0;
-    const filtered = [];
 
-    for (const item of requirements) {
+    for (let i = 0; i < requirements.length; i++) {
+      const item = requirements[i];
       total += Number(item.cantidad) || 0;
-      baseCounts.Todos += 1;
       if (baseCounts[item.unidad_medida] !== undefined) {
         baseCounts[item.unidad_medida] += 1;
       }
-      if (selectedFilter === "Todos" || item.unidad_medida === selectedFilter) {
-        filtered.push(item);
-      }
     }
 
-    return {
-      totalUnidades: total,
-      counts: baseCounts,
-      filteredRequirements: filtered,
-    };
+    return { totalUnidades: total, counts: baseCounts };
+  }, [requirements]);
+
+  const filteredRequirements = useMemo(() => {
+    if (selectedFilter === "Todos") return requirements;
+    return requirements.filter((item) => item.unidad_medida === selectedFilter);
   }, [requirements, selectedFilter]);
 
   const filters = useMemo(
-    () => FILTER_DEFS.map((f) => ({ ...f, count: counts[f.key] })),
+    () => FILTER_DEFS.map((f) => ({ ...f, count: counts[f.key] || 0 })),
     [counts],
   );
 
@@ -63,7 +119,7 @@ function ProjectRequirements({ requirements = [] }) {
 
   return (
     <motion.section
-      className="w-full py-12 sm:py-16 bg-slate-50/70 border-t border-slate-200/70"
+      className="w-full py-12 sm:py-16 bg-white"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -122,62 +178,16 @@ function ProjectRequirements({ requirements = [] }) {
                 No hay requerimientos en esta categoría.
               </div>
             ) : (
-              filteredRequirements.map((item, idx) => {
-                const Icon = CATEGORY_ICONS[item.unidad_medida] || Package;
-                const correlativo = String(idx + 1).padStart(2, "0");
-                const stableKey =
-                  item.id ?? `${item.unidad_medida}-${item.descripcion}`;
-
-                return (
-                  <motion.div
-                    key={stableKey}
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-brand-icon-bg/30 transition-colors group"
-                  >
-                    <div className="flex items-start sm:items-center gap-3.5 min-w-0 flex-1">
-                      <span className="font-mono text-xs sm:text-sm font-black text-slate-500 bg-slate-100 group-hover:bg-brand-primary group-hover:text-white transition-colors duration-200 px-2.5 py-1.5 rounded-md border border-slate-200/70 shrink-0">
-                        {correlativo}
-                      </span>
-
-                      <div className="p-2.5 rounded-xl bg-brand-icon-bg text-brand-primary shrink-0 hidden sm:flex items-center justify-center">
-                        <Icon className="w-4 h-4" />
-                      </div>
-
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm sm:text-base font-semibold text-brand-dark leading-snug">
-                          {item.descripcion}
-                        </p>
-                        <div className="sm:hidden mt-2 flex items-center gap-2">
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-bold border border-slate-200 bg-brand-icon-bg text-brand-primary">
-                            <Icon className="w-3.5 h-3.5" />
-                            {item.unidad_medida}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between sm:justify-end gap-3.5 shrink-0 pl-9 sm:pl-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
-                      <span className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-bold border border-slate-200 bg-brand-icon-bg text-brand-primary">
-                        <Icon className="w-4 h-4 shrink-0" />
-                        {item.unidad_medida}
-                      </span>
-
-                      <div className="flex items-center gap-2 bg-slate-50 border border-slate-200/80 px-4 py-1.5 rounded-xl">
-                        <span className="text-xs uppercase tracking-wider font-semibold text-slate-400">
-                          Cantidad:
-                        </span>
-                        <span className="font-mono font-black text-sm sm:text-base text-brand-dark">
-                          {item.cantidad}
-                        </span>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })
+              filteredRequirements.map((item, idx) => (
+                <RequirementRow
+                  key={
+                    item.id ??
+                    `${item.unidad_medida}-${item.descripcion}-${idx}`
+                  }
+                  item={item}
+                  index={idx}
+                />
+              ))
             )}
           </AnimatePresence>
         </div>
@@ -186,4 +196,4 @@ function ProjectRequirements({ requirements = [] }) {
   );
 }
 
-export default React.memo(ProjectRequirements);
+export default memo(ProjectRequirements);
