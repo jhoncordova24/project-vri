@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, memo } from "react";
+import { useState, useMemo, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Briefcase,
@@ -7,8 +7,7 @@ import {
   CheckCircle2,
   Package,
 } from "lucide-react";
-import SectionLabel from "../common/SectionLabel";
-import SectionTitle from "../common/SectionTitle";
+import SectionContainer from "../common/SectionContainer";
 
 const CATEGORY_ICONS = {
   Servicio: Briefcase,
@@ -118,30 +117,21 @@ function ProjectRequirements({ requirements = [] }) {
   if (!requirements || requirements.length === 0) return null;
 
   return (
-    <motion.section
-      className="w-full py-12 sm:py-16 bg-white"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <SectionLabel>LOGÍSTICA Y RECURSOS</SectionLabel>
-            <SectionTitle>Requerimientos Atendidos</SectionTitle>
-          </div>
-
-          <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full self-start md:self-auto">
-            <CheckCircle2 className="w-4 h-4 text-brand-primary" />
-            <span>Total provisto:</span>
-            <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-icon-bg text-brand-primary font-mono">
-              {totalUnidades} {totalUnidades === 1 ? "ítem" : "ítems"}
-            </span>
-          </div>
+    <SectionContainer
+      label="LOGÍSTICA Y RECURSOS"
+      title="Requerimientos Atendidos"
+      dataAos={null}
+      action={
+        <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full">
+          <CheckCircle2 className="w-4 h-4 text-brand-primary" />
+          <span>Total provisto:</span>
+          <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-icon-bg text-brand-primary font-mono">
+            {totalUnidades} {totalUnidades === 1 ? "ítem" : "ítems"}
+          </span>
         </div>
-
-        <div className="flex items-center gap-2.5 overflow-x-auto pb-2 mb-6 scrollbar-none">
+      }
+      headerBottom={
+        <div className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none">
           {filters.map((tab) => {
             const isActive = selectedFilter === tab.key;
             return (
@@ -170,7 +160,14 @@ function ProjectRequirements({ requirements = [] }) {
             );
           })}
         </div>
-
+      }
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
         <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs divide-y divide-slate-100 overflow-hidden">
           <AnimatePresence mode="popLayout">
             {filteredRequirements.length === 0 ? (
@@ -191,8 +188,8 @@ function ProjectRequirements({ requirements = [] }) {
             )}
           </AnimatePresence>
         </div>
-      </div>
-    </motion.section>
+      </motion.div>
+    </SectionContainer>
   );
 }
 

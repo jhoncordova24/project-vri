@@ -1,11 +1,4 @@
-import React, {
-  useRef,
-  useMemo,
-  useCallback,
-  useState,
-  useEffect,
-  memo,
-} from "react";
+import { useRef, useMemo, useCallback, useState, useEffect, memo } from "react";
 import {
   Mail,
   ExternalLink,
@@ -14,8 +7,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import SectionLabel from "../common/SectionLabel";
-import SectionTitle from "../common/SectionTitle";
+import SectionContainer from "../common/SectionContainer";
 
 const ROLE_PRIORITY = {
   "investigador principal": 1,
@@ -46,7 +38,7 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
 
   return (
     <div
-      className={`relative flex flex-col items-center p-5 sm:p-6 bg-white rounded-2xl border group shadow-sm w-full sm:w-[300px] lg:w-[280px] flex-shrink-0 snap-start ${
+      className={`relative flex flex-col items-center p-5 sm:p-6 bg-white rounded-2xl border group shadow-xs hover:shadow-md transition-all duration-300 w-full sm:w-[300px] lg:w-[280px] flex-shrink-0 snap-start ${
         isPrincipal
           ? "border-brand-primary/40 ring-1 ring-brand-primary/10"
           : "border-slate-200/80"
@@ -107,7 +99,7 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
             href={member.cti_vitae_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-brand-primary bg-brand-icon-bg hover:bg-brand-primary hover:text-white rounded-xl"
+            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-brand-primary bg-brand-icon-bg hover:bg-brand-primary hover:text-white rounded-xl transition-colors"
           >
             <span>CTI Vitae</span>
             <ExternalLink className="w-3 h-3" />
@@ -119,7 +111,7 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
             href={member.orcid_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-600 hover:text-white rounded-xl"
+            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-600 hover:text-white rounded-xl transition-colors"
           >
             <Award className="w-3 h-3" />
             <span>ORCID</span>
@@ -204,54 +196,51 @@ export default function ProjectTeam({ team = [] }) {
   }`;
 
   return (
-    <section className="w-full py-12 sm:py-16 bg-white" data-aos="fade-up">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center mb-6 sm:mb-12">
-          <SectionLabel>Participantes</SectionLabel>
-          <SectionTitle>Equipo de investigación</SectionTitle>
-        </div>
+    <SectionContainer
+      label="Participantes"
+      title="Equipo de investigación"
+      centered={true}
+    >
+      <div className="relative">
+        {showMobileNav && (
+          <>
+            {canScrollLeft && (
+              <button
+                type="button"
+                onClick={() => scrollByAmount(-1)}
+                className={`${navButtonBaseClass} -left-3 sm:-left-4 lg:-left-5`}
+                aria-label="Anterior"
+              >
+                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+              </button>
+            )}
+            {canScrollRight && (
+              <button
+                type="button"
+                onClick={() => scrollByAmount(1)}
+                className={`${navButtonBaseClass} -right-3 sm:-right-4 lg:-right-5`}
+                aria-label="Siguiente"
+              >
+                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+              </button>
+            )}
+          </>
+        )}
 
-        <div className="relative">
-          {showMobileNav && (
-            <>
-              {canScrollLeft && (
-                <button
-                  type="button"
-                  onClick={() => scrollByAmount(-1)}
-                  className={`${navButtonBaseClass} -left-3 sm:-left-4 lg:-left-5`}
-                  aria-label="Anterior"
-                >
-                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-                </button>
-              )}
-              {canScrollRight && (
-                <button
-                  type="button"
-                  onClick={() => scrollByAmount(1)}
-                  className={`${navButtonBaseClass} -right-3 sm:-right-4 lg:-right-5`}
-                  aria-label="Siguiente"
-                >
-                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-                </button>
-              )}
-            </>
-          )}
-
-          <div
-            ref={scrollRef}
-            className={`flex gap-6 lg:gap-8 overflow-x-auto snap-x snap-mandatory pt-4 pb-4 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${
-              !showDesktopNav ? "lg:justify-center" : ""
-            }`}
-          >
-            {sortedTeam.map((item, index) => (
-              <TeamMemberCard
-                key={item.id || item.investigadores?.id || index}
-                item={item}
-              />
-            ))}
-          </div>
+        <div
+          ref={scrollRef}
+          className={`flex gap-6 lg:gap-8 overflow-x-auto snap-x snap-mandatory pt-4 pb-4 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${
+            !showDesktopNav ? "lg:justify-center" : ""
+          }`}
+        >
+          {sortedTeam.map((item, index) => (
+            <TeamMemberCard
+              key={item.id || item.investigadores?.id || index}
+              item={item}
+            />
+          ))}
         </div>
       </div>
-    </section>
+    </SectionContainer>
   );
 }

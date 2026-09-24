@@ -1,8 +1,8 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { Wallet, TrendingUp, Coins, Receipt, Info, Layers } from "lucide-react";
+import { Wallet, TrendingUp, Coins, Receipt, Layers } from "lucide-react";
 import SectionLabel from "../common/SectionLabel";
 import SectionTitle from "../common/SectionTitle";
+import SectionContainer from "../common/SectionContainer";
 
 const formatCurrency = (amount = 0) => {
   return new Intl.NumberFormat("es-PE", {
@@ -12,7 +12,7 @@ const formatCurrency = (amount = 0) => {
   }).format(amount);
 };
 
-const sectionVariants = {
+const contentVariants = {
   initial: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -33,7 +33,7 @@ const barVariants = {
     transition: {
       duration: 1.6,
       ease: [0.25, 1, 0.5, 1],
-      delay: 0.3,
+      delay: 0.1,
     },
   }),
 };
@@ -62,14 +62,13 @@ export default function ProjectFinancialProgress({ budget = [] }) {
       : 0;
 
   return (
-    <motion.section
-      className="w-full py-12 sm:py-16 bg-white"
-      initial="initial"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={sectionVariants}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionContainer dataAos={null}>
+      <motion.div
+        initial="initial"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={contentVariants}
+      >
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
             <SectionLabel>EJECUCIÓN PRESUPUESTAL</SectionLabel>
@@ -85,7 +84,6 @@ export default function ProjectFinancialProgress({ budget = [] }) {
           </div>
         </div>
 
-        {/* Modificado a grid-cols-2 en móvil */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
           <div className="bg-white p-3.5 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs">
             <div className="flex items-center justify-between gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
@@ -264,7 +262,7 @@ export default function ProjectFinancialProgress({ budget = [] }) {
             </table>
           </div>
         </div>
-      </div>
-    </motion.section>
+      </motion.div>
+    </SectionContainer>
   );
 }

@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Camera, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
-import SectionLabel from "../common/SectionLabel";
-import SectionTitle from "../common/SectionTitle";
+import SectionContainer from "../common/SectionContainer";
 
 export default function ProjectGallery({ images = [] }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -38,29 +37,26 @@ export default function ProjectGallery({ images = [] }) {
   if (!images || images.length === 0) return null;
 
   return (
-    <motion.section
-      className="w-full py-12 sm:py-16 bg-white"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <SectionLabel>EVIDENCIAS DE CAMPO</SectionLabel>
-            <SectionTitle>Galería del Proyecto</SectionTitle>
-          </div>
-
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-1.5 px-3.5 rounded-full self-start md:self-auto">
-            <Camera className="w-4 h-4 text-brand-primary" />
-            <span>Fotografías registradas:</span>
-            <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-brand-icon-bg text-brand-primary font-mono">
-              {images.length}
-            </span>
-          </div>
+    <SectionContainer
+      label="EVIDENCIAS DE CAMPO"
+      title="Galería del Proyecto"
+      dataAos={null}
+      action={
+        <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-1.5 px-3.5 rounded-full">
+          <Camera className="w-4 h-4 text-brand-primary" />
+          <span>Fotografías registradas:</span>
+          <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-brand-icon-bg text-brand-primary font-mono">
+            {images.length}
+          </span>
         </div>
-
+      }
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {images.map((item, idx) => (
             <button
@@ -90,7 +86,7 @@ export default function ProjectGallery({ images = [] }) {
             </button>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       <AnimatePresence>
         {selectedIndex !== null && (
@@ -168,6 +164,6 @@ export default function ProjectGallery({ images = [] }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.section>
+    </SectionContainer>
   );
 }

@@ -153,7 +153,7 @@ export default function Leadership() {
       onMouseLeave={handleMouseLeaveImmediate}
       onFocus={() => setIsHovering(true)}
       onBlur={() => setIsHovering(false)}
-      data-aos="fade-up"
+      data-aos="fade-in"
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-2">
         <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[550px] bg-brand-dark overflow-hidden">

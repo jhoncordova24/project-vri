@@ -1,5 +1,4 @@
-import SectionLabel from "../common/SectionLabel";
-import SectionTitle from "../common/SectionTitle";
+import SectionContainer from "../common/SectionContainer";
 import Button from "../common/Button";
 import {
   BookOpen,
@@ -60,61 +59,59 @@ export default function Resources() {
     {
       title: "PeruCRIS",
       description:
-        "Plataforma que visibiliza la producción científica de los investigadores de la universidad ",
+        "Plataforma que visibiliza la producción científica de los investigadores de la universidad",
       icon: Globe2,
       link: "https://perucris.concytec.gob.pe/",
       category: "Nacional",
     },
   ];
 
+  const totalPlatforms = resources.length;
+  const totalCategories = new Set(resources.map((item) => item.category)).size;
   const marqueeItems = [...resources, ...resources];
 
   return (
-    <section
-      className="relative overflow-hidden py-14 sm:py-20 bg-white"
-      data-aos="fade-up"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="mx-auto max-w-2xl text-center mb-10 sm:mb-4">
-          <SectionLabel>Recursos Digitales</SectionLabel>
-          <SectionTitle>
-            Plataformas e información científica a tu alcance
-          </SectionTitle>
-
-          <div className="mt-6 flex items-center justify-center gap-6 py-4 max-w-lg mx-auto">
-            <div>
-              <div className="text-xl sm:text-2xl font-black font-mono text-slate-900">
-                6
-              </div>
-              <div className="text-[11px] sm:text-xs text-slate-500">
-                Plataformas
-              </div>
+    <SectionContainer
+      label="Recursos Digitales"
+      title="Plataformas e información científica a tu alcance"
+      centered={true}
+      className="bg-white overflow-hidden"
+      dataAos="fade-up"
+      headerBottom={
+        <div className="flex items-center justify-center gap-6 py-2 max-w-lg mx-auto">
+          <div>
+            <div className="text-xl sm:text-2xl font-black font-mono text-slate-900">
+              {totalPlatforms}
             </div>
-            <div className="w-px h-7 bg-slate-200" />
-            <div>
-              <div className="text-xl sm:text-2xl font-black font-mono text-slate-900">
-                4
-              </div>
-              <div className="text-[11px] sm:text-xs text-slate-500">
-                Categorías
-              </div>
+            <div className="text-[11px] sm:text-xs text-slate-500">
+              Plataformas
             </div>
-            <div className="w-px h-7 bg-slate-200" />
-            <div>
-              <div className="text-xl sm:text-2xl font-black font-mono text-slate-900">
-                ∞
-              </div>
-              <div className="text-[11px] sm:text-xs text-slate-500">
-                Acceso libre
-              </div>
+          </div>
+          <div className="w-px h-7 bg-slate-200" />
+          <div>
+            <div className="text-xl sm:text-2xl font-black font-mono text-slate-900">
+              {totalCategories}
+            </div>
+            <div className="text-[11px] sm:text-xs text-slate-500">
+              Categorías
+            </div>
+          </div>
+          <div className="w-px h-7 bg-slate-200" />
+          <div>
+            <div className="text-xl sm:text-2xl font-black font-mono text-slate-900">
+              ∞
+            </div>
+            <div className="text-[11px] sm:text-xs text-slate-500">
+              Acceso libre
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="relative w-full overflow-hidden py-2">
-        <div className="absolute left-0 inset-y-0 w-24 sm:w-40 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 inset-y-0 w-24 sm:w-40 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+      }
+    >
+      {/* Contenedor del Marquee extendido horizontalmente */}
+      <div className="relative w-screen left-1/2 right-1/2 -mx-[50vw] overflow-hidden py-3">
+        <div className="absolute left-0 inset-y-0 w-20 sm:w-36 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 inset-y-0 w-20 sm:w-36 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
         <div className="flex w-max animate-marquee hover:[animation-play-state:paused] gap-5 px-3">
           {marqueeItems.map((item, index) => {
@@ -147,7 +144,7 @@ export default function Resources() {
                   </div>
 
                   <div className="mt-4">
-                    <h3 className="text-sm sm:text-base font-bold text-slate-500 transition-colors duration-200 group-hover:text-slate-900 line-clamp-1">
+                    <h3 className="text-sm sm:text-base font-bold text-slate-700 transition-colors duration-200 group-hover:text-slate-900 line-clamp-1">
                       {item.title}
                     </h3>
                     <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2">
@@ -166,11 +163,11 @@ export default function Resources() {
         </div>
       </div>
 
-      <div className="mt-12 flex justify-center relative z-10">
+      <div className="mt-10 flex justify-center">
         <Button href="#" className="group text-xs sm:text-sm">
           Explorar todos los servicios
         </Button>
       </div>
-    </section>
+    </SectionContainer>
   );
 }

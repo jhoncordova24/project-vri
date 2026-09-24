@@ -44,7 +44,7 @@ export default function ProjectDetail() {
       )}
 
       {!error && project && (
-        <div className="w-full bg-slate-50/50">
+        <main className="w-full bg-slate-50/60">
           <ProjectReview
             resenia={project.resenia}
             contract={project.contrato_numero}
@@ -61,7 +61,7 @@ export default function ProjectDetail() {
           <ProjectFinancialProgress budget={project.proyecto_presupuesto} />
           <ProjectRequirements requirements={project.proyecto_requerimientos} />
           <ProjectGallery images={project.proyecto_galeria} />
-        </div>
+        </main>
       )}
     </>
   );

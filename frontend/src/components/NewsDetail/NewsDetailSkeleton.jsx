@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function NewsDetailSkeleton() {
   return (
     <section className="pt-24 md:pt-28 pb-16 bg-slate-50/60 min-h-screen">

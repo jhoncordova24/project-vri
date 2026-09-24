@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   CheckCircle2,
@@ -11,8 +11,7 @@ import {
   FileText,
   Compass,
 } from "lucide-react";
-import SectionLabel from "../common/SectionLabel";
-import SectionTitle from "../common/SectionTitle";
+import SectionContainer from "../common/SectionContainer";
 
 const DIACRITICS_REGEX = /[\u0300-\u036f]/g;
 
@@ -86,31 +85,28 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
   const gridColsClass = getGridColsClass(totalItems);
 
   return (
-    <motion.section
-      className="w-full py-12 sm:py-16 bg-white"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <SectionLabel>SEGUIMIENTO TÉCNICO</SectionLabel>
-            <SectionTitle>Avance Físico</SectionTitle>
-          </div>
-
-          <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full self-start md:self-auto">
-            <Compass className="w-4 h-4 text-brand-primary animate-spin-slow" />
-            <span>
-              {completedItems} de {totalItems} entregables validados
-            </span>
-            <span className="ml-1 inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary">
-              {progressPercentage}%
-            </span>
-          </div>
+    <SectionContainer
+      label="SEGUIMIENTO TÉCNICO"
+      title="Avance Físico"
+      dataAos={null}
+      action={
+        <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full">
+          <Compass className="w-4 h-4 text-brand-primary animate-spin-slow" />
+          <span>
+            {completedItems} de {totalItems} entregables validados
+          </span>
+          <span className="ml-1 inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary">
+            {progressPercentage}%
+          </span>
         </div>
-
+      }
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
         <div
           className={`relative grid grid-cols-2 ${gridColsClass} gap-3 sm:gap-6 md:gap-4`}
         >
@@ -252,7 +248,7 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
             );
           })}
         </div>
-      </div>
-    </motion.section>
+      </motion.div>
+    </SectionContainer>
   );
 }

@@ -14,7 +14,7 @@ export default function ProjectDetailHero({
 
   return (
     <div
-      className={`relative -mt-20 ${heightClass} w-full overflow-hidden bg-slate-900 flex items-center`}
+      className={`relative -mt-20 ${heightClass} w-full overflow-hidden bg-slate-900`}
     >
       {imageSrc && (
         <img
@@ -34,8 +34,8 @@ export default function ProjectDetailHero({
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-slate-950/60" />
 
-      <div className="relative w-full pt-32 pb-14 sm:pt-36 sm:pb-18 z-10">
-        <div className="max-w-7xl w-full mx-auto px-6 sm:px-8">
+      <div className="relative h-full flex items-center pt-20 sm:pt-24">
+        <div className="max-w-7xl w-full mx-auto px-6 sm:px-8 z-10">
           <div className="max-w-4xl">
             {loading && !title ? (
               <div className="space-y-4 mb-8 animate-pulse">
@@ -50,7 +50,7 @@ export default function ProjectDetailHero({
                     data-aos="fade-in"
                     data-aos-duration="900"
                     data-aos-delay="100"
-                    className="mb-3 sm:mb-4 font-sans text-1xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug sm:leading-tight"
+                    className="mb-3 sm:mb-4 font-sans text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug sm:leading-tight"
                   >
                     {title}
                   </h1>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   ChevronDown,
   ChevronUp,
@@ -7,8 +7,7 @@ import {
   CheckCircle2,
   ExternalLink,
 } from "lucide-react";
-import SectionLabel from "../common/SectionLabel";
-import SectionTitle from "../common/SectionTitle";
+import SectionContainer from "../common/SectionContainer";
 
 export default function ProjectReview({
   resenia,
@@ -57,7 +56,7 @@ export default function ProjectReview({
     },
     {
       id: "modification",
-      label: "Modif.", 
+      label: "Modif.",
       value: modification,
       url: modificationUrl,
       valid: isValid(modification),
@@ -74,116 +73,112 @@ export default function ProjectReview({
   ].filter((item) => item.valid);
 
   return (
-    <section
-      className="w-full pt-16 sm:pt-24 pb-12 sm:pb-16 bg-white"
-      data-aos="fade-up"
+    <SectionContainer
+      label="Información Oficial"
+      title="Marco Legal y Generalidades"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <SectionLabel>Información Oficial</SectionLabel>
-          <SectionTitle>Marco Legal y Generalidades</SectionTitle>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+        <div
+          className={`${
+            legalItems.length > 0 ? "lg:col-span-8" : "lg:col-span-12"
+          } bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-xs`}
+        >
+          <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">
+            RESEÑA
+          </h3>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
-          <div className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-xs">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">
-              RESEÑA
-            </h3>
-
-            <div className="relative">
-              <div
-                ref={contentRef}
-                className="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed text-justify overflow-hidden transition-all duration-500 ease-in-out"
-                style={{
-                  maxHeight:
-                    !isExpanded && isLongContent ? "220px" : contentHeight,
-                }}
-              >
-                {paragraphs.map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
-              </div>
-
-              {!isExpanded && isLongContent && (
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
-              )}
+          <div className="relative">
+            <div
+              ref={contentRef}
+              className="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed text-justify overflow-hidden transition-all duration-500 ease-in-out"
+              style={{
+                maxHeight:
+                  !isExpanded && isLongContent ? "220px" : contentHeight,
+              }}
+            >
+              {paragraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </div>
 
-            {isLongContent && (
-              <div className="mt-6 flex justify-start border-t border-slate-100 pt-4">
-                <button
-                  type="button"
-                  onClick={() => setIsExpanded(!isExpanded)}
-                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-brand-primary bg-brand-icon-bg hover:bg-brand-primary/20 transition-colors focus:outline-none"
-                >
-                  <span>{isExpanded ? "Leer menos" : "Leer más"}</span>
-                  {isExpanded ? (
-                    <ChevronUp className="w-3.5 h-3.5" />
-                  ) : (
-                    <ChevronDown className="w-3.5 h-3.5" />
-                  )}
-                </button>
-              </div>
+            {!isExpanded && isLongContent && (
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
             )}
           </div>
 
-          {legalItems.length > 0 && (
-            <div className="lg:col-span-4 grid grid-cols-3 lg:flex lg:flex-col gap-2 sm:gap-3 lg:gap-5 w-full">
-              {legalItems.map((item) => {
-                const Icon = item.icon;
-                const hasUrl = Boolean(item.url);
-                const Component = hasUrl ? "a" : "div";
-                const dynamicProps = hasUrl
-                  ? {
-                      href: item.url,
-                      target: "_blank",
-                      rel: "noopener noreferrer",
-                      title: `Ver documento oficial de ${item.label}`,
-                    }
-                  : {};
-
-                return (
-                  <Component
-                    key={item.id}
-                    {...dynamicProps}
-                    className={`group relative flex flex-col sm:flex-row sm:items-center sm:justify-between p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 bg-slate-50/50 transition-all duration-200 gap-1.5 sm:gap-2 min-w-0 ${
-                      hasUrl
-                        ? "hover:bg-white hover:shadow-md hover:-translate-y-0.5 hover:border-brand-primary/40 cursor-pointer"
-                        : "cursor-default"
-                    }`}
-                  >
-                    <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3.5 min-w-0 pr-0 sm:pr-2 w-full">
-                      {/* Icono compacto */}
-                      <div
-                        className={`p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-brand-icon-bg text-brand-primary shrink-0 transition-all duration-200 ${
-                          hasUrl ? "group-hover:scale-105" : ""
-                        }`}
-                      >
-                        <Icon className="w-4 h-4 sm:w-4 sm:h-4" />
-                      </div>
-
-                      <div className="min-w-0 text-center sm:text-left flex-1 w-full">
-                        <span className="block text-[9px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-0.5 truncate">
-                          {item.label}
-                        </span>
-                        <span className="block text-[10px] sm:text-sm font-bold text-slate-800 truncate group-hover:text-slate-900 w-full px-0.5">
-                          {item.value}
-                        </span>
-                      </div>
-                    </div>
-
-                    {hasUrl && (
-                      <div className="absolute top-2 right-2 sm:relative sm:top-0 sm:right-0 shrink-0 p-0.5 sm:p-1.5 rounded-md text-slate-300 group-hover:text-brand-primary group-hover:bg-brand-primary/5 transition-all duration-200">
-                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
-                      </div>
-                    )}
-                  </Component>
-                );
-              })}
+          {isLongContent && (
+            <div className="mt-6 flex justify-start border-t border-slate-100 pt-4">
+              <button
+                type="button"
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-brand-primary bg-brand-icon-bg hover:bg-brand-primary/20 transition-colors focus:outline-none cursor-pointer"
+              >
+                <span>{isExpanded ? "Leer menos" : "Leer más"}</span>
+                {isExpanded ? (
+                  <ChevronUp className="w-3.5 h-3.5" />
+                ) : (
+                  <ChevronDown className="w-3.5 h-3.5" />
+                )}
+              </button>
             </div>
           )}
         </div>
+
+        {legalItems.length > 0 && (
+          <div className="lg:col-span-4 grid grid-cols-3 lg:flex lg:flex-col gap-2 sm:gap-3 lg:gap-5 w-full">
+            {legalItems.map((item) => {
+              const Icon = item.icon;
+              const hasUrl = Boolean(item.url);
+              const Component = hasUrl ? "a" : "div";
+              const dynamicProps = hasUrl
+                ? {
+                    href: item.url,
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    title: `Ver documento oficial de ${item.label}`,
+                  }
+                : {};
+
+              return (
+                <Component
+                  key={item.id}
+                  {...dynamicProps}
+                  className={`group relative flex flex-col sm:flex-row sm:items-center sm:justify-between p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 bg-white transition-all duration-200 gap-1.5 sm:gap-2 min-w-0 ${
+                    hasUrl
+                      ? "hover:shadow-md hover:-translate-y-0.5 hover:border-brand-primary/40 cursor-pointer"
+                      : "cursor-default"
+                  }`}
+                >
+                  <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3.5 min-w-0 pr-0 sm:pr-2 w-full">
+                    <div
+                      className={`p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl bg-brand-icon-bg text-brand-primary shrink-0 transition-all duration-200 ${
+                        hasUrl ? "group-hover:scale-105" : ""
+                      }`}
+                    >
+                      <Icon className="w-4 h-4 sm:w-4 sm:h-4" />
+                    </div>
+
+                    <div className="min-w-0 text-center sm:text-left flex-1 w-full">
+                      <span className="block text-[9px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-0.5 truncate">
+                        {item.label}
+                      </span>
+                      <span className="block text-[10px] sm:text-sm font-bold text-slate-800 truncate group-hover:text-slate-900 w-full px-0.5">
+                        {item.value}
+                      </span>
+                    </div>
+                  </div>
+
+                  {hasUrl && (
+                    <div className="absolute top-2 right-2 sm:relative sm:top-0 sm:right-0 shrink-0 p-0.5 sm:p-1.5 rounded-md text-slate-300 group-hover:text-brand-primary group-hover:bg-brand-primary/5 transition-all duration-200">
+                      <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
+                    </div>
+                  )}
+                </Component>
+              );
+            })}
+          </div>
+        )}
       </div>
-    </section>
+    </SectionContainer>
   );
 }

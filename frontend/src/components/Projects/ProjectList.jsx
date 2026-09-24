@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   ArrowRight,
 } from "lucide-react";
+import SectionContainer from "../common/SectionContainer";
 
 export default function ProjectList({ projects = [], year }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -54,31 +55,22 @@ export default function ProjectList({ projects = [], year }) {
   }, [normalizedProjects, searchTerm]);
 
   return (
-    <section className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
-        <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-brand-dark tracking-tight">
-            Proyectos Aprobados
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
-            Mostrando {filteredProjects.length} de {projects.length} registros
-          </p>
+    <SectionContainer
+      title="Proyectos Aprobados"
+      description={`Mostrando ${filteredProjects.length} de ${projects.length} registros`}
+      action={
+        <div className="relative w-full md:w-72">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <input
+            type="text"
+            placeholder="Buscar por título, investigador..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors shadow-xs"
+          />
         </div>
-
-        <div className="flex items-center gap-3 w-full md:w-auto">
-          <div className="relative flex-1 md:w-72">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Buscar por título, investigador..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors"
-            />
-          </div>
-        </div>
-      </div>
-
+      }
+    >
       {filteredProjects.length === 0 ? (
         <div className="text-center py-16 bg-white/60 rounded-2xl border border-dashed border-slate-200">
           <p className="text-sm text-slate-500 font-medium">
@@ -115,7 +107,7 @@ export default function ProjectList({ projects = [], year }) {
                   <ArrowRight className="w-4 h-4 text-slate-300 md:group-hover:text-brand-primary md:group-hover:translate-x-0.5 transition-all duration-150 shrink-0 mt-1" />
                 </div>
 
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-2.5 pt-2  text-xs">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-2.5 pt-2 text-xs">
                   <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 min-w-0">
                     <div className="flex items-center gap-1.5 truncate max-w-full">
                       <User className="w-3.5 h-3.5 text-brand-primary shrink-0" />
@@ -171,6 +163,6 @@ export default function ProjectList({ projects = [], year }) {
           ))}
         </div>
       )}
-    </section>
+    </SectionContainer>
   );
 }
