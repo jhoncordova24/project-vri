@@ -58,6 +58,8 @@ export default function NewsArticleContent({ newsItem }) {
   const fechaEvento = formatEventDates(fecha_inicio, fecha_fin);
   const isVirtual = modalidad === "Virtual";
 
+  const hasEventInfo = Boolean(fechaEvento || horario || lugar);
+
   return (
     <article className="lg:col-span-2 bg-white border border-slate-200">
       <div />
@@ -71,20 +73,20 @@ export default function NewsArticleContent({ newsItem }) {
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-xs text-slate-500 font-medium">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 font-medium">
             {modalidad && (
               <>
-                <span>{modalidad}</span>
-                <span className="text-slate-300">|</span>
+                <span className="whitespace-nowrap">{modalidad}</span>
+                <span className="text-slate-300">·</span>
               </>
             )}
-            <div className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-1.5 whitespace-nowrap">
+              <Calendar className="w-3.5 h-3.5 shrink-0" />
               <span>{formatDate(creado_en)}</span>
             </div>
-            <span className="text-slate-300">|</span>
-            <div className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5" />
+            <span className="text-slate-300">·</span>
+            <div className="flex items-center gap-1.5 whitespace-nowrap">
+              <Clock className="w-3.5 h-3.5 shrink-0" />
               <span>{readingTime} min de lectura</span>
             </div>
           </div>
@@ -110,53 +112,59 @@ export default function NewsArticleContent({ newsItem }) {
           ))}
         </div>
 
-        {fecha_inicio && (
+        {hasEventInfo && (
           <section
             aria-label="Datos del evento"
             className="mt-8 border border-slate-200 bg-white"
           >
-            <dl className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
-              <div className="flex items-start gap-2.5 p-3.5">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-icon-bg text-brand-primary mt-0.5">
-                  <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
-                </span>
-                <div className="min-w-0">
-                  <dt className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-                    Fecha
-                  </dt>
-                  <dd className="text-xs font-bold text-slate-800 capitalize leading-tight mt-0.5">
-                    {fechaEvento}
-                  </dd>
+            <dl className="flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
+              {fechaEvento && (
+                <div className="flex flex-1 items-start gap-2.5 p-3.5">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-icon-bg text-brand-primary mt-0.5">
+                    <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
+                  </span>
+                  <div className="min-w-0">
+                    <dt className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                      Fecha
+                    </dt>
+                    <dd className="text-xs font-bold text-slate-800 capitalize leading-tight mt-0.5">
+                      {fechaEvento}
+                    </dd>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div className="flex items-start gap-2.5 p-3.5">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-icon-bg text-brand-primary mt-0.5">
-                  <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-                </span>
-                <div className="min-w-0">
-                  <dt className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-                    Horario
-                  </dt>
-                  <dd className="text-xs font-bold text-slate-800 leading-tight mt-0.5 break-words">
-                    {horario || "Por confirmar"}
-                  </dd>
+              {horario && (
+                <div className="flex flex-1 items-start gap-2.5 p-3.5">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-icon-bg text-brand-primary mt-0.5">
+                    <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                  </span>
+                  <div className="min-w-0">
+                    <dt className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                      Horario
+                    </dt>
+                    <dd className="text-xs font-bold text-slate-800 leading-tight mt-0.5 break-words">
+                      {horario}
+                    </dd>
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div className="flex items-start gap-2.5 p-3.5">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-icon-bg text-brand-primary mt-0.5">
-                  <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <dt className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-                    {isVirtual ? "Plataforma" : "Lugar"}
-                  </dt>
-                  <dd className="text-xs font-bold text-slate-800 leading-tight mt-0.5 break-words">
-                    {lugar || "Campus UNP"}
-                  </dd>
+              {lugar && (
+                <div className="flex flex-1 items-start gap-2.5 p-3.5">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-icon-bg text-brand-primary mt-0.5">
+                    <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <dt className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                      {isVirtual ? "Plataforma" : "Lugar"}
+                    </dt>
+                    <dd className="text-xs font-bold text-slate-800 leading-tight mt-0.5 break-words">
+                      {lugar}
+                    </dd>
+                  </div>
                 </div>
-              </div>
+              )}
             </dl>
 
             {enlace_registro && (

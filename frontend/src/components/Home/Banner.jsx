@@ -36,12 +36,12 @@ export default function Banner() {
   const currentCall = bannerData.years[selectedYearIndex];
 
   return (
-    <AmbientSection
-      className="py-16 sm:py-20 lg:py-24 text-slate-800"
-      data-aos="fade-up"
-    >
+    <AmbientSection className="py-16 sm:py-20 lg:py-24 text-slate-800">
       <div className="grid lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-16 items-center">
-        <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-left pr-0 lg:pr-4">
+        <div
+          data-aos="fade-up"
+          className="lg:col-span-7 space-y-4 sm:space-y-6 text-left pr-0 lg:pr-4"
+        >
           <div className="flex items-center justify-between gap-4">
             <SectionLabel>CONVOCATORIAS INTERNAS</SectionLabel>
 
@@ -90,7 +90,7 @@ export default function Banner() {
           </div>
         </div>
 
-        <div className="lg:col-span-5">
+        <div data-aos="fade-up" data-aos-delay="150" className="lg:col-span-5">
           <div className="bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-gray-100 shadow-xl space-y-5 sm:space-y-6">
             <div className="flex justify-between items-center pb-4 border-b border-slate-100">
               <div>
@@ -150,7 +150,11 @@ export default function Banner() {
           </div>
         </div>
       </div>
-      <p className="mt-10 sm:mt-12 text-center text-slate-400 text-xs">
+      <p
+        data-aos="fade-up"
+        data-aos-delay="200"
+        className="mt-10 sm:mt-12 text-center text-slate-400 text-xs"
+      >
         * Programas sujetos a disponibilidad presupuestal y evaluación de
         calidad institucional (UNP).
       </p>

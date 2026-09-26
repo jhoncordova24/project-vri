@@ -153,10 +153,12 @@ export default function Leadership() {
       onMouseLeave={handleMouseLeaveImmediate}
       onFocus={() => setIsHovering(true)}
       onBlur={() => setIsHovering(false)}
-      data-aos="fade-in"
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-2">
-        <div className="relative w-full aspect-[4/3] md:aspect-auto md:h-[550px] bg-brand-dark overflow-hidden">
+        <div
+          data-aos="fade"
+          className="relative w-full aspect-[4/3] md:aspect-auto md:h-[550px] bg-brand-dark overflow-hidden"
+        >
           {authorities.map((authority, idx) => {
             const isActive = idx === currentIndex;
             return (
@@ -191,7 +193,11 @@ export default function Leadership() {
           <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent md:hidden pointer-events-none" />
         </div>
 
-        <div className="flex flex-col justify-between p-6 sm:p-10 lg:p-12 relative bg-gradient-to-br from-brand-dark via-brand-dark to-brand-primary/80">
+        <div
+          data-aos="fade"
+          data-aos-delay="100"
+          className="flex flex-col justify-between p-6 sm:p-10 lg:p-12 relative bg-gradient-to-br from-brand-dark via-brand-dark to-brand-primary/80"
+        >
           <div className="absolute -top-12 -right-12 w-48 h-48 bg-brand-secondary/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="flex items-center justify-between mb-4 relative z-10">

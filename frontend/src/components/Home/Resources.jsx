@@ -80,25 +80,29 @@ export default function Resources() {
       headerBottom={
         <div className="flex items-center justify-center gap-6 py-2 max-w-lg mx-auto">
           <div>
-            <div className="text-xl sm:text-2xl font-black font-mono text-slate-900">
+            <div className="text-xl sm:text-2xl font-black font-mono text-slate-900 text-center">
               {totalPlatforms}
             </div>
             <div className="text-[11px] sm:text-xs text-slate-500">
               Plataformas
             </div>
           </div>
+
           <div className="w-px h-7 bg-slate-200" />
+
           <div>
-            <div className="text-xl sm:text-2xl font-black font-mono text-slate-900">
+            <div className="text-xl sm:text-2xl font-black font-mono text-slate-900 text-center">
               {totalCategories}
             </div>
             <div className="text-[11px] sm:text-xs text-slate-500">
               Categorías
             </div>
           </div>
+
           <div className="w-px h-7 bg-slate-200" />
+
           <div>
-            <div className="text-xl sm:text-2xl font-black font-mono text-slate-900">
+            <div className="text-xl sm:text-2xl font-black font-mono text-slate-900 text-center">
               ∞
             </div>
             <div className="text-[11px] sm:text-xs text-slate-500">
@@ -108,7 +112,6 @@ export default function Resources() {
         </div>
       }
     >
-      {/* Contenedor del Marquee extendido horizontalmente */}
       <div className="relative w-screen left-1/2 right-1/2 -mx-[50vw] overflow-hidden py-3">
         <div className="absolute left-0 inset-y-0 w-20 sm:w-36 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 inset-y-0 w-20 sm:w-36 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />

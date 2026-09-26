@@ -59,13 +59,14 @@ export default function FeaturesPreline() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <section
-      className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-12 mx-auto"
-      data-aos="fade-up"
-    >
+    <section className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-12 mx-auto">
       <div className="relative p-6 md:p-16">
         <div className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
-          <div className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-7 lg:order-2">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="100"
+            className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-7 lg:order-2"
+          >
             <div className="max-w-3xl mx-auto text-left mb-4 lg:mb-8">
               <SectionLabel>Nuestras oficinas</SectionLabel>
               <SectionTitle>Conoce nuestras dependencias</SectionTitle>
@@ -123,7 +124,7 @@ export default function FeaturesPreline() {
             </nav>
           </div>
 
-          <div className="lg:col-span-6 lg:order-1">
+          <div data-aos="fade-up" className="lg:col-span-6 lg:order-1">
             <div className="relative">
               <div className="relative min-h-[180px] sm:min-h-[480px]">
                 {OFFICES.map((office, idx) => {
