@@ -8,7 +8,7 @@ import {
   Images,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { formatDate } from "../../utils/formatDate";
+import { formatEventDates } from "../../utils/formatDate";
 
 const MODALITY_CONFIG = {
   Presencial: { icon: Users, label: "Presencial" },
@@ -20,6 +20,11 @@ function NewsCard({ item }) {
   const modality = item.modalidad ? MODALITY_CONFIG[item.modalidad] : null;
   const ModalityIcon = modality?.icon;
   const galleryCount = item.noticia_imagenes?.length || 0;
+  const displayDate = formatEventDates(
+    item.fecha_inicio,
+    item.fecha_fin,
+    item.creado_en,
+  );
 
   return (
     <article className="group relative bg-white rounded-2xl border border-slate-200/80 hover:border-brand-primary/40 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between">
@@ -63,7 +68,7 @@ function NewsCard({ item }) {
           <div className="flex items-center justify-between gap-2 text-xs text-slate-400 mb-2.5">
             <div className="flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5 shrink-0" />
-              <time>{formatDate(item.fecha_inicio || item.creado_en)}</time>
+              <time>{displayDate}</time>
             </div>
 
             {item.lugar && (

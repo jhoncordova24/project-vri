@@ -6,34 +6,11 @@ import {
   Tag,
   FileText,
 } from "lucide-react";
-import { formatDate } from "../../utils/formatDate";
+import { formatDate, formatEventDates } from "../../utils/formatDate";
 
 function getReadingTime(text = "") {
   const words = text.trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / 200));
-}
-
-function formatEventDates(inicio, fin) {
-  if (!inicio) return null;
-  const dInicio = new Date(`${inicio}T00:00:00`);
-  if (!fin || inicio === fin) {
-    return dInicio.toLocaleDateString("es-PE", {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-  }
-  const dFin = new Date(`${fin}T00:00:00`);
-  const mismoMes =
-    dInicio.getMonth() === dFin.getMonth() &&
-    dInicio.getFullYear() === dFin.getFullYear();
-
-  if (mismoMes) {
-    return `${dInicio.getDate()} al ${dFin.getDate()} de ${dFin.toLocaleDateString("es-PE", { month: "short", year: "numeric" })}`;
-  }
-  const opts = { day: "numeric", month: "short" };
-  return `${dInicio.toLocaleDateString("es-PE", opts)} al ${dFin.toLocaleDateString("es-PE", { ...opts, year: "numeric" })}`;
 }
 
 export default function NewsArticleContent({ newsItem }) {
@@ -80,11 +57,6 @@ export default function NewsArticleContent({ newsItem }) {
                 <span className="text-slate-300">·</span>
               </>
             )}
-            <div className="flex items-center gap-1.5 whitespace-nowrap">
-              <Calendar className="w-3.5 h-3.5 shrink-0" />
-              <span>{formatDate(creado_en)}</span>
-            </div>
-            <span className="text-slate-300">·</span>
             <div className="flex items-center gap-1.5 whitespace-nowrap">
               <Clock className="w-3.5 h-3.5 shrink-0" />
               <span>{readingTime} min de lectura</span>
@@ -210,3 +182,4 @@ export default function NewsArticleContent({ newsItem }) {
     </article>
   );
 }
+  

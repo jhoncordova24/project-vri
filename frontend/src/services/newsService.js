@@ -4,6 +4,7 @@ export const getLatestNews = async (limit = 3) => {
   const { data, error } = await supabase
     .from("noticias")
     .select("*")
+    .order("fecha_inicio", { ascending: false, nullsFirst: false })
     .order("creado_en", { ascending: false })
     .limit(limit);
 
@@ -42,6 +43,7 @@ export const getNews = async ({
   let query = supabase
     .from("noticias")
     .select("*", { count: "exact" })
+    .order("fecha_inicio", { ascending: false, nullsFirst: false })
     .order("creado_en", { ascending: false });
 
   if (category && category !== "Todas") {
