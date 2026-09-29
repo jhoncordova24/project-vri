@@ -176,7 +176,7 @@ export default function NewsArticleContent({ newsItem }) {
         )}
 
         <div className="mt-10 pt-4 border-t border-slate-200 text-[11px] text-slate-400">
-          Publicado el {formatDate(creado_en)} — Categoría: {categoria}
+          Publicado el {formatDate(creado_en)}
         </div>
       </div>
     </article>
