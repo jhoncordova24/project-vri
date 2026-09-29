@@ -1,5 +1,4 @@
-import React from "react";
-import { useProjects } from "../hooks/useProjects";
+import { useProjects } from "../hooks/projects/useProjects";
 import heroBg from "../assets/projects/hero.webp";
 import PageHero from "../components/common/PageHero";
 import LoadingSpinner from "../components/common/LoadingSpinner";
@@ -33,6 +32,7 @@ export default function Projects() {
         availableYears={availableYears}
         onYearChange={setSelectedYear}
         convocationData={convocationData}
+        isLoading={loading}
       />
 
       {loading && (

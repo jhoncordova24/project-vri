@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-import { getProjectById } from "../services/projectsService";
+import { getProjectById } from "../../services/projectsService";
 
-/**
- * Custom hook to fetch a single project's details by ID
- */
 export const useProjectDetail = (id) => {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);

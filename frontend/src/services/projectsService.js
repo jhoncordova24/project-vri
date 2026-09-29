@@ -111,12 +111,6 @@ export async function getProjectById(projectId) {
         cantidad,
         descripcion,
         creado_en
-      ),
-      proyecto_galeria (
-        id,
-        imagen_url,
-        descripcion,
-        creado_en
       )
     `,
     )
@@ -133,10 +127,6 @@ export async function getProjectById(projectId) {
       referencedTable: "proyecto_requerimientos",
       ascending: true,
     })
-    .order("creado_en", {
-      referencedTable: "proyecto_galeria",
-      ascending: true,
-    })
     .single();
 
   if (error) {
@@ -145,4 +135,27 @@ export async function getProjectById(projectId) {
   }
 
   return data;
+}
+
+export async function getProjectGallery({ projectId, page = 1, pageSize = 3 }) {
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize - 1;
+
+  const { data, count, error } = await supabase
+    .from("proyecto_galeria")
+    .select("id, imagen_url, descripcion, creado_en", { count: "exact" })
+    .eq("proyecto_id", projectId)
+    .order("creado_en", { ascending: true })
+    .range(from, to);
+
+  if (error) {
+    console.error("Error fetching project gallery:", error);
+    throw error;
+  }
+
+  return {
+    data: data || [],
+    totalCount: count || 0,
+    totalPages: Math.ceil((count || 0) / pageSize),
+  };
 }

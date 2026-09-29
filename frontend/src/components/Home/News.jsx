@@ -1,7 +1,7 @@
 import SectionContainer from "../common/SectionContainer";
 import Button from "../common/Button";
 import NewsCard from "../common/NewsCard";
-import { useLatestNews } from "../../hooks/useNews";
+import { useLatestNews } from "../../hooks/news/useLatestNews";
 
 export default function News() {
   const { news, loading, error } = useLatestNews(3);

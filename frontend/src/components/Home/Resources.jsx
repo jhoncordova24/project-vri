@@ -12,7 +12,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
-const resources = [
+const RESOURCES = [
   {
     title: "Repositorio UNP",
     description: "Tesis y publicaciones institucionales de acceso abierto",
@@ -66,10 +66,10 @@ const resources = [
   },
 ];
 
-const TOTAL_PLATFORMS = resources.length;
-const TOTAL_CATEGORIES = new Set(resources.map((item) => item.category)).size;
+const TOTAL_PLATFORMS = RESOURCES.length;
+const TOTAL_CATEGORIES = new Set(RESOURCES.map((r) => r.category)).size;
 
-const ResourceCard = memo(function ResourceCard({ item }) {
+const ResourceCard = memo(function ResourceCard({ item, isClone = false }) {
   const IconComponent = item.icon;
 
   return (
@@ -78,6 +78,7 @@ const ResourceCard = memo(function ResourceCard({ item }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Abrir ${item.title}`}
+      tabIndex={isClone ? -1 : 0}
       className="
         group relative isolate flex flex-col justify-between overflow-hidden
         w-[290px] sm:w-[350px] h-[210px] sm:h-[230px] shrink-0
@@ -91,9 +92,10 @@ const ResourceCard = memo(function ResourceCard({ item }) {
       <div
         aria-hidden="true"
         className="
-          pointer-events-none absolute -right-14 -top-14 -z-10 h-44 w-44 rounded-full
-          bg-brand-icon-bg blur-2xl transition-transform duration-500
-          opacity-70 group-hover:scale-125
+          pointer-events-none absolute -right-10 -top-10 -z-10 h-48 w-48 rounded-full
+          bg-[radial-gradient(circle,theme(colors.brand.icon-bg)_0%,transparent_70%)]
+          transition-transform duration-500 ease-out opacity-80
+          group-hover:scale-125
         "
       />
 
@@ -108,11 +110,9 @@ const ResourceCard = memo(function ResourceCard({ item }) {
         "
       />
 
-      <div className="flex items-start">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-primary">
-          {item.category}
-        </span>
-      </div>
+      <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand-primary">
+        {item.category}
+      </span>
 
       <div className="flex items-end justify-between gap-4">
         <div className="min-w-0">
@@ -125,6 +125,7 @@ const ResourceCard = memo(function ResourceCard({ item }) {
         </div>
 
         <span
+          aria-hidden="true"
           className="
             flex h-10 w-10 shrink-0 items-center justify-center rounded-full
             border border-slate-200 bg-brand-icon-bg text-brand-primary
@@ -148,25 +149,50 @@ function MarqueeRow({ items }) {
         [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
       "
     >
-      <div
-        className="
-          animate-marquee flex gap-5 px-3 transform-gpu will-change-transform
-          hover:[animation-play-state:paused]
-          motion-reduce:animate-none
-        "
-      >
-        <div className="flex shrink-0 gap-5">
+      <div className="animate-marquee flex transform-gpu will-change-transform motion-reduce:animate-none">
+        <div className="flex shrink-0 gap-5 pr-5">
           {items.map((item) => (
             <ResourceCard key={item.title} item={item} />
           ))}
         </div>
-        <div className="flex shrink-0 gap-5" aria-hidden="true">
+        <div className="flex shrink-0 gap-5 pr-5" aria-hidden="true">
           {items.map((item) => (
-            <ResourceCard key={`clone-${item.title}`} item={item} />
+            <ResourceCard key={`clone-${item.title}`} item={item} isClone />
           ))}
         </div>
       </div>
     </div>
+  );
+}
+
+function ResourceStats() {
+  return (
+    <dl className="mx-auto mt-2 flex w-fit items-center justify-center gap-6 px-4 py-2">
+      <div className="text-center">
+        <dd className="font-mono text-xl font-black text-brand-dark sm:text-2xl">
+          {TOTAL_PLATFORMS}
+        </dd>
+        <dt className="text-[11px] text-slate-500 sm:text-xs">Plataformas</dt>
+      </div>
+
+      <div className="h-8 w-px bg-slate-200" aria-hidden="true" />
+
+      <div className="text-center">
+        <dd className="font-mono text-xl font-black text-brand-dark sm:text-2xl">
+          {TOTAL_CATEGORIES}
+        </dd>
+        <dt className="text-[11px] text-slate-500 sm:text-xs">Categorías</dt>
+      </div>
+
+      <div className="h-8 w-px bg-slate-200" aria-hidden="true" />
+
+      <div className="text-center">
+        <dd className="font-mono text-xl font-black text-brand-primary sm:text-2xl">
+          ∞
+        </dd>
+        <dt className="text-[11px] text-slate-500 sm:text-xs">Acceso libre</dt>
+      </div>
+    </dl>
   );
 }
 
@@ -175,46 +201,13 @@ export default function Resources() {
     <SectionContainer
       label="Recursos Digitales"
       title="Plataformas e información científica a tu alcance"
-      centered={true}
+      centered
       className="bg-white overflow-hidden"
       dataAos="fade-up"
-      headerBottom={
-        <div className="mx-auto mt-2 flex w-fit items-center justify-center gap-6 px-4 py-2">
-          <div>
-            <div className="text-center font-mono text-xl font-black text-brand-dark sm:text-2xl">
-              {TOTAL_PLATFORMS}
-            </div>
-            <div className="text-[11px] text-slate-500 sm:text-xs">
-              Plataformas
-            </div>
-          </div>
-
-          <div className="h-8 w-px bg-slate-200" />
-
-          <div>
-            <div className="text-center font-mono text-xl font-black text-brand-dark sm:text-2xl">
-              {TOTAL_CATEGORIES}
-            </div>
-            <div className="text-[11px] text-slate-500 sm:text-xs">
-              Categorías
-            </div>
-          </div>
-
-          <div className="h-8 w-px bg-slate-200" />
-
-          <div>
-            <div className="text-center font-mono text-xl font-black text-brand-primary sm:text-2xl">
-              ∞
-            </div>
-            <div className="text-[11px] text-slate-500 sm:text-xs">
-              Acceso libre
-            </div>
-          </div>
-        </div>
-      }
+      headerBottom={<ResourceStats />}
     >
       <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen max-w-[100vw]">
-        <MarqueeRow items={resources} />
+        <MarqueeRow items={RESOURCES} />
       </div>
 
       <div className="mt-10 flex justify-center">

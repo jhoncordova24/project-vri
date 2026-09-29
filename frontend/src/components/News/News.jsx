@@ -1,10 +1,10 @@
 import { useState, useCallback, useTransition } from "react";
 import { Search } from "lucide-react";
 import SectionContainer from "../common/SectionContainer";
-import { useNews } from "../../hooks/useNews";
-import { useDebounce } from "../../hooks/useDebounce";
+import { useNews } from "../../hooks/news/useNews";
+import { useDebounce } from "../../hooks/common/useDebounce";
 import NewsCard from "../common/NewsCard";
-import NewsPagination from "./NewsPagination";
+import Pagination from "../common/Pagination";
 
 const CATEGORIES = [
   { id: "Todas", label: "Todas" },
@@ -144,12 +144,13 @@ export default function News() {
       </div>
 
       {!loading && !error && totalPages > 1 && (
-        <NewsPagination
+        <Pagination
           currentPage={page}
           totalPages={totalPages}
           totalCount={totalCount}
           pageSize={6}
           onPageChange={setPage}
+          itemName="noticias"
         />
       )}
     </SectionContainer>

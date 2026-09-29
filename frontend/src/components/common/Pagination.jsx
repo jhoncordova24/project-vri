@@ -1,25 +1,32 @@
 import { getPaginationRange } from "../../utils/pagination";
 
-export default function NewsPagination({
+export default function Pagination({
   currentPage,
   totalPages,
   totalCount,
   pageSize,
   onPageChange,
+  itemName = "elementos", // flexible para 'noticias', 'fotografías', etc.
+  className = "",
 }) {
+  // Si no hay páginas suficientes, no renderizar nada
+  if (totalPages <= 1 || totalCount === 0) return null;
+
   const paginationRange = getPaginationRange(currentPage, totalPages);
 
   const startItem = (currentPage - 1) * pageSize + 1;
   const endItem = Math.min(currentPage * pageSize, totalCount);
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-12 pt-6 border-t border-slate-200/80 text-sm text-slate-500">
+    <div
+      className={`flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-slate-200/80 text-sm text-slate-500 ${className}`}
+    >
       <div>
         Mostrando de{" "}
         <span className="font-semibold text-brand-dark">{startItem}</span> a{" "}
         <span className="font-semibold text-brand-dark">{endItem}</span> de{" "}
         <span className="font-semibold text-brand-dark">{totalCount}</span>{" "}
-        noticias
+        {itemName}
       </div>
 
       <div className="flex items-center gap-1.5">
@@ -44,7 +51,10 @@ export default function NewsPagination({
         {paginationRange.map((pageNumber, idx) => {
           if (pageNumber === "...") {
             return (
-              <span key={idx} className="px-2 py-1.5 text-slate-400">
+              <span
+                key={`ellipsis-${idx}`}
+                className="px-2 py-1.5 text-slate-400"
+              >
                 ...
               </span>
             );
@@ -54,7 +64,7 @@ export default function NewsPagination({
 
           return (
             <button
-              key={idx}
+              key={pageNumber}
               onClick={() => onPageChange(pageNumber)}
               className={`px-3.5 py-1.5 rounded-xl font-semibold transition-all ${
                 isActive

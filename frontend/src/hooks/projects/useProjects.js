@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   getAvailableYears,
   getProjectsByYear,
-} from "../services/projectsService";
+} from "../../services/projectsService";
 
 export function useProjects(defaultYear = 2025) {
   const { year } = useParams();
@@ -95,7 +95,7 @@ export function useProjects(defaultYear = 2025) {
     setSelectedYear: handleYearChange,
     availableYears,
     convocationData,
-    projects, // Lista procesada lista para mapear
+    projects, 
     loading,
     error,
   };

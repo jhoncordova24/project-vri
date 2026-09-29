@@ -11,6 +11,13 @@ import {
 } from "lucide-react";
 import SectionContainer from "../common/SectionContainer";
 
+const removeAccents = (str = "") =>
+  str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+
 export default function ProjectList({ projects = [], year }) {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -37,16 +44,16 @@ export default function ProjectList({ projects = [], year }) {
   }, [projects]);
 
   const filteredProjects = useMemo(() => {
-    const term = searchTerm.toLowerCase().trim();
+    const term = removeAccents(searchTerm);
 
     const filtered = !term
       ? normalizedProjects
       : normalizedProjects.filter(
           (p) =>
-            p.titulo?.toLowerCase().includes(term) ||
-            p.investigadorPrincipalNombre.toLowerCase().includes(term) ||
-            p.gestorNombre?.toLowerCase().includes(term) ||
-            p.linea_investigacion?.toLowerCase().includes(term),
+            removeAccents(p.titulo).includes(term) ||
+            removeAccents(p.investigadorPrincipalNombre).includes(term) ||
+            removeAccents(p.gestorNombre || "").includes(term) ||
+            removeAccents(p.linea_investigacion || "").includes(term),
         );
 
     return [...filtered].sort((a, b) =>

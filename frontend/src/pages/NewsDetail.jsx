@@ -1,6 +1,5 @@
-import React from "react";
 import { useParams } from "react-router-dom";
-import { useNewsDetail } from "../hooks/useNewsDetail";
+import { useNewsDetail } from "../hooks/news/useNewsDetail";
 import NewsDetailContent from "../components/NewsDetail/NewsDetail";
 
 export default function NewsDetail() {

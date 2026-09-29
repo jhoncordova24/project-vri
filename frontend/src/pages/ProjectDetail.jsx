@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams, useLocation } from "react-router-dom";
 import ProjectDetailHero from "../components/ProjectDetail/ProjectDetailHero";
 import ProjectReview from "../components/ProjectDetail/ProjectReview";
@@ -8,7 +7,7 @@ import ProjectFinancialProgress from "../components/ProjectDetail/ProjectFinanci
 import ProjectRequirements from "../components/ProjectDetail/ProjectRequirements";
 import ProjectGallery from "../components/ProjectDetail/ProjectGallery";
 import LoadingSpinner from "../components/common/LoadingSpinner";
-import { useProjectDetail } from "../hooks/useProjectDetail";
+import { useProjectDetail } from "../hooks/projects/useProjectDetail";
 import heroBg from "../assets/projects/hero.webp";
 
 export default function ProjectDetail() {
@@ -60,7 +59,7 @@ export default function ProjectDetail() {
           />
           <ProjectFinancialProgress budget={project.proyecto_presupuesto} />
           <ProjectRequirements requirements={project.proyecto_requerimientos} />
-          <ProjectGallery images={project.proyecto_galeria} />
+          <ProjectGallery projectId={project.id} />
         </main>
       )}
     </>
