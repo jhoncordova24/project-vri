@@ -52,22 +52,24 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
       )}
 
       <div className="relative mb-4 mt-2">
-        <div className="w-28 h-28 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-tr from-slate-900 via-slate-800 to-brand-primary text-white font-bold text-2xl tracking-wider select-none">
-          {member.foto_url ? (
-            <img
-              src={member.foto_url}
-              alt={member.nombres_apellidos}
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
-          ) : (
+        {member.foto_url ? (
+          <img
+            src={member.foto_url}
+            alt={member.nombres_apellidos}
+            loading="lazy"
+            decoding="async"
+            width="112"
+            height="112"
+            className="w-28 h-28 rounded-full object-cover border-2 border-slate-100"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+          />
+        ) : (
+          <div className="w-28 h-28 rounded-full flex items-center justify-center bg-gradient-to-tr from-slate-900 via-slate-800 to-brand-primary text-white font-bold text-2xl tracking-wider select-none border-2 border-slate-100">
             <span>{getInitials(member.nombres_apellidos)}</span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <div className="min-h-[3rem] flex items-center justify-center w-full px-2">

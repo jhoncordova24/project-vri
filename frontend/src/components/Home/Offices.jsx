@@ -18,7 +18,7 @@ const OFFICES = [
     description:
       "Gestionamos y respaldamos proyectos de investigación básica y aplicada, velando por la integridad académica y la producción científica universitaria.",
     image: investigacionImg,
-    link: "#investigacion",
+    link: "/direcciones/investigacion",
     icon: Microscope,
   },
   {
@@ -29,7 +29,7 @@ const OFFICES = [
     description:
       "Impulsamos startups y emprendimientos de base tecnológica con mentoría especializada y acompañamiento estratégico.",
     image: incubadoraImg,
-    link: "#incubadora",
+    link: "/direcciones/incubadora-empresas",
     icon: Rocket,
   },
   {
@@ -40,7 +40,7 @@ const OFFICES = [
     description:
       "Fomentamos la formación científica temprana y fortalecemos la articulación de capacidades tecnológicas con el entorno.",
     image: innovacionImg,
-    link: "#transferencia",
+    link: "/direcciones/innovacion-transferencia",
     icon: Lightbulb,
   },
   {
@@ -51,7 +51,7 @@ const OFFICES = [
     description:
       "Articulamos las unidades productivas universitarias y la puesta en valor del patrimonio científico a través del Instituto de Paleontología.",
     image: bienesImg,
-    link: "#servicios",
+    link: "/direcciones/produccion-bienes-servicios",
     icon: Compass,
   },
 ];
@@ -148,20 +148,23 @@ export default function FeaturesPreline() {
                         src={office.image}
                         alt={office.title}
                         loading="lazy"
+                        decoding="async"
+                        width="600"
+                        height="480"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent transition-opacity duration-500 group-hover:from-slate-950/90" />
 
                       <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-auto flex flex-wrap items-center gap-1.5 sm:gap-2 pointer-events-none">
-                        <span className="bg-white/90 backdrop-blur-md text-brand-primary text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2.5 py-1 sm:px-3 rounded-full shadow-sm whitespace-nowrap">
+                        <span className="bg-white/95 text-brand-primary text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2.5 py-1 sm:px-3 rounded-full shadow-sm whitespace-nowrap">
                           {office.badge}
                         </span>
-                        <span className="bg-slate-900/80 backdrop-blur-md text-white text-[10px] sm:text-xs font-medium px-2.5 py-1 sm:px-3 rounded-full whitespace-nowrap">
+                        <span className="bg-slate-900/90 text-white text-[10px] sm:text-xs font-medium px-2.5 py-1 sm:px-3 rounded-full whitespace-nowrap">
                           {office.stats}
                         </span>
                       </div>
 
                       <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
-                        <Button href={office.link}>Ir a esta sección</Button>
+                        <Button to={office.link}>Ir a esta sección</Button>
                       </div>
                     </div>
                   );

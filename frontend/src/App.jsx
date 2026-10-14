@@ -51,10 +51,9 @@ function AppContent() {
             element={<Navigate to="/proyectos/2025" replace />}
           />
 
-          {/* Direcciones */}
           <Route
             path="/direcciones/investigacion"
-            element={<UnderConstruction title="Dirección de Investigación" />}
+            element={<UnderConstruction title="Investigación" />}
           />
           <Route
             path="/direcciones/incubadora-empresas"
@@ -75,12 +74,9 @@ function AppContent() {
             }
           />
 
-          {/* Desarrollo */}
           <Route
             path="/desarrollo/comite-etica"
-            element={
-              <UnderConstruction title="Comité de Ética" />
-            }
+            element={<UnderConstruction title="Comité de Ética" />}
           />
           <Route
             path="/desarrollo/propiedad-intelectual-patentes"
@@ -97,7 +93,6 @@ function AppContent() {
             element={<UnderConstruction title="IOARR" />}
           />
 
-          {/* Contacto */}
           <Route
             path="/contacto"
             element={<UnderConstruction title="Contacto" />}

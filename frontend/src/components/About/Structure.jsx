@@ -65,24 +65,23 @@ export default function Structure() {
       title="Liderazgo académico y científico comprometido con el desarrollo"
       centered={true}
       className="bg-white"
+      dataAos="fade-up"
     >
       <div className="space-y-12">
-        <div
-          className="flex justify-center text-center"
-          data-aos="fade-up"
-          data-aos-duration="800"
-          data-aos-delay="100"
-          data-aos-easing="ease-out-cubic"
-        >
+        <div className="flex justify-center text-center">
           <div className="flex flex-col items-center">
             {LEADERSHIP.image ? (
               <img
-                className="rounded-full w-28 h-28 sm:w-32 sm:h-32 object-cover ring-4 ring-slate-50 transition-transform duration-300 hover:scale-105"
+                className="rounded-full w-28 h-28 sm:w-32 sm:h-32 object-cover ring-4 ring-slate-50 transition-transform duration-300 hover:scale-105 will-change-transform"
                 src={LEADERSHIP.image}
                 alt={LEADERSHIP.name}
+                loading="lazy"
+                decoding="async"
+                width="128"
+                height="128"
               />
             ) : (
-              <div className="flex items-center justify-center rounded-full w-28 h-28 sm:w-32 sm:h-32 bg-slate-100 text-slate-400 ring-4 ring-slate-50 transition-all duration-300 hover:scale-105 hover:bg-slate-200">
+              <div className="flex items-center justify-center rounded-full w-28 h-28 sm:w-32 sm:h-32 bg-slate-100 text-slate-400 ring-4 ring-slate-50">
                 <User className="w-14 h-14" />
               </div>
             )}
@@ -95,31 +94,29 @@ export default function Structure() {
           </div>
         </div>
 
-        <div
-          className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-6 lg:gap-x-8 gap-y-12"
-          data-aos="fade-up"
-          data-aos-duration="800"
-          data-aos-delay="200"
-          data-aos-easing="ease-out-cubic"
-        >
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-6 lg:gap-x-8 gap-y-10">
           {DIRECTORS.map((member, idx) => (
             <div
-              key={idx}
+              key={member.name || idx}
               className="flex flex-col items-center text-center px-1"
             >
               {member.image ? (
                 <img
-                  className="rounded-full w-24 h-24 sm:w-28 sm:h-28 mx-auto object-cover ring-2 ring-slate-100 transition-transform duration-300 hover:scale-105"
+                  className="rounded-full w-24 h-24 sm:w-28 sm:h-28 mx-auto object-cover ring-2 ring-slate-100 transition-transform duration-300 hover:scale-105 will-change-transform"
                   src={member.image}
                   alt={member.name}
+                  loading="lazy"
+                  decoding="async"
+                  width="112"
+                  height="112"
                 />
               ) : (
-                <div className="flex items-center justify-center rounded-full w-24 h-24 sm:w-28 sm:h-28 mx-auto bg-slate-100 text-slate-400 ring-2 ring-slate-100 transition-all duration-300 hover:scale-105 hover:bg-slate-200">
+                <div className="flex items-center justify-center rounded-full w-24 h-24 sm:w-28 sm:h-28 mx-auto bg-slate-100 text-slate-400 ring-2 ring-slate-100">
                   <User className="w-10 h-10 sm:w-12 sm:h-12" />
                 </div>
               )}
-              <div className="mt-3 sm:mt-4 space-y-1 w-full max-w-[280px]">
-                <h4 className="text-sm sm:text-[15px] font-semibold text-slate-900 leading-snug xl:whitespace-nowrap">
+              <div className="mt-3 sm:mt-4 space-y-1 w-full max-w-[260px]">
+                <h4 className="text-sm sm:text-[15px] font-semibold text-slate-900 leading-snug">
                   {member.name}
                 </h4>
                 <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">

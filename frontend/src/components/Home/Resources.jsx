@@ -144,7 +144,7 @@ function MarqueeRow({ items }) {
   return (
     <div
       className="
-        relative w-full max-w-full min-w-0 overflow-x-clip py-4
+        relative w-full max-w-full min-w-0 overflow-x-clip pt-1 pb-4
         [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
         [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
       "
@@ -206,7 +206,7 @@ export default function Resources() {
       dataAos="fade-up"
       headerBottom={<ResourceStats />}
     >
-      <div className="w-full max-w-full min-w-0 overflow-hidden">
+      <div className="w-full max-w-full min-w-0 overflow-hidden -mt-2 sm:-mt-3">
         <MarqueeRow items={RESOURCES} />
       </div>
 

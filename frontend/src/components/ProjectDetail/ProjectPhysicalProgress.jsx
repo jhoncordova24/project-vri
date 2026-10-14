@@ -106,12 +106,12 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
       title="Avance Físico"
       dataAos={null}
       action={
-        <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full">
-          <Compass className="w-4 h-4 text-brand-primary will-change-transform animate-spin-slow" />
-          <span>
+        <div className="inline-flex w-fit items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full">
+          <Compass className="w-4 h-4 text-brand-primary will-change-transform animate-spin-slow shrink-0" />
+          <span className="whitespace-nowrap">
             {completedItems} de {totalItems} entregables validados
           </span>
-          <span className="ml-1 inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary">
+          <span className="ml-1 inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary shrink-0">
             {progressPercentage}%
           </span>
         </div>
@@ -177,9 +177,9 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
 
               <CardWrapper
                 {...cardProps}
-                className={`group flex-1 flex flex-col justify-between p-3.5 sm:p-5 rounded-2xl border bg-white transform-gpu transition-[border-color,box-shadow,transform] duration-200 ${
+                className={`group flex-1 flex flex-col justify-between p-3.5 sm:p-5 rounded-2xl border bg-white transition-[border-color,box-shadow] duration-200 ${
                   hasUrl
-                    ? "border-slate-200/90 hover:border-brand-primary/50 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+                    ? "border-slate-200/90 hover:border-brand-primary/50 hover:shadow-md cursor-pointer"
                     : "border-slate-200/60 shadow-xs"
                 }`}
               >

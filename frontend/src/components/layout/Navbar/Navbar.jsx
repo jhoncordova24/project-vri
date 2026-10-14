@@ -7,7 +7,7 @@ import logo2 from "../../../assets/logo-2.webp";
 
 const DIRECCIONES_ITEMS = [
   {
-    label: "Dirección de Investigación",
+    label: "Investigación",
     to: "/direcciones/investigacion",
   },
   {
