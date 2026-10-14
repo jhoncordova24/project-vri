@@ -98,8 +98,8 @@ function DropdownMenuList({ items, onCloseAll, isMobile = false }) {
               isMobile
                 ? `py-2.5 px-4 rounded-xl text-sm ${
                     isActive
-                      ? "text-brand-primary font-semibold bg-brand-primary/5"
-                      : "text-gray-700 hover:bg-gray-50"
+                      ? "text-brand-primary font-semibold"
+                      : "text-gray-700"
                   }`
                 : `py-2 px-3 text-sm rounded-xl ${
                     isActive
@@ -171,9 +171,7 @@ export default function Navbar() {
 
   const mobileLinkClass = ({ isActive }) =>
     `block py-3 px-4 rounded-xl text-[15px] transition-colors ${
-      isActive
-        ? "text-brand-primary font-semibold bg-brand-primary/5"
-        : "text-gray-800 hover:bg-gray-50"
+      isActive ? "text-brand-primary font-semibold" : "text-gray-800"
     }`;
 
   return (
@@ -322,18 +320,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-y-1">
-            <NavLink
-              className={({ isActive }) =>
-                `block py-3 px-4 rounded-xl text-[15px] transition-colors ${
-                  isActive
-                    ? "text-brand-primary font-semibold"
-                    : "text-gray-800 hover:bg-gray-50"
-                }`
-              }
-              to="/"
-              end
-              onClick={closeAll}
-            >
+            <NavLink className={mobileLinkClass} to="/" end onClick={closeAll}>
               Inicio
             </NavLink>
             <NavLink
@@ -347,7 +334,7 @@ export default function Navbar() {
             <div>
               <button
                 type="button"
-                className="w-full flex items-center justify-between py-3 px-4 rounded-xl text-[15px] text-gray-800 hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between py-3 px-4 rounded-xl text-[15px] text-gray-800 transition-colors"
                 onClick={() => setMobileDireccionesOpen((v) => !v)}
               >
                 Direcciones
@@ -373,11 +360,10 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Desplegable Desarrollo Móvil */}
             <div>
               <button
                 type="button"
-                className="w-full flex items-center justify-between py-3 px-4 rounded-xl text-[15px] text-gray-800 hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between py-3 px-4 rounded-xl text-[15px] text-gray-800 transition-colors"
                 onClick={() => setMobileDesarrolloOpen((v) => !v)}
               >
                 Desarrollo

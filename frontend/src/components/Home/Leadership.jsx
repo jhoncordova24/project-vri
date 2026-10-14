@@ -17,7 +17,7 @@ export default function Leadership() {
         id: 1,
         name: "Dr. Orlando Bartolomé Zapata Coloma",
         role: "Vicerrector de Investigación",
-        bio: "Doctor en Ciencias con amplia trayectoria en gestión académica. Lidera las políticas de fortalecimiento científico de la UNP, promoviendo el desarrollo de laboratorios, fondos concursables y alianzas estratégicas para la innovación regional.",
+        bio: "Doctor en Ciencias con amplia trayectoria en gestión académica. Lidera las políticas de fortalecimiento científico de la UNP, promoviendo el desarrollo de laboratorios, fondos concursables y alianzas estratégicas para la innovación.",
         image: zapataImg,
       },
       {

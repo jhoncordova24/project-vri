@@ -79,7 +79,7 @@ function AppContent() {
           <Route
             path="/desarrollo/comite-etica"
             element={
-              <UnderConstruction title="Comité de Ética en Investigación" />
+              <UnderConstruction title="Comité de Ética" />
             }
           />
           <Route
