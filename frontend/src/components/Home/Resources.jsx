@@ -144,12 +144,12 @@ function MarqueeRow({ items }) {
   return (
     <div
       className="
-        relative w-full overflow-hidden py-4
+        relative w-full max-w-full min-w-0 overflow-x-clip py-4
         [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
         [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
       "
     >
-      <div className="animate-marquee flex transform-gpu will-change-transform motion-reduce:animate-none">
+      <div className="animate-marquee flex w-max max-w-none transform-gpu will-change-transform motion-reduce:animate-none">
         <div className="flex shrink-0 gap-5 pr-5">
           {items.map((item) => (
             <ResourceCard key={item.title} item={item} />
@@ -206,7 +206,7 @@ export default function Resources() {
       dataAos="fade-up"
       headerBottom={<ResourceStats />}
     >
-      <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen max-w-[100vw]">
+      <div className="w-full max-w-full min-w-0 overflow-hidden">
         <MarqueeRow items={RESOURCES} />
       </div>
 
