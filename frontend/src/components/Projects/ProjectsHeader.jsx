@@ -62,16 +62,16 @@ export default function ProjectsHeader({
       description="Consulta resoluciones, bases, presupuestos e investigadores principales por año académico."
       className="border-b border-slate-200/80"
       action={
-        <div className="w-fit bg-white/90 backdrop-blur-md p-1.5 sm:px-5 sm:py-3 rounded-xl sm:rounded-2xl border border-slate-200/90 shadow-xs flex items-center gap-2 sm:gap-4">
+        <div className="w-fit self-start md:self-auto bg-white/90 backdrop-blur-md p-1.5 sm:px-5 sm:py-3 rounded-xl sm:rounded-2xl border border-slate-200/90 shadow-xs flex items-center gap-2 sm:gap-4">
           <span className="hidden sm:inline-block text-[11px] font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
             Seleccionar Convocatoria
           </span>
 
           <div className="inline-flex p-0.5 sm:p-1 rounded-lg sm:rounded-full bg-slate-100/80 border border-slate-200/80 gap-0.5 sm:gap-1">
             {isYearsLoading ? (
-              <div className="flex gap-1 animate-pulse">
-                <div className="w-14 sm:w-16 h-6 sm:h-8 bg-slate-200 rounded-md sm:rounded-full" />
-                <div className="w-14 sm:w-16 h-6 sm:h-8 bg-slate-200 rounded-md sm:rounded-full" />
+              <div className="flex gap-0.5 sm:gap-1 animate-pulse">
+                <div className="w-[52px] sm:w-[72px] h-[25px] sm:h-[35px] bg-slate-200/90 rounded-md sm:rounded-full" />
+                <div className="w-[52px] sm:w-[72px] h-[25px] sm:h-[35px] bg-slate-200/60 rounded-md sm:rounded-full" />
               </div>
             ) : (
               availableYears.map((year) => {

@@ -1,10 +1,12 @@
+import { useState } from "react";
+import { Microscope, Compass, Lightbulb, Rocket } from "lucide-react";
 import SectionLabel from "../common/SectionLabel";
 import SectionTitle from "../common/SectionTitle";
-import { useState } from "react";
-import { Microscope, Wrench, Lightbulb, Rocket } from "lucide-react";
 import Button from "../common/Button";
-import incubadoraImg from "../../assets/offices/4.webp";
-import bienesImg from "../../assets/offices/2.webp";
+
+import investigacionImg from "../../assets/offices/investigacion.webp";
+import bienesImg from "../../assets/offices/bienes.webp";
+import incubadoraImg from "../../assets/offices/incubadora.webp";
 
 const OFFICES = [
   {
@@ -13,45 +15,44 @@ const OFFICES = [
     badge: "Investigación",
     stats: "25+ proyectos activos",
     description:
-      "Gestionamos y financiamos proyectos científicos de alto impacto para fortalecer la producción intelectual universitaria.",
-    image:
-      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800",
+      "Gestionamos y respaldamos proyectos de investigación básica y aplicada, velando por la integridad académica y la producción científica universitaria.",
+    image: investigacionImg,
     link: "#investigacion",
     icon: Microscope,
   },
   {
-    id: "servicios",
-    title: "Dirección de Producción de Bienes y Servicios",
-    badge: "Servicios",
-    stats: "12+ servicios prestados",
-    description:
-      "Conectamos las capacidades técnicas de la universidad con el sector productivo mediante servicios especializados.",
-    image: bienesImg,
-    link: "#servicios",
-    icon: Wrench,
-  },
-  {
-    id: "transferencia",
-    title: "Dirección de Innovación y Transferencia Tecnológica",
-    badge: "Patentes",
-    stats: "10+ patentes registradas",
-    description:
-      "Protegemos la propiedad intelectual y facilitamos la transferencia de tecnología al entorno empresarial.",
-    image:
-      "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800",
-    link: "#transferencia",
-    icon: Lightbulb,
-  },
-  {
     id: "incubadora",
-    title: "Dirección de Incubadora de Empresas",
-    badge: "Startups",
+    title: "Dirección de Incubadora de Empresas (Nexora)",
+    badge: "Emprendimiento",
     stats: "70+ equipos capacitados",
     description:
       "Impulsamos startups y emprendimientos de base tecnológica con mentoría especializada y acompañamiento estratégico.",
     image: incubadoraImg,
     link: "#incubadora",
     icon: Rocket,
+  },
+  {
+    id: "transferencia",
+    title: "Dirección de Innovación y Transferencia Tecnológica",
+    badge: "Innovación",
+    stats: "10+ semilleros activos",
+    description:
+      "Fomentamos la formación científica temprana y fortalecemos la articulación de capacidades tecnológicas con el entorno.",
+    image:
+      "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800",
+    link: "#transferencia",
+    icon: Lightbulb,
+  },
+  {
+    id: "servicios",
+    title: "Dirección de Producción de Bienes y Servicios",
+    badge: "Paleontología",
+    stats: "Instituto de Paleontología",
+    description:
+      "Articulamos las unidades productivas universitarias y la puesta en valor del patrimonio científico a través del Instituto de Paleontología.",
+    image: bienesImg,
+    link: "#servicios",
+    icon: Compass,
   },
 ];
 
@@ -136,19 +137,19 @@ export default function FeaturesPreline() {
                       id={`panel-${office.id}`}
                       role="tabpanel"
                       aria-labelledby={`tab-${office.id}`}
-                      className={`overflow-hidden rounded-xl shadow-xl transition-all duration-500 ease-in-out ${
+                      className={`group overflow-hidden rounded-xl shadow-xl transition-all duration-500 ease-in-out ${
                         isActive
                           ? "opacity-100 relative z-10 pointer-events-auto"
                           : "opacity-0 absolute inset-0 z-0 pointer-events-none"
                       }`}
                     >
                       <img
-                        className="w-full h-[240px] sm:h-[480px] object-cover rounded-xl"
+                        className="w-full h-auto aspect-[4/3] sm:aspect-auto sm:h-[480px] object-contain sm:object-cover object-center rounded-xl transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform"
                         src={office.image}
                         alt={office.title}
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent transition-opacity duration-500 group-hover:from-slate-950/90" />
 
                       <div className="absolute top-4 left-4 flex gap-2">
                         <span className="bg-white/90 backdrop-blur-md text-brand-primary text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">

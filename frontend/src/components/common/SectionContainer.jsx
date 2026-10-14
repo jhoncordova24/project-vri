@@ -6,13 +6,13 @@ export default function SectionContainer({
   label,
   title,
   description,
-  action, // Badge, contador, botón de búsqueda o filtros
-  headerBottom, // Para elementos que van debajo del título (como tabs de categorías)
+  action,
+  headerBottom,
   centered = false,
   className = "",
   maxWidth = "max-w-7xl",
   dataAos = "fade-up",
-  isSinglePage = false, // Ponlo en true en páginas de vista única (ej: News)
+  isSinglePage = false,
   id,
 }) {
   const hasHeader = Boolean(label || title);
@@ -44,11 +44,10 @@ export default function SectionContainer({
               </div>
 
               {action && (
-                <div className="shrink-0 self-start md:self-auto">{action}</div>
+                <div className="w-full md:w-auto shrink-0">{action}</div>
               )}
             </div>
 
-            {/* Ranura opcional para barras de filtros/categorías */}
             {headerBottom && <div className="mt-6">{headerBottom}</div>}
           </div>
         )}

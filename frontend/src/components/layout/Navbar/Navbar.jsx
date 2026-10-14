@@ -5,38 +5,41 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import logo from "../../../assets/logo.webp";
 import logo2 from "../../../assets/logo-2.webp";
 
-const NAV_LINKS = [
-  { to: "/", label: "Inicio", end: true },
-  { to: "/nosotros", label: "Nosotros" },
-  { to: "/noticias", label: "Noticias" },
-];
-
 const DIRECCIONES_ITEMS = [
   {
-    type: "submenu",
-    label: "Investigación",
-    items: [
-      {
-        label:
-          "Unidad de Gestión de Proyectos de Investigación Básica y Aplicada",
-        href: "#",
-      },
-    ],
+    label: "Dirección de Investigación",
+    to: "/direcciones/investigacion",
   },
   {
-    type: "link",
-    label: "Producción de Bienes y Servicios",
-    href: "#",
+    label: "Incubadora de Empresas (Nexora)",
+    to: "/direcciones/incubadora-empresas",
   },
   {
-    type: "link",
     label: "Innovación y Transferencia Tecnológica",
-    href: "#",
+    to: "/direcciones/innovacion-transferencia",
   },
   {
-    type: "link",
-    label: "Incubadora de Empresas",
-    href: "#",
+    label: "Producción de Bienes y Servicios",
+    to: "/direcciones/produccion-bienes-servicios",
+  },
+];
+
+const DESARROLLO_ITEMS = [
+  {
+    label: "Comité de Ética en Investigación",
+    to: "/desarrollo/comite-etica",
+  },
+  {
+    label: "Propiedad Intelectual y Patentes",
+    to: "/desarrollo/propiedad-intelectual-patentes",
+  },
+  {
+    label: "ORIPE",
+    to: "/desarrollo/oripe",
+  },
+  {
+    label: "IOARR",
+    to: "/desarrollo/ioarr",
   },
 ];
 
@@ -83,80 +86,33 @@ function BrandLogo() {
   );
 }
 
-function DireccionesList({
-  isSubmenuOpen,
-  onToggleSubmenu,
-  onCloseAll,
-  isMobile = false,
-}) {
+function DropdownMenuList({ items, onCloseAll, isMobile = false }) {
   return (
     <div className="flex flex-col gap-y-1">
-      {DIRECCIONES_ITEMS.map((item) => {
-        if (item.type === "submenu") {
-          return (
-            <div key={item.label}>
-              <button
-                type="button"
-                className={`w-full flex items-center justify-between transition-colors focus:outline-hidden ${
-                  isMobile
-                    ? "py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
-                    : "py-2 px-3 text-sm text-gray-800 hover:bg-black/5 rounded-xl"
-                }`}
-                onClick={onToggleSubmenu}
-              >
-                <span>{item.label}</span>
-                <ChevronDown
-                  className={`size-3.5 text-gray-500 transition-transform duration-200 ${
-                    isSubmenuOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              <div
-                className={`overflow-hidden transition-all duration-300 ${
-                  isSubmenuOpen
-                    ? isMobile
-                      ? "max-h-[300px]"
-                      : "max-h-36 opacity-100"
-                    : "max-h-0 opacity-0"
-                }`}
-              >
-                <div className="pl-3 py-1 flex flex-col border-l-2 border-brand-primary/20 ml-3 my-1">
-                  {item.items.map((subItem) => (
-                    <a
-                      key={subItem.label}
-                      className={`block leading-relaxed transition-colors focus:outline-hidden ${
-                        isMobile
-                          ? "py-2 px-3 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
-                          : "py-1.5 px-2.5 text-sm text-gray-700 hover:bg-black/5 rounded-lg"
-                      }`}
-                      href={subItem.href}
-                      onClick={onCloseAll}
-                    >
-                      {subItem.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          );
-        }
-
-        return (
-          <a
-            key={item.label}
-            className={`block transition-colors focus:outline-hidden ${
+      {items.map((item) => (
+        <NavLink
+          key={item.label}
+          to={item.to}
+          className={({ isActive }) =>
+            `block transition-colors focus:outline-hidden ${
               isMobile
-                ? "py-2.5 px-4 rounded-xl text-sm text-gray-700 hover:bg-gray-50"
-                : "py-2 px-3 text-sm text-gray-800 hover:bg-black/5 rounded-xl"
-            }`}
-            href={item.href}
-            onClick={onCloseAll}
-          >
-            {item.label}
-          </a>
-        );
-      })}
+                ? `py-2.5 px-4 rounded-xl text-sm ${
+                    isActive
+                      ? "text-brand-primary font-semibold bg-brand-primary/5"
+                      : "text-gray-700 hover:bg-gray-50"
+                  }`
+                : `py-2 px-3 text-sm rounded-xl ${
+                    isActive
+                      ? "text-brand-primary font-semibold bg-black/5"
+                      : "text-gray-800 hover:bg-black/5"
+                  }`
+            }`
+          }
+          onClick={onCloseAll}
+        >
+          {item.label}
+        </NavLink>
+      ))}
     </div>
   );
 }
@@ -164,12 +120,13 @@ function DireccionesList({
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [direccionesOpen, setDireccionesOpen] = useState(false);
-  const [investigacionOpen, setInvestigacionOpen] = useState(false);
+  const [desarrolloOpen, setDesarrolloOpen] = useState(false);
 
   const [mobileDireccionesOpen, setMobileDireccionesOpen] = useState(false);
-  const [mobileInvestigacionOpen, setMobileInvestigacionOpen] = useState(false);
+  const [mobileDesarrolloOpen, setMobileDesarrolloOpen] = useState(false);
 
-  const dropdownRef = useRef(null);
+  const direccionesDropdownRef = useRef(null);
+  const desarrolloDropdownRef = useRef(null);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -180,9 +137,17 @@ export default function Navbar() {
 
   useEffect(() => {
     function handleClickOutside(e) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      if (
+        direccionesDropdownRef.current &&
+        !direccionesDropdownRef.current.contains(e.target)
+      ) {
         setDireccionesOpen(false);
-        setInvestigacionOpen(false);
+      }
+      if (
+        desarrolloDropdownRef.current &&
+        !desarrolloDropdownRef.current.contains(e.target)
+      ) {
+        setDesarrolloOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -192,9 +157,9 @@ export default function Navbar() {
   const closeAll = () => {
     setIsOpen(false);
     setDireccionesOpen(false);
-    setInvestigacionOpen(false);
+    setDesarrolloOpen(false);
     setMobileDireccionesOpen(false);
-    setMobileInvestigacionOpen(false);
+    setMobileDesarrolloOpen(false);
   };
 
   const linkClass = ({ isActive }) =>
@@ -227,12 +192,16 @@ export default function Navbar() {
               Nosotros
             </NavLink>
 
-            <div className="relative" ref={dropdownRef}>
+            {/* Menú Direcciones */}
+            <div className="relative" ref={direccionesDropdownRef}>
               <button
                 type="button"
-                className="md:px-3 md:py-4 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden transition-colors"
+                className="md:px-3 md:py-4 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden transition-colors cursor-pointer"
                 aria-expanded={direccionesOpen}
-                onClick={() => setDireccionesOpen((prev) => !prev)}
+                onClick={() => {
+                  setDireccionesOpen((prev) => !prev);
+                  setDesarrolloOpen(false);
+                }}
               >
                 Direcciones
                 <ChevronDown
@@ -250,11 +219,43 @@ export default function Navbar() {
                 }`}
               >
                 <div className="p-2">
-                  <DireccionesList
-                    isSubmenuOpen={investigacionOpen}
-                    onToggleSubmenu={() =>
-                      setInvestigacionOpen((prev) => !prev)
-                    }
+                  <DropdownMenuList
+                    items={DIRECCIONES_ITEMS}
+                    onCloseAll={closeAll}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Menú Desarrollo */}
+            <div className="relative" ref={desarrolloDropdownRef}>
+              <button
+                type="button"
+                className="md:px-3 md:py-4 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden transition-colors cursor-pointer"
+                aria-expanded={desarrolloOpen}
+                onClick={() => {
+                  setDesarrolloOpen((prev) => !prev);
+                  setDireccionesOpen(false);
+                }}
+              >
+                Desarrollo
+                <ChevronDown
+                  className={`duration-200 ms-1 shrink-0 size-3.5 text-gray-600 transition-transform ${
+                    desarrolloOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              <div
+                className={`absolute top-full left-0 mt-2 w-72 z-10 rounded-2xl bg-white/90 backdrop-blur-xl backdrop-saturate-150 border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-200 origin-top overflow-hidden ${
+                  desarrolloOpen
+                    ? "opacity-100 scale-100 pointer-events-auto"
+                    : "opacity-0 scale-95 pointer-events-none"
+                }`}
+              >
+                <div className="p-2">
+                  <DropdownMenuList
+                    items={DESARROLLO_ITEMS}
                     onCloseAll={closeAll}
                   />
                 </div>
@@ -268,12 +269,12 @@ export default function Navbar() {
 
           <div className="md:order-3 flex items-center gap-x-3">
             <div className="md:ps-3">
-              <a
+              <NavLink
+                to="/contacto"
                 className="group inline-flex items-center gap-x-2 py-2 px-4 bg-brand-primary text-white font-medium text-sm text-nowrap rounded-[26px] hover:bg-brand-hover focus:outline-hidden transition-colors"
-                href="#"
               >
                 Contacto
-              </a>
+              </NavLink>
             </div>
 
             <div className="md:hidden">
@@ -323,7 +324,18 @@ export default function Navbar() {
           </div>
 
           <div className="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-y-1">
-            <NavLink className={mobileLinkClass} to="/" end onClick={closeAll}>
+            <NavLink
+              className={({ isActive }) =>
+                `block py-3 px-4 rounded-xl text-[15px] transition-colors ${
+                  isActive
+                    ? "text-brand-primary font-semibold"
+                    : "text-gray-800 hover:bg-gray-50"
+                }`
+              }
+              to="/"
+              end
+              onClick={closeAll}
+            >
               Inicio
             </NavLink>
             <NavLink
@@ -334,6 +346,7 @@ export default function Navbar() {
               Nosotros
             </NavLink>
 
+            {/* Desplegable Direcciones Móvil */}
             <div>
               <button
                 type="button"
@@ -354,11 +367,38 @@ export default function Navbar() {
                 }`}
               >
                 <div className="pl-3 pt-1">
-                  <DireccionesList
-                    isSubmenuOpen={mobileInvestigacionOpen}
-                    onToggleSubmenu={() =>
-                      setMobileInvestigacionOpen((v) => !v)
-                    }
+                  <DropdownMenuList
+                    items={DIRECCIONES_ITEMS}
+                    onCloseAll={closeAll}
+                    isMobile={true}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Desplegable Desarrollo Móvil */}
+            <div>
+              <button
+                type="button"
+                className="w-full flex items-center justify-between py-3 px-4 rounded-xl text-[15px] text-gray-800 hover:bg-gray-50 transition-colors"
+                onClick={() => setMobileDesarrolloOpen((v) => !v)}
+              >
+                Desarrollo
+                <ChevronDown
+                  className={`shrink-0 size-4 text-gray-500 transition-transform duration-200 ${
+                    mobileDesarrolloOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  mobileDesarrolloOpen ? "max-h-[500px]" : "max-h-0"
+                }`}
+              >
+                <div className="pl-3 pt-1">
+                  <DropdownMenuList
+                    items={DESARROLLO_ITEMS}
                     onCloseAll={closeAll}
                     isMobile={true}
                   />
@@ -376,13 +416,13 @@ export default function Navbar() {
           </div>
 
           <div className="px-5 py-4">
-            <a
+            <NavLink
+              to="/contacto"
               className="w-full inline-flex items-center justify-center gap-x-2 py-2.5 px-4 bg-brand-primary text-white font-medium text-sm rounded-[26px] hover:bg-brand-hover focus:outline-hidden transition-colors"
-              href="#"
               onClick={closeAll}
             >
               Contacto
-            </a>
+            </NavLink>
           </div>
         </aside>
       </div>

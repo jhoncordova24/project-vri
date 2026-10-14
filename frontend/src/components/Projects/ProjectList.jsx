@@ -66,11 +66,11 @@ export default function ProjectList({ projects = [], year }) {
       title="Proyectos Aprobados"
       description={`Mostrando ${filteredProjects.length} de ${projects.length} registros`}
       action={
-        <div className="relative w-full md:w-72">
+        <div className="relative w-full md:w-80 lg:w-96">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
-            placeholder="Buscar por título, investigador..."
+            placeholder="Buscar por título, investigador, linea, gestor..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors shadow-xs"

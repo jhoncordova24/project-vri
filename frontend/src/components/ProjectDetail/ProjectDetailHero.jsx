@@ -6,7 +6,7 @@ export default function ProjectDetailHero({
   title,
   subtitle,
   imageSrc,
-  heightClass = "min-h-[500px] h-[75vh] sm:h-[85vh]",
+  heightClass = "min-h-[460px] sm:min-h-[500px] h-auto py-24 sm:py-0 sm:h-[85vh]",
   year = 2025,
   loading = false,
 }) {
@@ -14,7 +14,7 @@ export default function ProjectDetailHero({
 
   return (
     <div
-      className={`relative -mt-20 ${heightClass} w-full overflow-hidden bg-slate-900`}
+      className={`relative -mt-20 ${heightClass} w-full overflow-hidden bg-slate-900 flex items-center`}
     >
       {imageSrc && (
         <img
@@ -34,14 +34,14 @@ export default function ProjectDetailHero({
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-slate-950/60" />
 
-      <div className="relative h-full flex items-center pt-20 sm:pt-24">
-        <div className="max-w-7xl w-full mx-auto px-6 sm:px-8 z-10">
+      <div className="relative w-full pt-16 sm:pt-20">
+        <div className="max-w-7xl w-full mx-auto px-5 sm:px-8 z-10">
           <div className="max-w-4xl">
             {loading && !title ? (
-              <div className="space-y-4 mb-8 animate-pulse">
-                <div className="h-8 sm:h-10 bg-white/20 rounded-xl w-4/5" />
-                <div className="h-8 sm:h-10 bg-white/20 rounded-xl w-3/5" />
-                <div className="h-5 bg-white/10 rounded-lg w-2/5 mt-4" />
+              <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8 animate-pulse">
+                <div className="h-6 sm:h-10 bg-white/20 rounded-xl w-4/5" />
+                <div className="h-6 sm:h-10 bg-white/20 rounded-xl w-3/5" />
+                <div className="h-4 sm:h-5 bg-white/10 rounded-lg w-2/5 mt-3 sm:mt-4" />
               </div>
             ) : (
               <>
@@ -50,7 +50,7 @@ export default function ProjectDetailHero({
                     data-aos="fade-in"
                     data-aos-duration="900"
                     data-aos-delay="100"
-                    className="mb-3 sm:mb-4 font-sans text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug sm:leading-tight"
+                    className="mb-2.5 sm:mb-4 font-sans text-lg xs:text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug sm:leading-tight"
                   >
                     {title}
                   </h1>
@@ -61,7 +61,7 @@ export default function ProjectDetailHero({
                     data-aos="fade-in"
                     data-aos-duration="700"
                     data-aos-delay="200"
-                    className="text-sm sm:text-base text-slate-200 font-normal leading-relaxed max-w-2xl mb-6 sm:mb-8"
+                    className="text-xs sm:text-base text-slate-200 font-normal leading-relaxed max-w-2xl mb-5 sm:mb-8"
                   >
                     {subtitle}
                   </p>

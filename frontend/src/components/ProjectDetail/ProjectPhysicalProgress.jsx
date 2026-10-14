@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, memo } from "react";
 import { motion } from "framer-motion";
 import {
   CheckCircle2,
@@ -55,34 +55,50 @@ const getGridColsClass = (count) => {
   return "md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5";
 };
 
-const useIsDesktop = () => {
-  const [isDesktop, setIsDesktop] = useState(false);
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+};
 
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
-    const handler = () => setIsDesktop(mq.matches);
-    handler();
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
-  return isDesktop;
+const cardItemVariants = {
+  hidden: { opacity: 0, y: 14 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, ease: "easeOut" },
+  },
 };
 
 export default function ProjectPhysicalProgress({ deliverables = [] }) {
-  const isDesktop = useIsDesktop();
+  if (!deliverables || deliverables.length === 0) return null;
 
-  if (!deliverables.length) return null;
-
-  const totalItems = deliverables.length;
-  const completedItems = deliverables.reduce(
-    (acc, item) =>
-      item.estado?.trim().toLowerCase() === "terminado" ? acc + 1 : acc,
-    0,
-  );
-  const progressPercentage = Math.round((completedItems / totalItems) * 100);
-  const showStepper = totalItems <= 6;
-  const gridColsClass = getGridColsClass(totalItems);
+  const {
+    totalItems,
+    completedItems,
+    progressPercentage,
+    showStepper,
+    gridColsClass,
+  } = useMemo(() => {
+    const total = deliverables.length;
+    const completed = deliverables.reduce(
+      (acc, item) =>
+        item.estado?.trim().toLowerCase() === "terminado" ? acc + 1 : acc,
+      0,
+    );
+    return {
+      totalItems: total,
+      completedItems: completed,
+      progressPercentage: total > 0 ? Math.round((completed / total) * 100) : 0,
+      showStepper: total <= 6,
+      gridColsClass: getGridColsClass(total),
+    };
+  }, [deliverables]);
 
   return (
     <SectionContainer
@@ -91,7 +107,7 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
       dataAos={null}
       action={
         <div className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full">
-          <Compass className="w-4 h-4 text-brand-primary animate-spin-slow" />
+          <Compass className="w-4 h-4 text-brand-primary will-change-transform animate-spin-slow" />
           <span>
             {completedItems} de {totalItems} entregables validados
           </span>
@@ -102,152 +118,118 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
       }
     >
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        className={`relative grid grid-cols-2 ${gridColsClass} gap-3 sm:gap-6 md:gap-4`}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
       >
-        <div
-          className={`relative grid grid-cols-2 ${gridColsClass} gap-3 sm:gap-6 md:gap-4`}
-        >
-          {deliverables.map((item, index) => {
-            const Icon = resolveIcon(item.entregable);
-            const isFinished =
-              item.estado?.trim().toLowerCase() === "terminado";
-            const hasUrl = Boolean(item.enlace_url?.trim());
+        {deliverables.map((item, index) => {
+          const Icon = resolveIcon(item.entregable);
+          const isFinished = item.estado?.trim().toLowerCase() === "terminado";
+          const hasUrl = Boolean(item.enlace_url?.trim());
 
-            const cardDelay = isDesktop
-              ? showStepper
-                ? index * 0.15 + 0.3
-                : (index % 4) * 0.08
-              : 0;
+          const CardWrapper = hasUrl ? "a" : "div";
+          const cardProps = hasUrl
+            ? {
+                href: item.enlace_url,
+                target: "_blank",
+                rel: "noopener noreferrer",
+                title: `Consultar ${item.entregable}`,
+              }
+            : {};
 
-            const CardWrapper = hasUrl ? "a" : "div";
-            const cardProps = hasUrl
-              ? {
-                  href: item.enlace_url,
-                  target: "_blank",
-                  rel: "noopener noreferrer",
-                  title: `Consultar ${item.entregable}`,
-                }
-              : {};
+          return (
+            <motion.div
+              key={item.id || index}
+              variants={cardItemVariants}
+              className="relative flex flex-col"
+            >
+              {showStepper && (
+                <div className="hidden md:flex items-center justify-end mb-4">
+                  <div
+                    className={`h-0.5 w-full -mr-1 transition-colors ${
+                      (index !== 0 &&
+                        deliverables[index - 1]?.estado
+                          ?.trim()
+                          ?.toLowerCase() === "terminado") ||
+                      (index === 0 && isFinished)
+                        ? "bg-brand-primary/40"
+                        : "bg-slate-200"
+                    }`}
+                  />
 
-            return (
-              <div key={item.id || index} className="relative flex flex-col">
-                {showStepper && (
-                  <div className="hidden md:flex items-center justify-end mb-4">
-                    <motion.div
-                      className={`h-0.5 w-full -mr-1 transition-colors origin-left ${
-                        (index !== 0 &&
-                          deliverables[index - 1]?.estado
-                            ?.trim()
-                            .toLowerCase() === "terminado") ||
-                        (index === 0 && isFinished)
-                          ? "bg-brand-primary/40"
-                          : "bg-slate-200"
-                      }`}
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.4,
-                        delay: index * 0.15,
-                        ease: "easeOut",
-                      }}
-                    />
-
-                    <motion.div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-colors z-10 ${
-                        isFinished
-                          ? "bg-brand-primary text-white shadow-sm ring-4 ring-brand-primary/15"
-                          : "bg-white text-slate-400 border-2 border-slate-300"
-                      }`}
-                      initial={{ scale: 0, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0.3,
-                        delay: index * 0.15 + 0.15,
-                        ease: "backOut",
-                      }}
-                    >
-                      {isFinished ? (
-                        <CheckCircle2 className="w-4 h-4" />
-                      ) : (
-                        <span>{index + 1}</span>
-                      )}
-                    </motion.div>
-                  </div>
-                )}
-
-                <motion.div
-                  className="flex-1 flex flex-col"
-                  initial={{ scale: 0.9, opacity: 0, y: 16 }}
-                  whileInView={{ scale: 1, opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: "some" }}
-                  transition={{
-                    duration: 0.4,
-                    delay: cardDelay,
-                    ease: "backOut",
-                  }}
-                >
-                  <CardWrapper
-                    {...cardProps}
-                    className={`group flex-1 flex flex-col justify-between p-3.5 sm:p-5 rounded-2xl border transition-all duration-300 bg-white ${
-                      hasUrl
-                        ? "border-slate-200/90 hover:border-brand-primary/50 hover:shadow-lg hover:-translate-y-1 cursor-pointer"
-                        : "border-slate-200/60 shadow-xs"
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 z-10 transition-colors ${
+                      isFinished
+                        ? "bg-brand-primary text-white shadow-xs ring-4 ring-brand-primary/15"
+                        : "bg-white text-slate-400 border-2 border-slate-300"
                     }`}
                   >
-                    <div>
-                      <div className="flex items-center justify-between gap-1.5 sm:gap-2 mb-2 sm:mb-3">
-                        <span className="text-[10px] sm:text-xs font-mono font-bold text-slate-500">
-                          HITO #{String(index + 1).padStart(2, "0")}
-                        </span>
-                        {hasUrl && (
-                          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-slate-50 group-hover:bg-brand-primary/10 text-slate-400 group-hover:text-brand-primary flex items-center justify-center transition-colors">
-                            <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                          </div>
-                        )}
-                      </div>
+                    {isFinished ? (
+                      <CheckCircle2 className="w-4 h-4" />
+                    ) : (
+                      <span>{index + 1}</span>
+                    )}
+                  </div>
+                </div>
+              )}
 
-                      <div className="flex items-start gap-2.5 sm:gap-3.5 mb-3 sm:mb-4">
-                        <div className="p-2 sm:p-2.5 rounded-xl bg-slate-100 text-slate-700 group-hover:bg-brand-primary/10 group-hover:text-brand-primary transition-colors shrink-0">
-                          <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                        </div>
-
-                        <h4 className="text-xs sm:text-sm font-semibold text-slate-900 group-hover:text-brand-primary transition-colors leading-snug line-clamp-2">
-                          {item.entregable}
-                        </h4>
+              <CardWrapper
+                {...cardProps}
+                className={`group flex-1 flex flex-col justify-between p-3.5 sm:p-5 rounded-2xl border bg-white transform-gpu transition-[border-color,box-shadow,transform] duration-200 ${
+                  hasUrl
+                    ? "border-slate-200/90 hover:border-brand-primary/50 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+                    : "border-slate-200/60 shadow-xs"
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+                    <span className="text-[10px] sm:text-xs font-mono font-bold text-slate-500">
+                      HITO #{String(index + 1).padStart(2, "0")}
+                    </span>
+                    {hasUrl && (
+                      <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-slate-50 group-hover:bg-brand-primary/10 text-slate-400 group-hover:text-brand-primary flex items-center justify-center transition-colors duration-150">
+                        <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-start gap-2.5 sm:gap-3.5 mb-3 sm:mb-4">
+                    <div className="p-2 sm:p-2.5 rounded-xl bg-slate-100 text-slate-700 group-hover:bg-brand-primary/10 group-hover:text-brand-primary transition-colors duration-150 shrink-0">
+                      <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </div>
 
-                    <div className="pt-2.5 sm:pt-3.5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2">
-                      <span className="text-[10px] sm:text-xs text-slate-500 font-medium">
-                        {formatDateDisplay(item.fecha)}
-                      </span>
+                    <h4 className="text-xs sm:text-sm font-semibold text-slate-900 group-hover:text-brand-primary transition-colors duration-150 leading-snug line-clamp-2">
+                      {item.entregable}
+                    </h4>
+                  </div>
+                </div>
 
-                      <span
-                        className={`inline-flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold shrink-0 self-start sm:self-auto ${
-                          isFinished
-                            ? "bg-brand-primary/10 text-brand-primary border border-brand-primary/20"
-                            : "bg-amber-50 text-amber-700 border border-amber-200/60"
-                        }`}
-                      >
-                        {isFinished ? (
-                          <CheckCircle2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                        ) : (
-                          <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                        )}
-                        <span>{item.estado || "En proceso"}</span>
-                      </span>
-                    </div>
-                  </CardWrapper>
-                </motion.div>
-              </div>
-            );
-          })}
-        </div>
+                <div className="pt-2.5 sm:pt-3.5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-2">
+                  <span className="text-[10px] sm:text-xs text-slate-500 font-medium">
+                    {formatDateDisplay(item.fecha)}
+                  </span>
+
+                  <span
+                    className={`inline-flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold shrink-0 self-start sm:self-auto ${
+                      isFinished
+                        ? "bg-brand-primary/10 text-brand-primary border border-brand-primary/20"
+                        : "bg-amber-50 text-amber-700 border border-amber-200/60"
+                    }`}
+                  >
+                    {isFinished ? (
+                      <CheckCircle2 className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                    ) : (
+                      <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                    )}
+                    <span>{item.estado || "En proceso"}</span>
+                  </span>
+                </div>
+              </CardWrapper>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </SectionContainer>
   );

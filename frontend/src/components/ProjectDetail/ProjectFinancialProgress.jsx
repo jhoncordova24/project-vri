@@ -158,7 +158,7 @@ export default function ProjectFinancialProgress({ budget = [] }) {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-slate-200/80 bg-slate-50/50 text-xs uppercase tracking-wider font-semibold text-slate-500">
+                <tr className="border-b border-slate-700/80 bg-gradient-to-r from-brand-primary via-slate-900/90 to-brand-primary/95 text-xs uppercase tracking-wider font-semibold text-slate-200">
                   <th className="py-4 px-6">Genérica de Gasto</th>
                   <th className="py-4 px-6 text-right">Presupuesto Aprobado</th>
                   <th className="py-4 px-6 text-right">
