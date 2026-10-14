@@ -26,7 +26,7 @@ const DIRECCIONES_ITEMS = [
 
 const DESARROLLO_ITEMS = [
   {
-    label: "Comité de Ética en Investigación",
+    label: "Comité de Ética",
     to: "/desarrollo/comite-etica",
   },
   {
@@ -192,7 +192,6 @@ export default function Navbar() {
               Nosotros
             </NavLink>
 
-            {/* Menú Direcciones */}
             <div className="relative" ref={direccionesDropdownRef}>
               <button
                 type="button"
@@ -227,7 +226,6 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Menú Desarrollo */}
             <div className="relative" ref={desarrolloDropdownRef}>
               <button
                 type="button"
@@ -346,7 +344,6 @@ export default function Navbar() {
               Nosotros
             </NavLink>
 
-            {/* Desplegable Direcciones Móvil */}
             <div>
               <button
                 type="button"

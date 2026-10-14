@@ -232,7 +232,7 @@ export default function Leadership() {
             }}
             aria-live="polite"
           >
-            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-white mb-1">
+            <h3 className="text-lg xs:text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-white mb-1 leading-snug break-words [text-wrap:balance]">
               {display.name}
             </h3>
 

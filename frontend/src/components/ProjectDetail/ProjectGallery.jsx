@@ -51,7 +51,7 @@ export default function ProjectGallery({ projectId }) {
       title="Galería del Proyecto"
       dataAos={null}
       action={
-        <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-1.5 px-3.5 rounded-full">
+        <div className="self-start shrink-0 w-fit flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-1.5 px-3.5 rounded-full">
           <Camera className="w-4 h-4 text-brand-primary" />
           <span>Fotografías registradas:</span>
           <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-brand-icon-bg text-brand-primary font-mono">

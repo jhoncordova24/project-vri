@@ -7,6 +7,7 @@ import Button from "../common/Button";
 import investigacionImg from "../../assets/offices/investigacion.webp";
 import bienesImg from "../../assets/offices/bienes.webp";
 import incubadoraImg from "../../assets/offices/incubadora.webp";
+import innovacionImg from "../../assets/offices/innovacion.webp";
 
 const OFFICES = [
   {
@@ -23,7 +24,7 @@ const OFFICES = [
   {
     id: "incubadora",
     title: "Dirección de Incubadora de Empresas (Nexora)",
-    badge: "Emprendimiento",
+    badge: "Startups",
     stats: "70+ equipos capacitados",
     description:
       "Impulsamos startups y emprendimientos de base tecnológica con mentoría especializada y acompañamiento estratégico.",
@@ -38,8 +39,7 @@ const OFFICES = [
     stats: "10+ semilleros activos",
     description:
       "Fomentamos la formación científica temprana y fortalecemos la articulación de capacidades tecnológicas con el entorno.",
-    image:
-      "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800",
+    image: innovacionImg,
     link: "#transferencia",
     icon: Lightbulb,
   },
@@ -151,11 +151,11 @@ export default function FeaturesPreline() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent transition-opacity duration-500 group-hover:from-slate-950/90" />
 
-                      <div className="absolute top-4 left-4 flex gap-2">
-                        <span className="bg-white/90 backdrop-blur-md text-brand-primary text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
+                      <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-auto flex flex-wrap items-center gap-1.5 sm:gap-2 pointer-events-none">
+                        <span className="bg-white/90 backdrop-blur-md text-brand-primary text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2.5 py-1 sm:px-3 rounded-full shadow-sm whitespace-nowrap">
                           {office.badge}
                         </span>
-                        <span className="bg-slate-900/80 backdrop-blur-md text-white text-xs font-medium px-3 py-1 rounded-full">
+                        <span className="bg-slate-900/80 backdrop-blur-md text-white text-[10px] sm:text-xs font-medium px-2.5 py-1 sm:px-3 rounded-full whitespace-nowrap">
                           {office.stats}
                         </span>
                       </div>

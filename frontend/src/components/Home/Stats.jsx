@@ -26,8 +26,8 @@ const stats = [
     icon: GraduationCap,
   },
   {
-    number: "4+",
-    label: "Patentes registradas",
+    number: "5+",
+    label: "Solicitudes de patente",
     icon: Award,
   },
   {
