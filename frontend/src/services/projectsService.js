@@ -66,6 +66,7 @@ export async function getProjectById(projectId) {
       titulo,
       resenia,
       linea_investigacion,
+      presupuesto_total_aprobado,
       contrato_numero,
       contrato_pdf_url,
       resolucion_modificacion,

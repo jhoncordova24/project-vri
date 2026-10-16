@@ -57,7 +57,10 @@ export default function ProjectDetail() {
           <ProjectPhysicalProgress
             deliverables={project.proyecto_entregables}
           />
-          <ProjectFinancialProgress budget={project.proyecto_presupuesto} />
+          <ProjectFinancialProgress
+            budget={project.proyecto_presupuesto}
+            presupuestoTotalAprobado={project.presupuesto_total_aprobado}
+          />
           <ProjectRequirements requirements={project.proyecto_requerimientos} />
           <ProjectGallery projectId={project.id} />
         </main>

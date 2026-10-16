@@ -38,8 +38,16 @@ const barVariants = {
   }),
 };
 
-export default function ProjectFinancialProgress({ budget = [] }) {
+export default function ProjectFinancialProgress({
+  budget = [],
+  presupuestoTotalAprobado = null,
+}) {
   if (!budget || budget.length === 0) return null;
+
+  const hasItemizedBudget = budget.some(
+    (row) =>
+      row.presupuesto_aprobado !== null && Number(row.presupuesto_aprobado) > 0,
+  );
 
   const totals = budget.reduce(
     (acc, row) => {
@@ -55,10 +63,13 @@ export default function ProjectFinancialProgress({ budget = [] }) {
     { aprobado: 0, ejecutado: 0, gasto: 0 },
   );
 
-  const totalSaldo = totals.aprobado - totals.ejecutado;
+  const finalPresupuestoAprobado =
+    Number(presupuestoTotalAprobado) || totals.aprobado;
+
+  const totalSaldo = finalPresupuestoAprobado - totals.ejecutado;
   const executionPercentage =
-    totals.aprobado > 0
-      ? Math.round((totals.ejecutado / totals.aprobado) * 1000) / 10
+    finalPresupuestoAprobado > 0
+      ? Math.round((totals.ejecutado / finalPresupuestoAprobado) * 1000) / 10
       : 0;
 
   return (
@@ -95,10 +106,12 @@ export default function ProjectFinancialProgress({ budget = [] }) {
               </div>
             </div>
             <p className="text-base sm:text-xl font-bold text-slate-900 tracking-tight truncate">
-              {formatCurrency(totals.aprobado)}
+              {formatCurrency(finalPresupuestoAprobado)}
             </p>
             <span className="text-[11px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 block line-clamp-1">
-              Monto total asignado
+              {hasItemizedBudget
+                ? "Monto total asignado"
+                : "Bolsa global asignada"}
             </span>
           </div>
 
@@ -170,7 +183,7 @@ export default function ProjectFinancialProgress({ budget = [] }) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-sm">
-                {budget.map((row) => {
+                {budget.map((row, index) => {
                   const aprobado = Number(row.presupuesto_aprobado) || 0;
                   const ejecutado = Number(row.presupuesto_ejecutado) || 0;
                   const gasto = Number(row.gasto_efectivo) || 0;
@@ -202,36 +215,91 @@ export default function ProjectFinancialProgress({ budget = [] }) {
                         </div>
                       </td>
 
-                      <td className="py-4 px-6 text-right font-medium text-slate-700 text-xs sm:text-sm">
-                        {formatCurrency(aprobado)}
-                      </td>
+                      {hasItemizedBudget ? (
+                        <td className="py-4 px-6 text-right font-medium text-slate-700 text-xs sm:text-sm">
+                          {formatCurrency(aprobado)}
+                        </td>
+                      ) : (
+                        index === 0 && (
+                          <td
+                            rowSpan={budget.length}
+                            className="py-4 px-6 text-right font-bold text-slate-800 text-sm sm:text-base border-l border-r border-slate-100 bg-slate-50/40 align-middle"
+                          >
+                            <div>
+                              {formatCurrency(finalPresupuestoAprobado)}
+                            </div>
+                            <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
+                              Bolsa Global
+                            </span>
+                          </td>
+                        )
+                      )}
 
                       <td className="py-4 px-6 text-right font-semibold text-slate-900 text-xs sm:text-sm">
                         {formatCurrency(ejecutado)}
                       </td>
 
-                      <td className="py-4 px-6 text-right font-medium text-emerald-600 text-xs sm:text-sm">
-                        {formatCurrency(saldo)}
-                      </td>
+                      {hasItemizedBudget ? (
+                        <td className="py-4 px-6 text-right font-medium text-emerald-600 text-xs sm:text-sm">
+                          {formatCurrency(saldo)}
+                        </td>
+                      ) : (
+                        index === 0 && (
+                          <td
+                            rowSpan={budget.length}
+                            className="py-4 px-6 text-right font-bold text-emerald-700 text-sm sm:text-base border-l border-r border-slate-100 bg-emerald-50/20 align-middle"
+                          >
+                            <div>{formatCurrency(totalSaldo)}</div>
+                            <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
+                              Saldo Global
+                            </span>
+                          </td>
+                        )
+                      )}
 
                       <td className="py-4 px-6 text-right font-medium text-slate-600 text-xs sm:text-sm">
                         {formatCurrency(gasto)}
                       </td>
 
-                      <td className="py-4 px-6">
-                        <div className="flex items-center justify-center gap-2.5">
-                          <div className="w-20 h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
-                            <motion.div
-                              className="h-full bg-brand-primary rounded-full origin-left"
-                              variants={barVariants}
-                              custom={rowPercentage}
-                            />
+                      {hasItemizedBudget ? (
+                        <td className="py-4 px-6">
+                          <div className="flex items-center justify-center gap-2.5">
+                            <div className="w-20 h-2 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
+                              <motion.div
+                                className="h-full bg-brand-primary rounded-full origin-left"
+                                variants={barVariants}
+                                custom={rowPercentage}
+                              />
+                            </div>
+                            <span className="text-xs font-bold font-mono text-slate-600 w-12 text-right">
+                              {rowPercentage}%
+                            </span>
                           </div>
-                          <span className="text-xs font-bold font-mono text-slate-600 w-12 text-right">
-                            {rowPercentage}%
-                          </span>
-                        </div>
-                      </td>
+                        </td>
+                      ) : (
+                        index === 0 && (
+                          <td
+                            rowSpan={budget.length}
+                            className="py-4 px-6 text-center border-l border-slate-100 bg-slate-50/40 align-middle"
+                          >
+                            <div className="flex flex-col items-center justify-center gap-1.5">
+                              <div className="w-24 h-2 bg-slate-200/70 rounded-full overflow-hidden border border-slate-200/50">
+                                <motion.div
+                                  className="h-full bg-brand-primary rounded-full origin-left"
+                                  variants={barVariants}
+                                  custom={executionPercentage}
+                                />
+                              </div>
+                              <span className="text-xs sm:text-sm font-bold font-mono text-brand-primary">
+                                {executionPercentage}%
+                              </span>
+                              <span className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">
+                                Avance Global
+                              </span>
+                            </div>
+                          </td>
+                        )
+                      )}
                     </motion.tr>
                   );
                 })}
@@ -243,7 +311,7 @@ export default function ProjectFinancialProgress({ budget = [] }) {
                     <span>TOTAL GENERAL</span>
                   </td>
                   <td className="py-4 px-6 text-right">
-                    {formatCurrency(totals.aprobado)}
+                    {formatCurrency(finalPresupuestoAprobado)}
                   </td>
                   <td className="py-4 px-6 text-right text-brand-primary">
                     {formatCurrency(totals.ejecutado)}
