@@ -1,18 +1,14 @@
-import { useState, useMemo, useCallback, memo } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Briefcase,
-  GraduationCap,
-  Laptop,
-  CheckCircle2,
-  Package,
-} from "lucide-react";
+import { Briefcase, GraduationCap, Package, CheckCircle2 } from "lucide-react";
 import SectionContainer from "../common/SectionContainer";
+import Pagination from "../common/Pagination";
+import { getProjectRequirementsPaginated } from "../../services/projectsService";
 
 const CATEGORY_ICONS = {
   Servicio: Briefcase,
   Subvención: GraduationCap,
-  Unidad: Laptop,
+  Unidad: Package,
 };
 
 const FILTER_DEFS = [
@@ -22,8 +18,13 @@ const FILTER_DEFS = [
   { key: "Unidad", label: "Bienes / Unidades" },
 ];
 
+const ITEMS_PER_PAGE = 5;
+
 const RequirementRow = memo(function RequirementRow({ item, index }) {
-  const Icon = CATEGORY_ICONS[item.unidad_medida] || Package;
+  const unidadMedida = item.catalogo_requerimientos?.unidad_medida;
+  const descripcion = item.catalogo_requerimientos?.descripcion;
+
+  const Icon = CATEGORY_ICONS[unidadMedida] || Package;
   const correlativo = String(index + 1).padStart(2, "0");
 
   return (
@@ -46,11 +47,11 @@ const RequirementRow = memo(function RequirementRow({ item, index }) {
 
         <div className="min-w-0 flex-1">
           <p className="text-xs sm:text-sm md:text-base font-semibold text-slate-900 leading-snug line-clamp-2 sm:line-clamp-none">
-            {item.descripcion}
+            {descripcion}
           </p>
           <div className="flex sm:hidden items-center gap-2 mt-0.5">
             <span className="text-[11px] font-medium text-slate-500">
-              {item.unidad_medida}
+              {unidadMedida}
             </span>
           </div>
         </div>
@@ -59,7 +60,7 @@ const RequirementRow = memo(function RequirementRow({ item, index }) {
       <div className="flex items-center gap-3 shrink-0">
         <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold border border-slate-200 bg-brand-icon-bg/50 text-brand-primary">
           <Icon className="w-3.5 h-3.5 shrink-0" />
-          {item.unidad_medida}
+          {unidadMedida}
         </span>
 
         <div className="flex items-center justify-center min-w-[2rem] sm:min-w-0 bg-slate-50 border border-slate-200/70 px-2.5 sm:px-3.5 py-1.5 sm:py-1.5 rounded-xl">
@@ -75,45 +76,89 @@ const RequirementRow = memo(function RequirementRow({ item, index }) {
   );
 });
 
-function ProjectRequirements({ requirements = [] }) {
+function ProjectRequirements({ projectId }) {
   const [selectedFilter, setSelectedFilter] = useState("Todos");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [requirements, setRequirements] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalUnidades, setTotalUnidades] = useState(0);
+  const [categoryCounts, setCategoryCounts] = useState({
+    Todos: 0,
+    Servicio: 0,
+    Subvención: 0,
+    Unidad: 0,
+  });
+  const [loading, setLoading] = useState(true);
 
-  const { totalUnidades, counts } = useMemo(() => {
-    const baseCounts = {
-      Todos: requirements.length,
-      Servicio: 0,
-      Subvención: 0,
-      Unidad: 0,
-    };
-    let total = 0;
+  useEffect(() => {
+    let isMounted = true;
 
-    for (let i = 0; i < requirements.length; i++) {
-      const item = requirements[i];
-      total += Number(item.cantidad) || 0;
-      if (baseCounts[item.unidad_medida] !== undefined) {
-        baseCounts[item.unidad_medida] += 1;
+    async function fetchRequirements() {
+      if (!projectId) return;
+      setLoading(true);
+
+      try {
+        const result = await getProjectRequirementsPaginated({
+          projectId,
+          page: currentPage,
+          pageSize: ITEMS_PER_PAGE,
+          unidadMedida: selectedFilter,
+        });
+
+        if (isMounted) {
+          setRequirements(result.data);
+          setTotalCount(result.totalCount);
+          setTotalPages(result.totalPages);
+
+          let totalCant = 0;
+          for (let i = 0; i < result.data.length; i++) {
+            totalCant += Number(result.data[i].cantidad) || 0;
+          }
+          setTotalUnidades(totalCant);
+
+          if (selectedFilter === "Todos") {
+            const counts = {
+              Todos: result.totalCount,
+              Servicio: 0,
+              Subvención: 0,
+              Unidad: 0,
+            };
+            setCategoryCounts((prev) => ({ ...prev, ...counts }));
+          }
+        }
+      } catch (error) {
+        console.error("Error loading project requirements:", error);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
 
-    return { totalUnidades: total, counts: baseCounts };
-  }, [requirements]);
+    fetchRequirements();
 
-  const filteredRequirements = useMemo(() => {
-    if (selectedFilter === "Todos") return requirements;
-    return requirements.filter((item) => item.unidad_medida === selectedFilter);
-  }, [requirements, selectedFilter]);
-
-  const filters = useMemo(
-    () => FILTER_DEFS.map((f) => ({ ...f, count: counts[f.key] || 0 })),
-    [counts],
-  );
+    return () => {
+      isMounted = false;
+    };
+  }, [projectId, currentPage, selectedFilter]);
 
   const handleFilterClick = useCallback((e) => {
     const key = e.currentTarget.dataset.key;
-    if (key) setSelectedFilter(key);
+    if (key) {
+      setSelectedFilter(key);
+      setCurrentPage(1);
+    }
   }, []);
 
-  if (!requirements || requirements.length === 0) return null;
+  const filters = FILTER_DEFS.map((f) => ({
+    ...f,
+    count: categoryCounts[f.key] || 0,
+  }));
+
+  if (!loading && totalCount === 0 && selectedFilter === "Todos") {
+    return null;
+  }
 
   return (
     <SectionContainer
@@ -169,24 +214,38 @@ function ProjectRequirements({ requirements = [] }) {
       >
         <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs divide-y divide-slate-100 overflow-hidden">
           <AnimatePresence mode="popLayout">
-            {filteredRequirements.length === 0 ? (
+            {requirements.length === 0 ? (
               <div className="p-8 text-center text-slate-400 text-sm font-medium">
-                No hay requerimientos en esta categoría.
+                {loading
+                  ? "Cargando requerimientos..."
+                  : "No hay requerimientos en esta categoría."}
               </div>
             ) : (
-              filteredRequirements.map((item, idx) => (
-                <RequirementRow
-                  key={
-                    item.id ??
-                    `${item.unidad_medida}-${item.descripcion}-${idx}`
-                  }
-                  item={item}
-                  index={idx}
-                />
-              ))
+              requirements.map((item, idx) => {
+                const absoluteIndex = (currentPage - 1) * ITEMS_PER_PAGE + idx;
+                return (
+                  <RequirementRow
+                    key={
+                      item.id ??
+                      `${item.catalogo_requerimientos?.unidad_medida}-${item.catalogo_requerimientos?.descripcion}-${idx}`
+                    }
+                    item={item}
+                    index={absoluteIndex}
+                  />
+                );
+              })
             )}
           </AnimatePresence>
         </div>
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalCount={totalCount}
+          pageSize={ITEMS_PER_PAGE}
+          onPageChange={(page) => setCurrentPage(page)}
+          itemName="requerimientos"
+        />
       </motion.div>
     </SectionContainer>
   );

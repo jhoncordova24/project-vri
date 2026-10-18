@@ -1,5 +1,9 @@
 import { supabase } from "../lib/supabaseClient";
 
+/**
+ * Obtiene las últimas noticias registradas, limitadas por cantidad
+ * y ordenadas por fecha de inicio y creación de forma descendente.
+ */
 export const getLatestNews = async (limit = 3) => {
   const { data, error } = await supabase
     .from("noticias")
@@ -16,6 +20,9 @@ export const getLatestNews = async (limit = 3) => {
   return data;
 };
 
+/**
+ * Obtiene el detalle completo de una noticia específica utilizando su ID único.
+ */
 export const getNewsById = async (id) => {
   const { data, error } = await supabase
     .from("noticias")
@@ -31,6 +38,10 @@ export const getNewsById = async (id) => {
   return data;
 };
 
+/**
+ * Obtiene de forma paginada las noticias con opciones de filtrado
+ * por categoría y búsqueda de texto en el título o contenido.
+ */
 export const getNews = async ({
   page = 1,
   pageSize = 6,

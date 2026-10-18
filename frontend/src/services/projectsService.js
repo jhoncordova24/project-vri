@@ -1,5 +1,9 @@
 import { supabase } from "../lib/supabaseClient";
 
+/**
+ * Obtiene la lista de años únicos disponibles en las convocatorias,
+ * ordenados de forma descendente para los selectores o menús de navegación.
+ */
 export async function getAvailableYears() {
   const { data, error } = await supabase
     .from("convocatorias")
@@ -14,6 +18,10 @@ export async function getAvailableYears() {
   return data.map((item) => item.anio);
 }
 
+/**
+ * Obtiene la convocatoria de un año específico junto con todos sus proyectos
+ * asociados, incluyendo gestores e investigadores principales vinculados.
+ */
 export async function getProjectsByYear(year) {
   const { data, error } = await supabase
     .from("convocatorias")
@@ -57,6 +65,10 @@ export async function getProjectsByYear(year) {
   return data;
 }
 
+/**
+ * Obtiene el detalle completo de un proyecto de investigación por su ID,
+ * incluyendo su equipo, entregables y presupuesto asociado ordenados cronológicamente.
+ */
 export async function getProjectById(projectId) {
   const { data, error } = await supabase
     .from("proyectos_investigacion")
@@ -105,13 +117,6 @@ export async function getProjectById(projectId) {
         presupuesto_ejecutado,
         gasto_efectivo,
         creado_en
-      ),
-      proyecto_requerimientos (
-        id,
-        unidad_medida,
-        cantidad,
-        descripcion,
-        creado_en
       )
     `,
     )
@@ -124,10 +129,6 @@ export async function getProjectById(projectId) {
       referencedTable: "proyecto_presupuesto",
       ascending: true,
     })
-    .order("creado_en", {
-      referencedTable: "proyecto_requerimientos",
-      ascending: true,
-    })
     .single();
 
   if (error) {
@@ -138,6 +139,11 @@ export async function getProjectById(projectId) {
   return data;
 }
 
+
+/**
+ * Obtiene de forma paginada los elementos de la galería fotográfica
+ * correspondientes a un proyecto específico utilizando rangos del servidor.
+ */
 export async function getProjectGallery({ projectId, page = 1, pageSize = 3 }) {
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
@@ -151,6 +157,59 @@ export async function getProjectGallery({ projectId, page = 1, pageSize = 3 }) {
 
   if (error) {
     console.error("Error fetching project gallery:", error);
+    throw error;
+  }
+
+  return {
+    data: data || [],
+    totalCount: count || 0,
+    totalPages: Math.ceil((count || 0) / pageSize),
+  };
+}
+
+/**
+ * Obtiene de forma paginada y con filtros opcionales de unidad de medida
+ * los requerimientos o recursos provistos para un proyecto en el servidor.
+ */
+export async function getProjectRequirementsPaginated({
+  projectId,
+  page = 1,
+  pageSize = 5,
+  unidadMedida = "Todos",
+}) {
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize - 1;
+
+  let query = supabase
+    .from("proyecto_requerimientos")
+    .select(
+      `
+      id,
+      cantidad,
+      creado_en,
+      catalogo_requerimientos!inner (
+        descripcion,
+        unidad_medida
+      )
+    `,
+      { count: "exact" },
+    )
+    .eq("proyecto_id", projectId)
+    .order("creado_en", { ascending: true });
+
+  if (unidadMedida && unidadMedida !== "Todos") {
+    query = query.eq("catalogo_requerimientos.unidad_medida", unidadMedida);
+  }
+
+  query = query.range(from, to);
+
+  const { data, count, error } = await query;
+
+  if (error) {
+    console.error(
+      "Error fetching paginated project requirements:",
+      error.message,
+    );
     throw error;
   }
 

@@ -6,10 +6,9 @@ export default function Pagination({
   totalCount,
   pageSize,
   onPageChange,
-  itemName = "elementos", // flexible para 'noticias', 'fotografías', etc.
+  itemName = "elementos",
   className = "",
 }) {
-  // Si no hay páginas suficientes, no renderizar nada
   if (totalPages <= 1 || totalCount === 0) return null;
 
   const paginationRange = getPaginationRange(currentPage, totalPages);
@@ -19,9 +18,9 @@ export default function Pagination({
 
   return (
     <div
-      className={`flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-slate-200/80 text-sm text-slate-500 ${className}`}
+      className={`flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 text-sm text-slate-500 ${className}`}
     >
-      <div>
+      <div className="text-center sm:text-left text-xs sm:text-sm">
         Mostrando de{" "}
         <span className="font-semibold text-brand-dark">{startItem}</span> a{" "}
         <span className="font-semibold text-brand-dark">{endItem}</span> de{" "}
@@ -29,20 +28,22 @@ export default function Pagination({
         {itemName}
       </div>
 
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-1 flex-wrap justify-center">
         <button
+          type="button"
           onClick={() => onPageChange(1)}
           disabled={currentPage === 1}
-          className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-slate-500 hover:border-brand-primary hover:text-brand-primary disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-500 disabled:cursor-not-allowed transition-colors"
+          className="hidden sm:inline-flex px-2.5 py-1.5 rounded-xl border border-slate-200 text-slate-500 hover:border-brand-primary hover:text-brand-primary disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-500 disabled:cursor-not-allowed transition-colors cursor-pointer"
           title="Primera página"
         >
           «
         </button>
 
         <button
+          type="button"
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-slate-500 hover:border-brand-primary hover:text-brand-primary disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-500 disabled:cursor-not-allowed transition-colors"
+          className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-slate-500 hover:border-brand-primary hover:text-brand-primary disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-500 disabled:cursor-not-allowed transition-colors cursor-pointer"
           title="Página anterior"
         >
           ‹
@@ -65,8 +66,9 @@ export default function Pagination({
           return (
             <button
               key={pageNumber}
+              type="button"
               onClick={() => onPageChange(pageNumber)}
-              className={`px-3.5 py-1.5 rounded-xl font-semibold transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl font-semibold transition-all cursor-pointer ${
                 isActive
                   ? "bg-brand-primary text-white shadow-xs"
                   : "text-brand-dark hover:bg-slate-200/60 hover:text-brand-primary"
@@ -78,18 +80,20 @@ export default function Pagination({
         })}
 
         <button
+          type="button"
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage >= totalPages}
-          className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-slate-500 hover:border-brand-primary hover:text-brand-primary disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-500 disabled:cursor-not-allowed transition-colors"
+          className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-slate-500 hover:border-brand-primary hover:text-brand-primary disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-500 disabled:cursor-not-allowed transition-colors cursor-pointer"
           title="Página siguiente"
         >
           ›
         </button>
 
         <button
+          type="button"
           onClick={() => onPageChange(totalPages)}
           disabled={currentPage >= totalPages}
-          className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-slate-500 hover:border-brand-primary hover:text-brand-primary disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-500 disabled:cursor-not-allowed transition-colors"
+          className="hidden sm:inline-flex px-2.5 py-1.5 rounded-xl border border-slate-200 text-slate-500 hover:border-brand-primary hover:text-brand-primary disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-500 disabled:cursor-not-allowed transition-colors cursor-pointer"
           title="Última página"
         >
           »
