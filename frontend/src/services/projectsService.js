@@ -139,7 +139,6 @@ export async function getProjectById(projectId) {
   return data;
 }
 
-
 /**
  * Obtiene de forma paginada los elementos de la galería fotográfica
  * correspondientes a un proyecto específico utilizando rangos del servidor.
@@ -168,8 +167,8 @@ export async function getProjectGallery({ projectId, page = 1, pageSize = 3 }) {
 }
 
 /**
- * Obtiene de forma paginada y con filtros opcionales de unidad de medida
- * los requerimientos o recursos provistos para un proyecto en el servidor.
+ * Obtiene de forma paginada los requerimientos de un proyecto,
+ * sus conteos precisos por categoría y el total de unidades provistas.
  */
 export async function getProjectRequirementsPaginated({
   projectId,
@@ -177,45 +176,93 @@ export async function getProjectRequirementsPaginated({
   pageSize = 5,
   unidadMedida = "Todos",
 }) {
-  const from = (page - 1) * pageSize;
-  const to = from + pageSize - 1;
+  const { data: allItems, error: countError } = await supabase
+    .from("proyecto_requerimientos")
+    .select(
+      `
+      id,
+      cantidad,
+      catalogo_requerimientos (
+        id,
+        descripcion,
+        unidad_medida
+      )
+    `,
+    )
+    .eq("proyecto_id", projectId);
 
-  let query = supabase
+  if (countError) {
+    console.error("Error fetching project requirements base:", countError);
+    throw countError;
+  }
+
+  const counts = {
+    Todos: allItems.length,
+    Servicio: 0,
+    Subvención: 0,
+    Unidad: 0,
+  };
+  let totalCantidadProvista = 0;
+
+  for (let i = 0; i < allItems.length; i++) {
+    const item = allItems[i];
+    totalCantidadProvista += Number(item.cantidad) || 0;
+    const cat = item.catalogo_requerimientos?.unidad_medida;
+    if (counts[cat] !== undefined) {
+      counts[cat] += 1;
+    }
+  }
+
+  let targetItems = allItems;
+  if (unidadMedida && unidadMedida !== "Todos") {
+    targetItems = allItems.filter(
+      (item) => item.catalogo_requerimientos?.unidad_medida === unidadMedida,
+    );
+  }
+
+  const filteredTotalCount = targetItems.length;
+  const totalPages = Math.ceil(filteredTotalCount / pageSize) || 1;
+
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize;
+  const pageIds = targetItems.slice(from, to).map((item) => item.id);
+
+  if (pageIds.length === 0) {
+    return {
+      data: [],
+      totalCount: 0,
+      totalPages: 1,
+      counts,
+      totalUnidades: totalCantidadProvista,
+    };
+  }
+
+  const { data: pageData, error: pageError } = await supabase
     .from("proyecto_requerimientos")
     .select(
       `
       id,
       cantidad,
       creado_en,
-      catalogo_requerimientos!inner (
+      catalogo_requerimientos (
         descripcion,
         unidad_medida
       )
     `,
-      { count: "exact" },
     )
-    .eq("proyecto_id", projectId)
+    .in("id", pageIds)
     .order("creado_en", { ascending: true });
 
-  if (unidadMedida && unidadMedida !== "Todos") {
-    query = query.eq("catalogo_requerimientos.unidad_medida", unidadMedida);
-  }
-
-  query = query.range(from, to);
-
-  const { data, count, error } = await query;
-
-  if (error) {
-    console.error(
-      "Error fetching paginated project requirements:",
-      error.message,
-    );
-    throw error;
+  if (pageError) {
+    console.error("Error fetching paginated requirements page:", pageError);
+    throw pageError;
   }
 
   return {
-    data: data || [],
-    totalCount: count || 0,
-    totalPages: Math.ceil((count || 0) / pageSize),
+    data: pageData || [],
+    totalCount: filteredTotalCount,
+    totalPages,
+    counts,
+    totalUnidades: totalCantidadProvista,
   };
 }

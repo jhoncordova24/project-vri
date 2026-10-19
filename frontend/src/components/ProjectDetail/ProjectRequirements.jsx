@@ -110,21 +110,9 @@ function ProjectRequirements({ projectId }) {
           setRequirements(result.data);
           setTotalCount(result.totalCount);
           setTotalPages(result.totalPages);
-
-          let totalCant = 0;
-          for (let i = 0; i < result.data.length; i++) {
-            totalCant += Number(result.data[i].cantidad) || 0;
-          }
-          setTotalUnidades(totalCant);
-
-          if (selectedFilter === "Todos") {
-            const counts = {
-              Todos: result.totalCount,
-              Servicio: 0,
-              Subvención: 0,
-              Unidad: 0,
-            };
-            setCategoryCounts((prev) => ({ ...prev, ...counts }));
+          setTotalUnidades(result.totalUnidades);
+          if (result.counts) {
+            setCategoryCounts(result.counts);
           }
         }
       } catch (error) {
@@ -156,7 +144,7 @@ function ProjectRequirements({ projectId }) {
     count: categoryCounts[f.key] || 0,
   }));
 
-  if (!loading && totalCount === 0 && selectedFilter === "Todos") {
+  if (!loading && categoryCounts.Todos === 0) {
     return null;
   }
 
