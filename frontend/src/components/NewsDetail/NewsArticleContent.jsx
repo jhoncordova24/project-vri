@@ -5,12 +5,27 @@ import {
   ExternalLink,
   Tag,
   FileText,
+  AlertCircle,
 } from "lucide-react";
 import { formatDate, formatEventDates } from "../../utils/formatDate";
 
 function getReadingTime(text = "") {
   const words = text.trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / 200));
+}
+
+function checkIsEventExpired(fechaFin, fechaInicio) {
+  const fechaReferencia = fechaFin || fechaInicio;
+  if (!fechaReferencia) return false;
+
+  const expirationDate = new Date(fechaReferencia);
+  if (isNaN(expirationDate.getTime())) return false;
+
+  if (typeof fechaReferencia === "string" && !fechaReferencia.includes("T")) {
+    expirationDate.setHours(23, 59, 59, 999);
+  }
+
+  return new Date() > expirationDate;
 }
 
 export default function NewsArticleContent({ newsItem }) {
@@ -34,8 +49,9 @@ export default function NewsArticleContent({ newsItem }) {
   const readingTime = getReadingTime(contenido);
   const fechaEvento = formatEventDates(fecha_inicio, fecha_fin);
   const isVirtual = modalidad === "Virtual";
-
   const hasEventInfo = Boolean(fechaEvento || horario || lugar);
+
+  const isExpired = checkIsEventExpired(fecha_fin, fecha_inicio);
 
   return (
     <article className="lg:col-span-2 bg-white border border-slate-200">
@@ -142,17 +158,32 @@ export default function NewsArticleContent({ newsItem }) {
             {enlace_registro && (
               <div className="flex flex-col gap-2 border-t border-slate-200 bg-slate-50/70 px-4 py-2.5 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-[11px] text-slate-500">
-                  Reserva tu cupo antes de que se agoten las vacantes.
+                  {isExpired
+                    ? "El plazo para registrarse en este evento ha concluido."
+                    : "Reserva tu cupo antes de que se agoten las vacantes."}
                 </p>
-                <a
-                  href={enlace_registro}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1.5 bg-brand-primary px-3 py-1 text-[11px] font-bold text-white transition-colors hover:bg-brand-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
-                >
-                  Inscribirme al evento
-                  <ExternalLink className="h-3 w-3" aria-hidden="true" />
-                </a>
+
+                {isExpired ? (
+                  <button
+                    type="button"
+                    disabled
+                    className="inline-flex items-center justify-center gap-1.5 bg-slate-200 px-3 py-1 text-[11px] font-bold text-slate-400 cursor-not-allowed select-none border border-slate-300"
+                    title="Las inscripciones para este evento ya no están disponibles"
+                  >
+                    <AlertCircle className="h-3 w-3" aria-hidden="true" />
+                    Inscripciones cerradas
+                  </button>
+                ) : (
+                  <a
+                    href={enlace_registro}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 bg-brand-primary px-3 py-1 text-[11px] font-bold text-white transition-colors hover:bg-brand-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
+                  >
+                    Inscribirme al evento
+                    <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                  </a>
+                )}
               </div>
             )}
           </section>
@@ -182,4 +213,3 @@ export default function NewsArticleContent({ newsItem }) {
     </article>
   );
 }
-  

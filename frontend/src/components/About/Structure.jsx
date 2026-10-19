@@ -47,12 +47,12 @@ const DIRECTORS = [
     image: coordinadorIncubadorasImg,
   },
   {
-    name: "Mtro. Econ. Elvis Luilly Vertiz Contreras",
+    name: "Mgtr. Econ. Elvis Luilly Vertiz Contreras",
     role: "Coordinador de la Unidad de Gestión de Proyectos Básica y Aplicada",
     image: coordinadorBasicaImg,
   },
   {
-    name: "Dr. Manuel Ruffasto",
+    name: "Mgtr. CPC Manuel Ruffasto",
     role: "Jefe de la Unidad de Fomento de la Investigación",
     image: null,
   },

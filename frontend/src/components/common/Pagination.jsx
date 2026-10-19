@@ -9,8 +9,8 @@ export default function Pagination({
   onPageChange,
   itemName = "elementos",
   className = "",
-  targetRef = null, // Opcional: por si en alguna vista quieres pasarle un ref exacto
-  offset = 80, // Margen superior en px para que el navbar/header fijo no tape el contenido
+  targetRef = null, 
+  offset = 80,
 }) {
   const containerRef = useRef(null);
 
@@ -26,8 +26,7 @@ export default function Pagination({
 
     onPageChange(newPage);
 
-    // 1. Prioridad: Si le pasaste un targetRef explícito
-    // 2. Si no, busca la etiqueta <section>, <main> o el padre que lo contiene
+
     const targetElement =
       targetRef?.current ||
       containerRef.current?.closest("section") ||
