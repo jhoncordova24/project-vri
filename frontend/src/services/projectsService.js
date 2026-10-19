@@ -117,7 +117,9 @@ export async function getProjectById(projectId) {
         presupuesto_ejecutado,
         gasto_efectivo,
         creado_en
-      )
+      ),
+      proyecto_galeria(count),
+      proyecto_requerimientos(count)
     `,
     )
     .eq("id", projectId)
@@ -167,77 +169,11 @@ export async function getProjectGallery({ projectId, page = 1, pageSize = 3 }) {
 }
 
 /**
- * Obtiene de forma paginada los requerimientos de un proyecto,
- * sus conteos precisos por categoría y el total de unidades provistas.
+ * Obtiene todos los requerimientos de un proyecto en una sola consulta
+ * para que el filtrado y paginación sean instantáneos en la interfaz.
  */
-export async function getProjectRequirementsPaginated({
-  projectId,
-  page = 1,
-  pageSize = 5,
-  unidadMedida = "Todos",
-}) {
-  const { data: allItems, error: countError } = await supabase
-    .from("proyecto_requerimientos")
-    .select(
-      `
-      id,
-      cantidad,
-      catalogo_requerimientos (
-        id,
-        descripcion,
-        unidad_medida
-      )
-    `,
-    )
-    .eq("proyecto_id", projectId);
-
-  if (countError) {
-    console.error("Error fetching project requirements base:", countError);
-    throw countError;
-  }
-
-  const counts = {
-    Todos: allItems.length,
-    Servicio: 0,
-    Subvención: 0,
-    Unidad: 0,
-  };
-  let totalCantidadProvista = 0;
-
-  for (let i = 0; i < allItems.length; i++) {
-    const item = allItems[i];
-    totalCantidadProvista += Number(item.cantidad) || 0;
-    const cat = item.catalogo_requerimientos?.unidad_medida;
-    if (counts[cat] !== undefined) {
-      counts[cat] += 1;
-    }
-  }
-
-  let targetItems = allItems;
-  if (unidadMedida && unidadMedida !== "Todos") {
-    targetItems = allItems.filter(
-      (item) => item.catalogo_requerimientos?.unidad_medida === unidadMedida,
-    );
-  }
-
-  const filteredTotalCount = targetItems.length;
-  const totalPages = Math.ceil(filteredTotalCount / pageSize) || 1;
-
-  const from = (page - 1) * pageSize;
-  const to = from + pageSize;
-  const pageIds = targetItems.slice(from, to).map((item) => item.id);
-
-  if (pageIds.length === 0) {
-    return {
-      data: [],
-      totalCount: 0,
-      totalPages: 1,
-      counts,
-      totalUnidades: totalCantidadProvista,
-    };
-  }
-
-  const { data: pageData, error: pageError } = await supabase
+export async function getProjectRequirements(projectId) {
+  const { data, error } = await supabase
     .from("proyecto_requerimientos")
     .select(
       `
@@ -245,24 +181,19 @@ export async function getProjectRequirementsPaginated({
       cantidad,
       creado_en,
       catalogo_requerimientos (
+        id,
         descripcion,
         unidad_medida
       )
     `,
     )
-    .in("id", pageIds)
+    .eq("proyecto_id", projectId)
     .order("creado_en", { ascending: true });
 
-  if (pageError) {
-    console.error("Error fetching paginated requirements page:", pageError);
-    throw pageError;
+  if (error) {
+    console.error("Error fetching project requirements:", error);
+    throw error;
   }
 
-  return {
-    data: pageData || [],
-    totalCount: filteredTotalCount,
-    totalPages,
-    counts,
-    totalUnidades: totalCantidadProvista,
-  };
+  return data || [];
 }

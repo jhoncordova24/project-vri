@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Camera, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import SectionContainer from "../common/SectionContainer";
@@ -16,14 +16,12 @@ export default function ProjectGallery({ projectId }) {
   });
 
   const handleClose = () => setSelectedModalIndex(null);
-
-  const handlePrev = useCallback(() => {
+  const handlePrev = () => {
     setSelectedModalIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
-  }, [images.length]);
-
-  const handleNext = useCallback(() => {
+  };
+  const handleNext = () => {
     setSelectedModalIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
-  }, [images.length]);
+  };
 
   useEffect(() => {
     if (selectedModalIndex === null) return;
@@ -41,15 +39,12 @@ export default function ProjectGallery({ projectId }) {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "auto";
     };
-  }, [selectedModalIndex, handlePrev, handleNext]);
-
-  if (!loading && totalCount === 0) return null;
+  }, [selectedModalIndex, images.length]);
 
   return (
     <SectionContainer
       label="EVIDENCIAS DE CAMPO"
       title="Galería del Proyecto"
-      dataAos={null}
       action={
         <div className="self-start shrink-0 w-fit flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-1.5 px-3.5 rounded-full">
           <Camera className="w-4 h-4 text-brand-primary" />
@@ -78,7 +73,7 @@ export default function ProjectGallery({ projectId }) {
           </div>
         )}
 
-        {!loading && !error && images.length > 0 && (
+        {!loading && !error && (
           <motion.div
             key={page}
             initial={{ opacity: 0, y: 15 }}

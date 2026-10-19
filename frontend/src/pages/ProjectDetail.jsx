@@ -21,6 +21,10 @@ export default function ProjectDetail() {
     project?.linea_investigacion || preview?.linea_investigacion;
   const displayYear = project?.convocatorias?.anio || preview?.anio || 2025;
 
+  const hasGalleryImages = (project?.proyecto_galeria?.[0]?.count ?? 0) > 0;
+  const hasRequirements =
+    (project?.proyecto_requerimientos?.[0]?.count ?? 0) > 0;
+
   return (
     <>
       <ProjectDetailHero
@@ -61,8 +65,10 @@ export default function ProjectDetail() {
             budget={project.proyecto_presupuesto}
             presupuestoTotalAprobado={project.presupuesto_total_aprobado}
           />
-          <ProjectRequirements projectId={project.id} />
-          <ProjectGallery projectId={project.id} />
+
+          {hasRequirements && <ProjectRequirements projectId={project.id} />}
+
+          {hasGalleryImages && <ProjectGallery projectId={project.id} />}
         </main>
       )}
     </>
