@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, memo } from "react";
 import { Link } from "react-router-dom";
 import {
   Search,
@@ -7,25 +7,130 @@ import {
   CheckCircle2,
   Clock,
   ShieldCheck,
-  ArrowRight,
+  ChevronRight,
+  X,
 } from "lucide-react";
 import SectionContainer from "../common/SectionContainer";
 import Pagination from "../common/Pagination";
 
-const removeAccents = (str = "") =>
+const ITEMS_PER_PAGE = 5;
+const collator = new Intl.Collator("es", {
+  sensitivity: "base",
+  numeric: true,
+});
+
+const normalizeText = (str = "") =>
   str
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .trim();
 
-const ITEMS_PER_PAGE = 5;
+const ProjectCard = memo(function ProjectCard({ project, index, year }) {
+  const isFinished = Boolean(project.culminado);
+
+  return (
+    <Link
+      to={`/proyectos/detalle/${project.id}`}
+      state={{
+        preview: {
+          titulo: project.titulo,
+          linea_investigacion: project.linea_investigacion,
+          anio: year || project.convocatorias?.anio,
+        },
+      }}
+      className={`group relative flex flex-col gap-3 rounded-2xl p-4 sm:p-5 border transition-all duration-200 ${
+        isFinished
+          ? "bg-slate-50/70 border-slate-200 opacity-90 hover:opacity-100 hover:bg-white hover:border-slate-300"
+          : "bg-white border-slate-200 border-l-4 border-l-brand-primary shadow-xs hover:shadow-md hover:border-slate-300 hover:border-l-brand-hover"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-3 min-w-0">
+        <div className="flex items-start gap-2.5 sm:gap-3.5 min-w-0 flex-1">
+          <span
+            className={`shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-lg font-bold text-xs flex items-center justify-center transition-colors ${
+              isFinished
+                ? "bg-slate-200/70 text-slate-600"
+                : "bg-slate-100 text-brand-dark group-hover:bg-brand-primary group-hover:text-white"
+            }`}
+          >
+            {String(index + 1).padStart(2, "0")}
+          </span>
+
+          <h3
+            className={`text-xs sm:text-sm font-semibold leading-snug line-clamp-2 transition-colors ${
+              isFinished
+                ? "text-slate-600 group-hover:text-brand-dark"
+                : "text-brand-dark group-hover:text-brand-primary"
+            }`}
+          >
+            {project.titulo}
+          </h3>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <span
+            className={`inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-0.5 sm:py-1 rounded-full text-[11px] font-semibold border ${
+              isFinished
+                ? "bg-slate-200/60 border-slate-300 text-slate-600"
+                : "bg-emerald-50 border-emerald-200 text-emerald-700"
+            }`}
+          >
+            {isFinished ? (
+              <>
+                <CheckCircle2 className="w-3 h-3 text-slate-500" />
+                <span>Culminado</span>
+              </>
+            ) : (
+              <>
+                <Clock className="w-3 h-3 text-emerald-600" />
+                <span>En ejecución</span>
+              </>
+            )}
+          </span>
+
+          <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-brand-primary group-hover:translate-x-0.5 transition-all shrink-0 hidden sm:block" />
+        </div>
+      </div>
+
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-slate-100 text-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 min-w-0 text-slate-600">
+          <div className="flex items-center gap-1.5 truncate">
+            <User className="w-3.5 h-3.5 text-brand-primary shrink-0" />
+            <span className="truncate">
+              <strong className="text-slate-800 font-medium">
+                {project.investigadorPrincipalNombre}
+              </strong>
+            </span>
+          </div>
+
+          {project.gestorNombre && (
+            <div className="hidden sm:flex items-center gap-1.5 truncate text-slate-500">
+              <ShieldCheck className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+              <span className="truncate">{project.gestorNombre}</span>
+            </div>
+          )}
+        </div>
+
+        {project.linea_investigacion && (
+          <span
+            title={project.linea_investigacion}
+            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-slate-100/90 border border-slate-200/80 text-slate-600 font-medium text-[11px] self-start sm:self-auto max-w-full sm:max-w-xs truncate"
+          >
+            <Layers className="w-3 h-3 text-slate-500 shrink-0" />
+            <span className="truncate">{project.linea_investigacion}</span>
+          </span>
+        )}
+      </div>
+    </Link>
+  );
+});
 
 export default function ProjectList({ projects = [], year }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const normalizedProjects = useMemo(() => {
+  const searchableProjects = useMemo(() => {
     return projects.map((project) => {
       const principal =
         project.investigadorPrincipal?.nombres_apellidos ||
@@ -39,33 +144,32 @@ export default function ProjectList({ projects = [], year }) {
         project.gestores?.nombres_apellidos ||
         null;
 
+      const searchableBlob = normalizeText(
+        `${project.titulo} ${principal} ${gestor || ""} ${
+          project.linea_investigacion || ""
+        }`,
+      );
+
       return {
         ...project,
         investigadorPrincipalNombre: principal,
         gestorNombre: gestor,
+        _searchableBlob: searchableBlob,
       };
     });
   }, [projects]);
 
   const filteredProjects = useMemo(() => {
-    const term = removeAccents(searchTerm);
+    const term = normalizeText(searchTerm);
 
-    const filtered = !term
-      ? normalizedProjects
-      : normalizedProjects.filter(
-          (p) =>
-            removeAccents(p.titulo).includes(term) ||
-            removeAccents(p.investigadorPrincipalNombre).includes(term) ||
-            removeAccents(p.gestorNombre || "").includes(term) ||
-            removeAccents(p.linea_investigacion || "").includes(term),
-        );
+    const matches = !term
+      ? searchableProjects
+      : searchableProjects.filter((p) => p._searchableBlob.includes(term));
 
-    return [...filtered].sort((a, b) =>
-      a.titulo.localeCompare(b.titulo, "es", { sensitivity: "base" }),
-    );
-  }, [normalizedProjects, searchTerm]);
+    return [...matches].sort((a, b) => collator.compare(a.titulo, b.titulo));
+  }, [searchableProjects, searchTerm]);
 
-  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE) || 1;
 
   const paginatedProjects = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -77,115 +181,54 @@ export default function ProjectList({ projects = [], year }) {
     setCurrentPage(1);
   };
 
+  const handleClearSearch = () => {
+    setSearchTerm("");
+    setCurrentPage(1);
+  };
+
   return (
     <SectionContainer
       title="Proyectos Aprobados"
       description={`Mostrando ${filteredProjects.length} de ${projects.length} registros`}
       action={
         <div className="relative w-full md:w-80 lg:w-96">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
           <input
             type="text"
-            placeholder="Buscar por título, investigador, linea, gestor..."
+            placeholder="Buscar por título, investigador o línea..."
             value={searchTerm}
             onChange={handleSearchChange}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors shadow-xs"
+            className="w-full pl-10 pr-9 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors shadow-xs"
           />
+          {searchTerm && (
+            <button
+              type="button"
+              onClick={handleClearSearch}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 rounded-full"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
       }
     >
       {paginatedProjects.length === 0 ? (
-        <div className="text-center py-16 bg-white/60 rounded-2xl border border-dashed border-slate-200">
+        <div className="text-center py-12 bg-white/60 rounded-2xl border border-dashed border-slate-200">
           <p className="text-sm text-slate-500 font-medium">
             No se encontraron proyectos coincidentes con tu búsqueda.
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-3">
+        <div className="grid grid-cols-1 gap-2.5 sm:gap-3">
           {paginatedProjects.map((project, index) => {
             const absoluteIndex = (currentPage - 1) * ITEMS_PER_PAGE + index;
-
             return (
-              <Link
+              <ProjectCard
                 key={project.id}
-                to={`/proyectos/detalle/${project.id}`}
-                state={{
-                  preview: {
-                    titulo: project.titulo,
-                    linea_investigacion: project.linea_investigacion,
-                    anio: year || project.convocatorias?.anio,
-                  },
-                }}
-                className="group block bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 border-l-4 border-l-brand-primary shadow-xs md:hover:shadow-md md:hover:border-slate-300 md:hover:border-l-brand-hover md:transition-all md:duration-200 transform-gpu"
-              >
-                <div className="flex flex-col justify-between gap-3">
-                  <div className="flex items-start justify-between gap-3.5 min-w-0 w-full">
-                    <div className="flex items-start gap-3.5 min-w-0 flex-1">
-                      <span className="shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-brand-dark font-black text-xs flex items-center justify-center border border-slate-200/80 md:group-hover:bg-brand-primary md:group-hover:text-white transition-colors duration-150 mt-0.5">
-                        {String(absoluteIndex + 1).padStart(2, "0")}
-                      </span>
-
-                      <h3 className="text-xs sm:text-sm font-semibold text-brand-dark leading-snug md:group-hover:text-brand-primary transition-colors duration-150 flex-1">
-                        {project.titulo}
-                      </h3>
-                    </div>
-
-                    <ArrowRight className="w-4 h-4 text-slate-300 md:group-hover:text-brand-primary md:group-hover:translate-x-0.5 transition-all duration-150 shrink-0 mt-1" />
-                  </div>
-
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2.5 pt-2 text-xs">
-                    <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 min-w-0">
-                      <div className="flex items-center gap-1.5 truncate max-w-full">
-                        <User className="w-3.5 h-3.5 text-brand-primary shrink-0" />
-                        <span className="text-brand-primary font-semibold shrink-0">
-                          Investigador principal:
-                        </span>
-                        <span className="font-semibold text-slate-800 truncate">
-                          {project.investigadorPrincipalNombre}
-                        </span>
-                      </div>
-
-                      {project.gestorNombre && (
-                        <div className="flex items-center gap-1.5 truncate max-w-full text-xs">
-                          <ShieldCheck className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-                          <span className="text-slate-500 font-medium shrink-0">
-                            Gestor:
-                          </span>
-                          <span className="font-semibold text-slate-700 truncate">
-                            {project.gestorNombre}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-2 shrink-0 self-start md:self-auto max-w-full">
-                      {project.linea_investigacion && (
-                        <span
-                          title={project.linea_investigacion}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-brand-icon-bg border border-indigo-200 text-indigo-900 font-bold text-[11px] max-w-[180px] sm:max-w-[280px] md:max-w-xs truncate"
-                        >
-                          <Layers className="w-3 h-3 text-brand-primary shrink-0" />
-                          <span className="truncate">
-                            {project.linea_investigacion}
-                          </span>
-                        </span>
-                      )}
-
-                      {project.culminado ? (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold bg-slate-100 border border-slate-200/80 text-slate-700 shrink-0">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-slate-500" />
-                          Culminado
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold bg-emerald-50 border border-emerald-200/80 text-emerald-700 shrink-0">
-                          <Clock className="w-3.5 h-3.5 text-emerald-600" />
-                          En Ejecución
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </Link>
+                project={project}
+                index={absoluteIndex}
+                year={year}
+              />
             );
           })}
         </div>
@@ -196,7 +239,7 @@ export default function ProjectList({ projects = [], year }) {
         totalPages={totalPages}
         totalCount={filteredProjects.length}
         pageSize={ITEMS_PER_PAGE}
-        onPageChange={(page) => setCurrentPage(page)}
+        onPageChange={setCurrentPage}
         itemName="proyectos"
       />
     </SectionContainer>

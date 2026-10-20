@@ -37,7 +37,7 @@ const RequirementRow = memo(function RequirementRow({ item, index }) {
       className="p-3.5 sm:p-5 flex items-center justify-between gap-3 sm:gap-4 hover:bg-slate-50/80 transition-colors group"
     >
       <div className="flex items-center gap-3 min-w-0 flex-1">
-        <span className="font-mono text-xs sm:text-sm font-bold text-slate-500 bg-slate-100 group-hover:bg-brand-primary group-hover:text-white transition-colors duration-200 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg border border-slate-200/70 shrink-0 select-none">
+        <span className="text-xs sm:text-sm font-bold text-slate-500 bg-slate-100 group-hover:bg-brand-primary group-hover:text-white transition-colors duration-200 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg border border-slate-200/70 shrink-0 select-none">
           {correlativo}
         </span>
 
@@ -67,7 +67,7 @@ const RequirementRow = memo(function RequirementRow({ item, index }) {
           <span className="hidden sm:inline text-xs uppercase tracking-wider font-bold text-slate-400 mr-2">
             Cant.
           </span>
-          <span className="font-mono font-black text-xs sm:text-sm text-slate-800">
+          <span className="font-bold text-xs sm:text-sm text-slate-800">
             {item.cantidad}
           </span>
         </div>
@@ -152,10 +152,10 @@ export default function ProjectRequirements({ projectId }) {
       label="LOGÍSTICA Y RECURSOS"
       title="Requerimientos Atendidos"
       action={
-        <div className="self-start shrink-0 w-fit inline-flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full">
-          <CheckCircle2 className="w-4 h-4 text-brand-primary" />
-          <span>Total provisto:</span>
-          <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-icon-bg text-brand-primary font-mono">
+        <div className="inline-flex w-fit items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full">
+          <CheckCircle2 className="w-4 h-4 text-brand-primary shrink-0" />
+          <span className="whitespace-nowrap">Total provisto:</span>
+          <span className="ml-1 inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary shrink-0">
             {totalUnidades} {totalUnidades === 1 ? "ítem" : "ítems"}
           </span>
         </div>
@@ -177,7 +177,7 @@ export default function ProjectRequirements({ projectId }) {
               >
                 <span>{tab.label}</span>
                 <span
-                  className={`inline-flex items-center justify-center min-w-[1.2rem] h-4.5 px-1 rounded-md text-[10px] sm:text-[11px] font-mono leading-none transition-colors ${
+                  className={`inline-flex items-center justify-center min-w-[1.2rem] h-4.5 px-1 rounded-md text-[10px] sm:text-[11px] font-semibold leading-none transition-colors ${
                     isActive
                       ? "bg-brand-primary text-white font-bold"
                       : "bg-slate-100 text-slate-500"

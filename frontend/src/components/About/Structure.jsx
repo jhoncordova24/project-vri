@@ -4,7 +4,6 @@ import vicerrectorImg from "../../assets/about/structure/vicerrector.webp";
 import directorDiImg from "../../assets/about/structure/director-di.webp";
 import directorBienesImg from "../../assets/about/structure/director-bienes.webp";
 import coordinadorInnovacionImg from "../../assets/about/structure/coordinador-innovacion.webp";
-import coordinadorBasicaImg from "../../assets/about/structure/coordinador-basica.webp";
 import coordinadorIncubadorasImg from "../../assets/about/structure/coordinador-incubadoras.webp";
 import { User } from "lucide-react";
 
@@ -37,6 +36,12 @@ const DIRECTORS = [
       "https://biajqtukwsnwtoyndeak.supabase.co/storage/v1/object/public/investigadores/julio-piscoya-arbanil.webp",
   },
   {
+    name: "Mgtr. Elvis Luilly Vertiz Contreras",
+    role: "Coordinador de la Unidad de Gestión de Proyectos de Investigación Básica y Aplicada",
+    image:
+      "https://biajqtukwsnwtoyndeak.supabase.co/storage/v1/object/public/gestores/elvis_vertiz_contreras.webp",
+  },
+  {
     name: "Mgtr. Néstor Atarama Montero",
     role: "Coordinador de la Dirección de Innovación y Transferencia Tecnológica",
     image: coordinadorInnovacionImg,
@@ -47,12 +52,7 @@ const DIRECTORS = [
     image: coordinadorIncubadorasImg,
   },
   {
-    name: "Mgtr. Econ. Elvis Luilly Vertiz Contreras",
-    role: "Coordinador de la Unidad de Gestión de Proyectos Básica y Aplicada",
-    image: coordinadorBasicaImg,
-  },
-  {
-    name: "Mgtr. CPC Manuel Ruffasto",
+    name: "Mgtr. Manuel Ruffasto",
     role: "Jefe de la Unidad de Fomento de la Investigación",
     image: null,
   },

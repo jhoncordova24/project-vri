@@ -1,13 +1,21 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Camera, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import SectionContainer from "../common/SectionContainer";
 import Pagination from "../common/Pagination";
 import { useProjectGallery } from "../../hooks/projects/useProjectGallery";
 
+const slideVariants = {
+  enter: (dir) => ({ opacity: 0, x: dir > 0 ? 80 : -80 }),
+  center: { opacity: 1, x: 0 },
+  exit: (dir) => ({ opacity: 0, x: dir > 0 ? -80 : 80 }),
+};
+
 export default function ProjectGallery({ projectId }) {
   const [page, setPage] = useState(1);
   const [selectedModalIndex, setSelectedModalIndex] = useState(null);
+  const [direction, setDirection] = useState(0);
 
   const { images, loading, error, totalPages, totalCount } = useProjectGallery({
     projectId,
@@ -16,11 +24,22 @@ export default function ProjectGallery({ projectId }) {
   });
 
   const handleClose = () => setSelectedModalIndex(null);
+
   const handlePrev = () => {
+    setDirection(-1);
     setSelectedModalIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
   };
+
   const handleNext = () => {
+    setDirection(1);
     setSelectedModalIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+  };
+
+  const handleDragEnd = (_, info) => {
+    if (images.length < 2) return;
+    const { offset, velocity } = info;
+    if (offset.x < -80 || velocity.x < -500) handleNext();
+    else if (offset.x > 80 || velocity.x > 500) handlePrev();
   };
 
   useEffect(() => {
@@ -46,10 +65,10 @@ export default function ProjectGallery({ projectId }) {
       label="EVIDENCIAS DE CAMPO"
       title="Galería del Proyecto"
       action={
-        <div className="self-start shrink-0 w-fit flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-1.5 px-3.5 rounded-full">
-          <Camera className="w-4 h-4 text-brand-primary" />
-          <span>Fotografías registradas:</span>
-          <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-brand-icon-bg text-brand-primary font-mono">
+        <div className="inline-flex w-fit items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700 bg-white border border-slate-200/80 shadow-xs py-2 px-4 rounded-full">
+          <Camera className="w-4 h-4 text-brand-primary shrink-0" />
+          <span className="whitespace-nowrap">Fotografías registradas:</span>
+          <span className="ml-1 inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary shrink-0">
             {totalCount}
           </span>
         </div>
@@ -85,7 +104,10 @@ export default function ProjectGallery({ projectId }) {
                 <button
                   key={item.id || idx}
                   type="button"
-                  onClick={() => setSelectedModalIndex(idx)}
+                  onClick={() => {
+                    setDirection(0);
+                    setSelectedModalIndex(idx);
+                  }}
                   className="group relative aspect-4/3 w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-200/80 shadow-xs hover:shadow-lg transition-all duration-300 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-primary"
                 >
                   <img
@@ -124,83 +146,101 @@ export default function ProjectGallery({ projectId }) {
         />
       )}
 
-      <AnimatePresence>
-        {selectedModalIndex !== null && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4 sm:p-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={handleClose}
-          >
-            <div className="absolute top-5 left-6 text-white/80 font-mono text-xs sm:text-sm font-semibold tracking-wider">
-              {selectedModalIndex + 1} / {images.length}
-            </div>
-
-            <button
-              type="button"
-              onClick={handleClose}
-              className="absolute top-4 right-4 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
-              aria-label="Cerrar modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {images.length > 1 && (
-              <>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePrev();
-                  }}
-                  className="absolute left-4 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
-                  aria-label="Foto anterior"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {selectedModalIndex !== null && (
+              <motion.div
+                className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/90 backdrop-blur-md"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={handleClose}
+              >
+                <div className="absolute top-5 left-6 z-20 text-white/80 font-mono text-xs sm:text-sm font-semibold tracking-wider">
+                  {selectedModalIndex + 1} / {images.length}
+                </div>
 
                 <button
                   type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleNext();
-                  }}
-                  className="absolute right-4 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
-                  aria-label="Siguiente foto"
+                  onClick={handleClose}
+                  className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+                  aria-label="Cerrar modal"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
-              </>
+
+                {images.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePrev();
+                      }}
+                      className="hidden sm:block absolute left-4 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+                      aria-label="Foto anterior"
+                    >
+                      <ChevronLeft className="w-6 h-6" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNext();
+                      }}
+                      className="hidden sm:block absolute right-4 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+                      aria-label="Siguiente foto"
+                    >
+                      <ChevronRight className="w-6 h-6" />
+                    </button>
+                  </>
+                )}
+
+                <div
+                  className="relative w-full max-w-5xl h-full flex flex-col items-center justify-center px-4 py-16 sm:px-20"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <AnimatePresence
+                    mode="wait"
+                    custom={direction}
+                    initial={false}
+                  >
+                    <motion.img
+                      key={selectedModalIndex}
+                      src={images[selectedModalIndex]?.imagen_url}
+                      alt={
+                        images[selectedModalIndex]?.descripcion ||
+                        "Evidencia fotográfica"
+                      }
+                      custom={direction}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{ duration: 0.2 }}
+                      drag="x"
+                      dragConstraints={{ left: 0, right: 0 }}
+                      dragElastic={0.6}
+                      onDragEnd={handleDragEnd}
+                      style={{ touchAction: "pan-y" }}
+                      draggable={false}
+                      className="max-w-full max-h-[70vh] w-auto h-auto object-contain rounded-xl shadow-2xl select-none cursor-grab active:cursor-grabbing"
+                    />
+                  </AnimatePresence>
+
+                  {images[selectedModalIndex]?.descripcion && (
+                    <p className="text-center text-slate-300 text-xs sm:text-sm mt-4 max-w-2xl px-4">
+                      {images[selectedModalIndex].descripcion}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
             )}
-
-            <div
-              className="relative max-w-5xl max-h-[85vh] flex flex-col items-center justify-center"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <motion.img
-                key={selectedModalIndex}
-                src={images[selectedModalIndex]?.imagen_url}
-                alt={
-                  images[selectedModalIndex]?.descripcion ||
-                  "Evidencia fotográfica"
-                }
-                className="max-h-[75vh] w-auto max-w-full rounded-xl object-contain shadow-2xl"
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.2 }}
-              />
-
-              {images[selectedModalIndex]?.descripcion && (
-                <p className="text-center text-slate-300 text-xs sm:text-sm mt-3 max-w-2xl px-4">
-                  {images[selectedModalIndex].descripcion}
-                </p>
-              )}
-            </div>
-          </motion.div>
+          </AnimatePresence>,
+          document.body,
         )}
-      </AnimatePresence>
     </SectionContainer>
   );
 }
