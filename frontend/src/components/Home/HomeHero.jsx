@@ -68,15 +68,15 @@ export default function HomeHero() {
           src={heroImages[imageIndex]}
           alt="Vicerrectorado de Investigación"
           initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 0.55, scale: 1 }}
+          animate={{ opacity: 0.75, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2, ease: EASE }}
           style={{ willChange: "opacity, transform" }}
-          className="absolute inset-0 object-cover w-full h-full pointer-events-none select-none"
+          className="absolute inset-0 object-cover w-full h-full pointer-events-none select-none brightness-75"
         />
       </AnimatePresence>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/60" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-slate-950/60" />
 
       <div className="relative h-full flex items-center pt-28">
         <div className="max-w-7xl w-full mx-auto px-6 sm:px-8 z-10">

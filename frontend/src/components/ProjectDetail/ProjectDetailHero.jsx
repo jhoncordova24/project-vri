@@ -6,7 +6,7 @@ export default function ProjectDetailHero({
   title,
   subtitle,
   imageSrc,
-  heightClass = "min-h-[460px] sm:min-h-[500px] h-auto py-24 sm:py-0 sm:h-[85vh]",
+  heightClass = "min-h-[520px] h-[75vh] sm:h-[85vh]",
   year = 2025,
   loading = false,
 }) {
@@ -19,23 +19,23 @@ export default function ProjectDetailHero({
       {imageSrc && (
         <img
           src={imageSrc}
-          alt="Banner de sección"
+          alt={title ? `Banner de ${title}` : "Banner del proyecto"}
           loading="eager"
           fetchPriority="high"
           onLoad={() => setIsImageLoaded(true)}
           className={`
             absolute inset-0 object-cover w-full h-full
-            brightness-50
+            brightness-75
             transition-all duration-[1200ms] ease-out
-            ${isImageLoaded ? "opacity-60 scale-100" : "opacity-0 scale-105"}
+            ${isImageLoaded ? "opacity-75 scale-100" : "opacity-0 scale-105"}
           `}
         />
       )}
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-slate-950/60" />
 
-      <div className="relative w-full pt-16 sm:pt-20">
-        <div className="max-w-7xl w-full mx-auto px-5 sm:px-8 z-10">
+      <div className="relative w-full h-full flex items-center pt-28 pb-12 sm:pt-28 sm:pb-0 z-10">
+        <div className="max-w-7xl w-full mx-auto px-6 sm:px-8">
           <div className="max-w-4xl">
             {loading && !title ? (
               <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8 animate-pulse">
@@ -47,24 +47,29 @@ export default function ProjectDetailHero({
               <>
                 {title && (
                   <h1
-                    data-aos="fade-in"
-                    data-aos-duration="900"
+                    data-aos="fade-up"
+                    data-aos-duration="800"
                     data-aos-delay="100"
-                    className="mb-2.5 sm:mb-4 font-sans text-lg xs:text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug sm:leading-tight"
+                    className="mb-4 sm:mb-5 font-sans text-base sm:text-2xl md:text-3xl lg:text-4xl font-semibold sm:font-bold text-white leading-relaxed sm:leading-tight text-balance break-words"
                   >
                     {title}
                   </h1>
                 )}
 
                 {subtitle && (
-                  <p
-                    data-aos="fade-in"
-                    data-aos-duration="700"
+                  <div
+                    data-aos="fade-up"
+                    data-aos-duration="800"
                     data-aos-delay="200"
-                    className="text-xs sm:text-base text-slate-200 font-normal leading-relaxed max-w-2xl mb-5 sm:mb-8"
+                    className="mb-6 sm:mb-8 border-l-2 border-brand-secondary pl-3.5 py-0.5"
                   >
-                    {subtitle}
-                  </p>
+                    <p className="text-sm sm:text-base text-slate-300 font-normal leading-relaxed">
+                      <span className="font-semibold text-brand-secondary">
+                        Línea de investigación:{" "}
+                      </span>
+                      {subtitle.replace(/^Línea de investigación:\s*/i, "")}
+                    </p>
+                  </div>
                 )}
               </>
             )}
@@ -72,12 +77,14 @@ export default function ProjectDetailHero({
             <div
               data-aos="fade-up"
               data-aos-duration="800"
-              data-aos-delay="500"
+              data-aos-delay="300"
+              className="inline-block"
             >
               <Button
                 to={`/proyectos/${year}`}
                 icon={ArrowLeft}
                 iconPosition="left"
+                className="transition-transform duration-200 ease-out hover:scale-[1.03] active:scale-[0.97]"
               >
                 Volver a proyectos ({year})
               </Button>

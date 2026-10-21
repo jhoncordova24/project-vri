@@ -38,14 +38,14 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
 
   return (
     <div
-      className={`relative flex flex-col items-center p-5 sm:p-6 bg-white rounded-2xl border group shadow-xs hover:shadow-md transition-all duration-300 w-full sm:w-[300px] lg:w-[280px] flex-shrink-0 snap-start ${
+      className={`relative flex flex-col items-center p-6 sm:p-6 bg-white rounded-2xl border shadow-xs transition-shadow duration-200 w-full sm:w-[300px] lg:w-[280px] shrink-0 snap-center sm:snap-start transform-gpu ${
         isPrincipal
           ? "border-brand-primary/40 ring-1 ring-brand-primary/10"
           : "border-slate-200/80"
       }`}
     >
       {isPrincipal && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 px-3 py-1 bg-brand-primary text-white text-[11px] font-bold rounded-full shadow-md flex items-center gap-1.5 uppercase tracking-wider whitespace-nowrap">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 px-3 py-1 bg-brand-primary text-white text-[11px] font-bold rounded-full shadow-sm flex items-center gap-1.5 uppercase tracking-wider whitespace-nowrap">
           <UserCheck className="w-3.5 h-3.5" />
           Líder de Proyecto
         </div>
@@ -88,7 +88,7 @@ const TeamMemberCard = memo(function TeamMemberCard({ item }) {
           title={member.email}
           className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-brand-primary truncate max-w-full mb-5"
         >
-          <Mail className="w-3.5 h-3.5 flex-shrink-0" />
+          <Mail className="w-3.5 h-3.5 shrink-0" />
           <span className="truncate">{member.email}</span>
         </a>
       ) : (
@@ -154,17 +154,17 @@ export default function ProjectTeam({ team = [] }) {
     if (!scrollRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
 
-    setCanScrollLeft(scrollLeft > 5);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
   }, []);
 
   useEffect(() => {
     updateScrollState();
 
-    let timeoutId;
+    let rAFId;
     const handleScroll = () => {
-      if (timeoutId) cancelAnimationFrame(timeoutId);
-      timeoutId = requestAnimationFrame(updateScrollState);
+      if (rAFId) cancelAnimationFrame(rAFId);
+      rAFId = requestAnimationFrame(updateScrollState);
     };
 
     const container = scrollRef.current;
@@ -174,7 +174,7 @@ export default function ProjectTeam({ team = [] }) {
     window.addEventListener("resize", handleScroll);
 
     return () => {
-      if (timeoutId) cancelAnimationFrame(timeoutId);
+      if (rAFId) cancelAnimationFrame(rAFId);
       if (container) {
         container.removeEventListener("scroll", handleScroll);
       }
@@ -184,16 +184,20 @@ export default function ProjectTeam({ team = [] }) {
 
   const scrollByAmount = useCallback((dir) => {
     if (!scrollRef.current) return;
-    const cardWidth = scrollRef.current.firstElementChild?.offsetWidth || 300;
+    const isMobile = window.innerWidth < 640;
+    const cardWidth = isMobile
+      ? scrollRef.current.clientWidth
+      : (scrollRef.current.firstElementChild?.offsetWidth || 300) + 24;
+
     scrollRef.current.scrollBy({
-      left: dir * (cardWidth + 24),
+      left: dir * cardWidth,
       behavior: "smooth",
     });
   }, []);
 
   if (!team || team.length === 0) return null;
 
-  const navButtonBaseClass = `absolute top-1/2 -translate-y-1/2 z-20 w-9 h-9 items-center justify-center rounded-full bg-brand-primary text-white shadow-lg active:scale-95 ${
+  const navButtonBaseClass = `absolute top-1/2 -translate-y-1/2 z-20 w-9 h-9 items-center justify-center rounded-full bg-brand-primary text-white shadow-md active:scale-95 transition-opacity duration-200 ${
     showDesktopNav ? "flex" : "flex lg:hidden"
   }`;
 
@@ -203,7 +207,7 @@ export default function ProjectTeam({ team = [] }) {
       title="Equipo de investigación"
       centered={true}
     >
-      <div className="relative">
+      <div className="relative" data-aos="fade" data-aos-duration="600">
         {showMobileNav && (
           <>
             {canScrollLeft && (
@@ -231,7 +235,7 @@ export default function ProjectTeam({ team = [] }) {
 
         <div
           ref={scrollRef}
-          className={`flex gap-6 lg:gap-8 overflow-x-auto snap-x snap-mandatory pt-4 pb-4 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${
+          className={`flex gap-6 lg:gap-8 overflow-x-auto snap-x snap-mandatory pt-4 pb-4 overscroll-x-contain transform-gpu [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${
             !showDesktopNav ? "lg:justify-center" : ""
           }`}
         >

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useMemo } from "react";
 import {
   ChevronDown,
   ChevronUp,
@@ -10,6 +10,14 @@ import {
 } from "lucide-react";
 import SectionContainer from "../common/SectionContainer";
 
+const isValid = (val) =>
+  Boolean(
+    val &&
+    val.trim() !== "" &&
+    val !== "--" &&
+    val.toLowerCase() !== "no se sabe",
+  );
+
 export default function ProjectReview({
   resenia,
   contract,
@@ -20,58 +28,62 @@ export default function ProjectReview({
   culminationUrl,
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [contentHeight, setContentHeight] = useState("auto");
-  const contentRef = useRef(null);
 
-  useEffect(() => {
-    if (contentRef.current) {
-      setContentHeight(`${contentRef.current.scrollHeight}px`);
-    }
+  const paragraphs = useMemo(() => {
+    if (!resenia) return [];
+    return resenia
+      .split(/\n+/)
+      .map((p) => p.trim())
+      .filter(Boolean);
   }, [resenia]);
+
+  const isLongContent = useMemo(() => {
+    if (!resenia) return false;
+    return paragraphs.length > 1 || resenia.length > 350;
+  }, [paragraphs, resenia]);
+
+  const legalItems = useMemo(
+    () =>
+      [
+        {
+          id: "contract",
+          label: "Contrato",
+          value: contract,
+          url: contractUrl,
+          valid: isValid(contract),
+          icon: FileText,
+        },
+        {
+          id: "modification",
+          label: "Modificación",
+          value: modification,
+          url: modificationUrl,
+          valid: isValid(modification),
+          icon: FileEdit,
+        },
+        {
+          id: "culmination",
+          label: "Culminación",
+          value: culmination,
+          url: culminationUrl,
+          valid: isValid(culmination),
+          icon: CheckCircle2,
+        },
+      ].filter((item) => item.valid),
+    [
+      contract,
+      contractUrl,
+      modification,
+      modificationUrl,
+      culmination,
+      culminationUrl,
+    ],
+  );
 
   if (!resenia) return null;
 
-  const paragraphs = resenia
-    .split(/\n+/)
-    .map((p) => p.trim())
-    .filter(Boolean);
-
-  const isLongContent = paragraphs.length > 1 || resenia.length > 350;
-
-  const isValid = (val) =>
-    Boolean(
-      val &&
-      val.trim() !== "" &&
-      val !== "--" &&
-      val.toLowerCase() !== "no se sabe",
-    );
-
-  const legalItems = [
-    {
-      id: "contract",
-      label: "Contrato",
-      value: contract,
-      url: contractUrl,
-      valid: isValid(contract),
-      icon: FileText,
-    },
-    {
-      id: "modification",
-      label: "Modificación",
-      value: modification,
-      url: modificationUrl,
-      valid: isValid(modification),
-      icon: FileEdit,
-    },
-    {
-      id: "culmination",
-      label: "Culminación",
-      value: culmination,
-      url: culminationUrl,
-      valid: isValid(culmination),
-      icon: CheckCircle2,
-    },
-  ].filter((item) => item.valid);
+  const firstParagraph = paragraphs[0];
+  const remainingParagraphs = paragraphs.slice(1);
 
   return (
     <SectionContainer
@@ -87,7 +99,7 @@ export default function ProjectReview({
             {isLongContent && (
               <button
                 type="button"
-                onClick={() => setIsExpanded(!isExpanded)}
+                onClick={() => setIsExpanded((prev) => !prev)}
                 className="hidden sm:inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-brand-primary hover:text-brand-primary/80 transition-colors cursor-pointer"
               >
                 <span>{isExpanded ? "Contraer" : "Leer completa"}</span>
@@ -101,21 +113,28 @@ export default function ProjectReview({
           </div>
 
           <div className="relative">
-            <div
-              ref={contentRef}
-              className="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed text-justify overflow-hidden transition-all duration-500 ease-in-out"
-              style={{
-                maxHeight:
-                  !isExpanded && isLongContent ? "180px" : contentHeight,
-              }}
-            >
-              {paragraphs.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
+            <div className="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed text-justify">
+              <p>{firstParagraph}</p>
+
+              {remainingParagraphs.length > 0 && (
+                <div
+                  className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
+                    isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                  }`}
+                >
+                  <div className="overflow-hidden space-y-4">
+                    {remainingParagraphs.map((paragraph, index) => (
+                      <p key={index} className="pt-2">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {!isExpanded && isLongContent && (
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
             )}
           </div>
 
@@ -123,7 +142,7 @@ export default function ProjectReview({
             <div className="mt-4 flex sm:hidden justify-start">
               <button
                 type="button"
-                onClick={() => setIsExpanded(!isExpanded)}
+                onClick={() => setIsExpanded((prev) => !prev)}
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold text-brand-primary bg-brand-primary/10 hover:bg-brand-primary/15 transition-colors cursor-pointer"
               >
                 <span>{isExpanded ? "Leer menos" : "Leer más"}</span>
