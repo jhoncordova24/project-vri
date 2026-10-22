@@ -71,8 +71,6 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
   const mobileScrollRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  if (!deliverables || deliverables.length === 0) return null;
-
   const pageSize = 4;
   const totalPages = Math.ceil(deliverables.length / pageSize);
 
@@ -95,6 +93,27 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
     return deliverables.slice(start, start + pageSize);
   }, [deliverables, currentPage]);
 
+  const handleMobileScroll = () => {
+    const el = mobileScrollRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    const totalScrollable = scrollWidth - clientWidth;
+    if (totalScrollable > 0) {
+      setScrollProgress(
+        Math.min(100, Math.max(0, (scrollLeft / totalScrollable) * 100)),
+      );
+    } else {
+      setScrollProgress(0);
+    }
+  };
+
+  useEffect(() => {
+    handleMobileScroll();
+  }, [deliverables]);
+
+  // Los hooks ya se ejecutaron arriba, así que este return es seguro.
+  if (!deliverables || deliverables.length === 0) return null;
+
   const paginate = (newDirection) => {
     const targetPage = currentPage + newDirection;
     if (targetPage >= 0 && targetPage < totalPages) {
@@ -103,19 +122,8 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
     }
   };
 
-  const handleMobileScroll = () => {
-    if (mobileScrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = mobileScrollRef.current;
-      const totalScrollable = scrollWidth - clientWidth;
-      if (totalScrollable > 0) {
-        setScrollProgress((scrollLeft / totalScrollable) * 100);
-      }
-    }
-  };
-
-  useEffect(() => {
-    handleMobileScroll();
-  }, [deliverables]);
+  // Ancho de la barrita del indicador móvil (en % del track)
+  const thumbWidth = Math.max(20, 100 / deliverables.length);
 
   const navButtonBaseClass =
     "absolute top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-brand-primary text-white shadow-md active:scale-95 transition-opacity duration-200";
@@ -287,12 +295,12 @@ export default function ProjectPhysicalProgress({ deliverables = [] }) {
 
         {deliverables.length > 1 && (
           <div className="flex justify-center pt-2 px-6">
-            <div className="w-28 h-1 bg-slate-200/80 rounded-full overflow-hidden">
+            <div className="relative w-40 h-1 bg-slate-200/80 rounded-full overflow-hidden">
               <div
-                className="h-full bg-brand-primary rounded-full transition-all duration-150"
+                className="absolute inset-y-0 bg-brand-primary rounded-full transition-[left] duration-150"
                 style={{
-                  width: `${Math.max(25, 100 / deliverables.length)}%`,
-                  transform: `translateX(${(scrollProgress * (100 - Math.max(25, 100 / deliverables.length))) / 100}%)`,
+                  width: `${thumbWidth}%`,
+                  left: `${(scrollProgress * (100 - thumbWidth)) / 100}%`,
                 }}
               />
             </div>
