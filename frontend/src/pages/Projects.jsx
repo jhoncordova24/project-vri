@@ -13,9 +13,10 @@ export default function Projects() {
     setSelectedYear,
     availableYears,
     convocationData,
+    projects,
     loading,
     error,
-  } = useProjects(2025);
+  } = useProjects();
 
   return (
     <main className="w-full bg-slate-50/60 min-h-screen">
@@ -50,7 +51,7 @@ export default function Projects() {
       )}
 
       {!loading && !error && convocationData && (
-        <ProjectList projects={convocationData.proyectos} />
+        <ProjectList projects={projects} />
       )}
     </main>
   );

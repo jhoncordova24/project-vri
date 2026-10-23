@@ -1,24 +1,6 @@
 import { supabase } from "../lib/supabaseClient";
 
 /**
- * Obtiene la lista de años únicos disponibles en las convocatorias,
- * ordenados de forma descendente para los selectores o menús de navegación.
- */
-export async function getAvailableYears() {
-  const { data, error } = await supabase
-    .from("convocatorias")
-    .select("anio")
-    .order("anio", { ascending: false });
-
-  if (error) {
-    console.error("Error fetching available years:", error);
-    throw error;
-  }
-
-  return data.map((item) => item.anio);
-}
-
-/**
  * Obtiene la convocatoria de un año específico junto con todos sus proyectos
  * asociados, incluyendo gestores e investigadores principales vinculados.
  */

@@ -103,7 +103,7 @@ function DropdownMenuList({ items, onCloseAll, isMobile = false }) {
                   }`
                 : `py-2 px-3 text-sm rounded-xl ${
                     isActive
-                      ? "text-brand-primary font-semibold bg-black/5"
+                      ? "text-brand-primary bg-black/5"
                       : "text-gray-800 hover:bg-black/5"
                   }`
             }`
@@ -164,9 +164,7 @@ export default function Navbar() {
 
   const linkClass = ({ isActive }) =>
     `md:px-3 md:py-4 text-sm focus:outline-hidden transition-colors ${
-      isActive
-        ? "text-brand-primary font-semibold"
-        : "text-gray-800 hover:text-gray-500"
+      isActive ? "text-brand-primary" : "text-gray-800 hover:text-gray-500"
     }`;
 
   const mobileLinkClass = ({ isActive }) =>

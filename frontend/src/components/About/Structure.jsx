@@ -36,7 +36,7 @@ const DIRECTORS = [
       "https://biajqtukwsnwtoyndeak.supabase.co/storage/v1/object/public/investigadores/julio-piscoya-arbanil.webp",
   },
   {
-    name: "Mgtr. Elvis Luilly Vertiz Contreras",
+    name: "Mgtr. Econ. Elvis Luilly Vertiz Contreras",
     role: "Coordinador de la Unidad de Gestión de Proyectos de Investigación Básica y Aplicada",
     image:
       "https://biajqtukwsnwtoyndeak.supabase.co/storage/v1/object/public/gestores/elvis_vertiz_contreras.webp",

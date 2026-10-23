@@ -1,43 +1,23 @@
 import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  getAvailableYears,
-  getProjectsByYear,
-} from "../../services/projectsService";
+import { getProjectsByYear } from "../../services/projectsService";
 
-export function useProjects(defaultYear = 2025) {
+// Lista declarativa centralizada: cuando toque 2026, solo agregas el número aquí
+export const AVAILABLE_YEARS = [2025, 2024];
+export const DEFAULT_YEAR = AVAILABLE_YEARS[0];
+
+export function useProjects(defaultYear = DEFAULT_YEAR) {
   const { year } = useParams();
   const navigate = useNavigate();
 
-  const selectedYear = year ? Number(year) : defaultYear;
+  const parsedYear = Number(year);
+  const selectedYear = AVAILABLE_YEARS.includes(parsedYear)
+    ? parsedYear
+    : defaultYear;
 
-  const [availableYears, setAvailableYears] = useState([]);
   const [convocationData, setConvocationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function loadYears() {
-      try {
-        const years = await getAvailableYears();
-        if (isMounted) {
-          setAvailableYears(years);
-        }
-      } catch (err) {
-        if (isMounted) {
-          setError("Failed to load available years");
-        }
-      }
-    }
-
-    loadYears();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -52,7 +32,7 @@ export function useProjects(defaultYear = 2025) {
         }
       } catch (err) {
         if (isMounted) {
-          setError(`Failed to load data for year ${selectedYear}`);
+          setError(`No se pudo cargar la información del año ${selectedYear}`);
         }
       } finally {
         if (isMounted) {
@@ -93,7 +73,7 @@ export function useProjects(defaultYear = 2025) {
   return {
     selectedYear,
     setSelectedYear: handleYearChange,
-    availableYears,
+    availableYears: AVAILABLE_YEARS,
     convocationData,
     projects, 
     loading,
