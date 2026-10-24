@@ -4,10 +4,10 @@ import SectionLabel from "../common/SectionLabel";
 import SectionTitle from "../common/SectionTitle";
 import Button from "../common/Button";
 
-import investigacionImg from "../../assets/offices/investigacion.webp";
+import investigacionImg from "../../assets/offices/investigacion.avif";
 import bienesImg from "../../assets/offices/bienes.webp";
-import incubadoraImg from "../../assets/offices/incubadora.webp";
-import innovacionImg from "../../assets/offices/innovacion.webp";
+import incubadoraImg from "../../assets/offices/incubadora.avif";
+import innovacionImg from "../../assets/offices/innovacion.avif";
 
 const OFFICES = [
   {
@@ -62,12 +62,11 @@ export default function FeaturesPreline() {
   return (
     <section className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-12 mx-auto">
       <div className="relative p-6 md:p-16">
-        <div className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
-          <div
-            data-aos="fade-up"
-            data-aos-delay="100"
-            className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-7 lg:order-2"
-          >
+        <div
+          data-aos="fade-up"
+          className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center"
+        >
+          <div className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-7 lg:order-2">
             <div className="max-w-3xl mx-auto text-left mb-4 lg:mb-8">
               <SectionLabel>Nuestras oficinas</SectionLabel>
               <SectionTitle>Conoce nuestras dependencias</SectionTitle>
@@ -125,7 +124,7 @@ export default function FeaturesPreline() {
             </nav>
           </div>
 
-          <div data-aos="fade-up" className="lg:col-span-6 lg:order-1">
+          <div className="lg:col-span-6 lg:order-1">
             <div className="relative">
               <div className="relative min-h-[180px] sm:min-h-[480px]">
                 {OFFICES.map((office, idx) => {
@@ -147,7 +146,7 @@ export default function FeaturesPreline() {
                         className="w-full h-auto aspect-[4/3] sm:aspect-auto sm:h-[480px] object-contain sm:object-cover object-center rounded-xl transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform"
                         src={office.image}
                         alt={office.title}
-                        loading="lazy"
+                        loading={idx === 0 ? "eager" : "lazy"}
                         decoding="async"
                         width="600"
                         height="480"
@@ -174,7 +173,7 @@ export default function FeaturesPreline() {
           </div>
         </div>
 
-        <div className="absolute inset-0 grid grid-cols-12 size-full">
+        <div className="absolute inset-0 grid grid-cols-12 size-full pointer-events-none">
           <div className="col-span-full lg:col-span-7 lg:col-start-6 bg-brand-primary/7 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full" />
         </div>
       </div>

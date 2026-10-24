@@ -201,7 +201,7 @@ export default function Leadership() {
           <div className="absolute -top-12 -right-12 w-48 h-48 bg-brand-secondary/15 rounded-full blur-3xl pointer-events-none" />
 
           <div className="flex items-center justify-between mb-4 relative z-10">
-            <span className="text-[11px] font-mono text-slate-300 tracking-wider uppercase tabular-nums">
+            <span className="text-[11px] text-slate-300 tracking-wider uppercase tabular-nums">
               0{displayIndex + 1} / 0{authorities.length}
             </span>
 

@@ -1,4 +1,3 @@
-import React from "react";
 import NewsSection from "../components/News/News";
 import PageHero from "../components/common/PageHero";
 import heroBg from "../assets/news/hero.webp";

@@ -4,7 +4,7 @@ import {
   HandCoins,
   FileCode2,
   Users2,
-  ShieldCheck,
+  Award,
   TrendingUp,
 } from "lucide-react";
 import SectionContainer from "../common/SectionContainer";
@@ -62,9 +62,9 @@ export default function Identity() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-slate-700">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-brand-primary shrink-0" />
+              <Award className="w-4 h-4 text-brand-primary shrink-0" />
               <span className="text-xs sm:text-sm font-semibold text-slate-800 leading-tight">
-                Ley Universitaria N° 30220
+                Calidad y Rigor Científico
               </span>
             </div>
             <div className="flex items-center gap-2">

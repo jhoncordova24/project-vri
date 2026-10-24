@@ -22,6 +22,7 @@ import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
 import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
+import Contact from "./pages/Contact";
 
 function AppContent() {
   const location = useLocation();
@@ -93,10 +94,7 @@ function AppContent() {
             element={<UnderConstruction title="IOARR" />}
           />
 
-          <Route
-            path="/contacto"
-            element={<UnderConstruction title="Contacto" />}
-          />
+          <Route path="/contacto" element={<Contact />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

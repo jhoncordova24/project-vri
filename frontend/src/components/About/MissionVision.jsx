@@ -6,26 +6,28 @@ const STATEMENTS = [
     id: "mission",
     label: "Misión",
     icon: Target,
-    title: "Excelencia científica y transferencia tecnológica",
+    title: "Excelencia científica, innovación y articulación productiva",
     description:
-      "Gestionar la investigación con altos estándares de calidad y ética, conectando el conocimiento con el desarrollo social y productivo.",
+      "Gestionar y liderar la investigación científica, el desarrollo tecnológico y la incubación de emprendimientos, articulando las unidades productivas y transfiriendo soluciones efectivas a la sociedad.",
     highlights: [
-      "Proyectos I+D+i de impacto",
-      "Semilleros de investigación",
-      "Publicaciones indexadas",
+      "Investigación básica y aplicada",
+      "Incubación de empresas y startups (Nexora)",
+      "Transferencia tecnológica y propiedad intelectual",
+      "Unidades productivas y puesta en valor científico",
     ],
   },
   {
     id: "vision",
     label: "Visión",
     icon: Compass,
-    title: "Liderazgo e innovación con proyección global",
+    title: "Liderazgo en ciencia, emprendimiento e impacto regional",
     description:
-      "Ser un vicerrectorado referente por su producción científica, generación de patentes y vinculación estratégica internacional.",
+      "Ser un vicerrectorado referente nacional e internacional por su sólida producción científica, formación temprana de investigadores y capacidad de generar spin-offs y servicios de alto valor.",
     highlights: [
-      "Referente en ciencia e innovación",
-      "Ecosistema de patentes",
-      "Alianzas internacionales",
+      "Ecosistema consolidado de innovación y patentes",
+      "Redes y alianzas estratégicas globales",
+      "Semilleros y formación científica continua",
+      "Sostenibilidad a través de bienes y servicios",
     ],
   },
 ];
