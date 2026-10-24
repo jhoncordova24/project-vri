@@ -87,12 +87,24 @@ export default function ProjectsHeader({
       }
     >
       {isLoading ? (
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 animate-pulse">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
           {DOC_CONFIG.map((item) => (
             <div
               key={item.key}
-              className="h-28 sm:h-32 bg-slate-100/80 rounded-2xl border border-slate-200/60"
-            />
+              className="relative overflow-hidden h-full bg-white rounded-2xl p-3.5 sm:p-5 border border-slate-200/90 shadow-xs flex flex-col justify-between animate-pulse"
+            >
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-200" />
+                <div className="w-3.5 h-3.5 rounded-md bg-slate-200" />
+              </div>
+
+              <div>
+                <div className="h-2.5 bg-slate-200 rounded-sm w-20 mb-2" />
+                <div className="h-4 bg-slate-200 rounded-sm w-4/5" />
+              </div>
+
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-slate-200" />
+            </div>
           ))}
         </div>
       ) : (

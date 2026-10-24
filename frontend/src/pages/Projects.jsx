@@ -1,5 +1,5 @@
 import { useProjects } from "../hooks/projects/useProjects";
-import heroBg from "../assets/projects/hero.webp";
+import heroBg from "../assets/projects/hero.avif";
 import PageHero from "../components/common/PageHero";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import ProjectsHeader from "../components/Projects/ProjectsHeader";

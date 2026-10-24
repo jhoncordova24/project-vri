@@ -8,7 +8,7 @@ import ProjectRequirements from "../components/ProjectDetail/ProjectRequirements
 import ProjectGallery from "../components/ProjectDetail/ProjectGallery";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import { useProjectDetail } from "../hooks/projects/useProjectDetail";
-import heroBg from "../assets/projectDetail/hero.webp";
+import heroBg from "../assets/projectDetail/hero.avif";
 
 export default function ProjectDetail() {
   const { id } = useParams();

@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 
-import logo from "../../../assets/logo.webp";
-import logo2 from "../../../assets/logo-2.webp";
+import logo from "../../../assets/logo.avif";
+import logo2 from "../../../assets/logo-2.avif";
 
 const DIRECCIONES_ITEMS = [
   {

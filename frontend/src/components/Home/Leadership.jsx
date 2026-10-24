@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Button from "../common/Button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import zapataImg from "../../assets/leadership/1.webp";
-import tumeImg from "../../assets/leadership/2.webp";
+import zapataImg from "../../assets/leadership/1.avif";
+import tumeImg from "../../assets/leadership/2.avif";
 
 const IMAGE_TRANSITION_MS = 700;
 const TEXT_FADE_MS = 260;

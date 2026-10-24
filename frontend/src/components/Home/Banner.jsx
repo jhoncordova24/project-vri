@@ -150,14 +150,6 @@ export default function Banner() {
           </div>
         </div>
       </div>
-      <p
-        data-aos="fade-up"
-        data-aos-delay="200"
-        className="mt-10 sm:mt-12 text-center text-slate-400 text-xs"
-      >
-        * Programas sujetos a disponibilidad presupuestal y evaluación de
-        calidad institucional (UNP).
-      </p>
     </AmbientSection>
   );
 }

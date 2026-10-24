@@ -84,7 +84,7 @@ export default function ProjectDetailHero({
                 to={`/proyectos/${year}`}
                 icon={ArrowLeft}
                 iconPosition="left"
-                className="transition-transform duration-200 ease-out hover:scale-[1.03] active:scale-[0.97]"
+                className="transition-transform duration-200 ease-out"
               >
                 Volver a proyectos ({year})
               </Button>

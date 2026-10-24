@@ -4,7 +4,6 @@ import vicerrectorImg from "../../assets/about/structure/vicerrector.webp";
 import directorDiImg from "../../assets/about/structure/director-di.webp";
 import directorBienesImg from "../../assets/about/structure/director-bienes.webp";
 import coordinadorInnovacionImg from "../../assets/about/structure/coordinador-innovacion.webp";
-import coordinadorIncubadorasImg from "../../assets/about/structure/coordinador-incubadoras.webp";
 import { User } from "lucide-react";
 
 const LEADERSHIP = {
@@ -49,7 +48,7 @@ const DIRECTORS = [
   {
     name: "Ing. Candy Yasmín Burgos Bayona",
     role: "Coordinadora de la Dirección de Incubadoras de Empresas",
-    image: coordinadorIncubadorasImg,
+    image: null,
   },
   {
     name: "Mgtr. Manuel Ruffasto",
