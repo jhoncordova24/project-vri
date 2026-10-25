@@ -51,6 +51,7 @@ export default function Identity() {
           data-aos-duration="800"
           data-aos-delay="100"
           data-aos-easing="ease-out-cubic"
+          data-aos-once="true"
         >
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
             El Vicerrectorado de Investigación (VRI) es el órgano de más alto
@@ -60,7 +61,7 @@ export default function Identity() {
             sociedad.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-slate-700">
+          <div className="flex flex-row items-center gap-4 sm:gap-6 pt-2 text-slate-700">
             <div className="flex items-center gap-2">
               <Award className="w-4 h-4 text-brand-primary shrink-0" />
               <span className="text-xs sm:text-sm font-semibold text-slate-800 leading-tight">
@@ -82,6 +83,7 @@ export default function Identity() {
           data-aos-duration="800"
           data-aos-delay="200"
           data-aos-easing="ease-out-cubic"
+          data-aos-once="true"
         >
           {PILLARS.map((item, idx) => {
             const Icon = item.icon;
@@ -110,6 +112,7 @@ export default function Identity() {
         data-aos-duration="800"
         data-aos-delay="300"
         data-aos-easing="ease-out-cubic"
+        data-aos-once="true"
       >
         <img
           src={identityImg}

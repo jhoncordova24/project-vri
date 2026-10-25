@@ -43,6 +43,7 @@ export default function NewsArticleContent({ newsItem }) {
     horario,
     lugar,
     enlace_registro,
+    enlace_documento,
   } = newsItem;
 
   const paragraphs = (contenido || "").split(/\n+/).filter((p) => p.trim());
@@ -155,35 +156,52 @@ export default function NewsArticleContent({ newsItem }) {
               )}
             </dl>
 
-            {enlace_registro && (
+            {(enlace_registro || enlace_documento) && (
               <div className="flex flex-col gap-2 border-t border-slate-200 bg-slate-50/70 px-4 py-2.5 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-[11px] text-slate-500">
-                  {isExpired
-                    ? "El plazo para registrarse en este evento ha concluido."
-                    : "Reserva tu cupo antes de que se agoten las vacantes."}
+                  {enlace_registro
+                    ? isExpired
+                      ? "El plazo para registrarse en este evento ha concluido."
+                      : "Reserva tu cupo antes de que se agoten las vacantes."
+                    : "Consulta las bases y requisitos oficiales de la convocatoria."}
                 </p>
 
-                {isExpired ? (
-                  <button
-                    type="button"
-                    disabled
-                    className="inline-flex items-center justify-center gap-1.5 bg-slate-200 px-3 py-1 text-[11px] font-bold text-slate-400 cursor-not-allowed select-none border border-slate-300"
-                    title="Las inscripciones para este evento ya no están disponibles"
-                  >
-                    <AlertCircle className="h-3 w-3" aria-hidden="true" />
-                    Inscripciones cerradas
-                  </button>
-                ) : (
-                  <a
-                    href={enlace_registro}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 bg-brand-primary px-3 py-1 text-[11px] font-bold text-white transition-colors hover:bg-brand-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
-                  >
-                    Inscribirme al evento
-                    <ExternalLink className="h-3 w-3" aria-hidden="true" />
-                  </a>
-                )}
+                <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+                  {enlace_documento && (
+                    <a
+                      href={enlace_documento}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-full sm:w-auto items-center justify-center gap-1.5 bg-brand-primary px-3 py-1 text-[11px] font-bold text-white transition-colors hover:bg-brand-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
+                    >
+                      Ver bases
+                      <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                    </a>
+                  )}
+
+                  {enlace_registro &&
+                    (isExpired ? (
+                      <button
+                        type="button"
+                        disabled
+                        className="inline-flex w-full sm:w-auto items-center justify-center gap-1.5 bg-slate-200 px-3 py-1 text-[11px] font-bold text-slate-400 cursor-not-allowed select-none border border-slate-300"
+                        title="Las inscripciones para este evento ya no están disponibles"
+                      >
+                        <AlertCircle className="h-3 w-3" aria-hidden="true" />
+                        Inscripciones cerradas
+                      </button>
+                    ) : (
+                      <a
+                        href={enlace_registro}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex w-full sm:w-auto items-center justify-center gap-1.5 bg-brand-primary px-3 py-1 text-[11px] font-bold text-white transition-colors hover:bg-brand-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
+                      >
+                        Inscribirme al evento
+                        <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                      </a>
+                    ))}
+                </div>
               </div>
             )}
           </section>

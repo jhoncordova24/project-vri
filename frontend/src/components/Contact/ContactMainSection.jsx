@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Mail,
   MapPin,
@@ -34,28 +34,20 @@ const TARGET_EMAILS = [
 ];
 
 export default function ContactMainSection() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    targetEmail: "vrinvestigacion@unp.edu.pe",
-    message: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const mailtoSubject = encodeURIComponent(`Consulta Web - ${formData.name}`);
+    const data = new FormData(e.currentTarget);
+    const name = data.get("name") || "";
+    const email = data.get("email") || "";
+    const targetEmail = data.get("targetEmail") || TARGET_EMAILS[0].email;
+    const message = data.get("message") || "";
+
+    const mailtoSubject = encodeURIComponent(`Consulta Web - ${name}`);
     const mailtoBody = encodeURIComponent(
-      `${formData.message}\n\n---\nRemitente: ${formData.name}\nCorreo de contacto: ${formData.email}`,
+      `${message}\n\n---\nRemitente: ${name}\nCorreo de contacto: ${email}`,
     );
-    window.location.href = `mailto:${formData.targetEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+    window.location.href = `mailto:${targetEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
   };
 
   return (
@@ -70,17 +62,18 @@ export default function ContactMainSection() {
       }
       centered={true}
     >
-      <div className="mt-6 sm:mt-10 lg:mt-12 grid items-center lg:grid-cols-2 gap-6 lg:gap-14">
+      <div className="mt-6 sm:mt-8 lg:mt-12 grid items-center lg:grid-cols-2 gap-y-10 sm:gap-y-12 lg:gap-16">
         <div
-          className="flex flex-col bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-7 lg:p-8 shadow-xs"
+          className="flex flex-col bg-white border border-slate-200 rounded-xl p-4 sm:p-6 lg:p-8"
           data-aos="fade-up"
           data-aos-duration="600"
+          data-aos-once="true"
         >
-          <h2 className="mb-4 sm:mb-6 text-sm sm:text-base lg:text-lg font-semibold text-slate-700">
+          <h2 className="mb-4 sm:mb-6 lg:mb-8 text-base sm:text-lg lg:text-xl font-semibold text-slate-800">
             Envíanos un mensaje
           </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label htmlFor="contact-name" className="sr-only">
@@ -91,10 +84,8 @@ export default function ContactMainSection() {
                   id="contact-name"
                   name="name"
                   required
-                  value={formData.name}
-                  onChange={handleChange}
                   placeholder="Nombres y Apellidos"
-                  className="py-2.5 sm:py-3 px-3.5 sm:px-4 block w-full rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-700 placeholder:text-slate-400 focus:outline-hidden focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all"
+                  className="py-2 sm:py-2.5 lg:py-3 px-3.5 sm:px-4 block w-full rounded-lg border border-slate-200 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors"
                 />
               </div>
 
@@ -108,10 +99,8 @@ export default function ContactMainSection() {
                   name="email"
                   autoComplete="email"
                   required
-                  value={formData.email}
-                  onChange={handleChange}
                   placeholder="Correo Electrónico"
-                  className="py-2.5 sm:py-3 px-3.5 sm:px-4 block w-full rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-700 placeholder:text-slate-400 focus:outline-hidden focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all"
+                  className="py-2 sm:py-2.5 lg:py-3 px-3.5 sm:px-4 block w-full rounded-lg border border-slate-200 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors"
                 />
               </div>
             </div>
@@ -123,9 +112,8 @@ export default function ContactMainSection() {
               <select
                 id="contact-target"
                 name="targetEmail"
-                value={formData.targetEmail}
-                onChange={handleChange}
-                className="py-2.5 sm:py-3 px-3.5 sm:px-4 block w-full rounded-xl border border-slate-200 bg-white text-xs sm:text-sm text-slate-700 focus:outline-hidden focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all"
+                defaultValue={TARGET_EMAILS[0].email}
+                className="py-2 sm:py-2.5 lg:py-3 px-3.5 sm:px-4 block w-full rounded-lg border border-slate-200 bg-white text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors"
               >
                 {TARGET_EMAILS.map((item, idx) => (
                   <option key={idx} value={item.email}>
@@ -144,81 +132,82 @@ export default function ContactMainSection() {
                 name="message"
                 required
                 rows={4}
-                value={formData.message}
-                onChange={handleChange}
                 placeholder="Escribe aquí los detalles de tu consulta institucional..."
-                className="py-2.5 sm:py-3 px-3.5 sm:px-4 block w-full rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-700 placeholder:text-slate-400 focus:outline-hidden focus:border-brand-primary focus:ring-1 focus:ring-brand-primary resize-none transition-all"
+                className="py-2 sm:py-2.5 lg:py-3 px-3.5 sm:px-4 block w-full rounded-lg border border-slate-200 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary resize-none transition-colors"
               />
             </div>
 
-            <div className="pt-1.5 sm:pt-2">
+            <div className="pt-1">
               <Button
                 type="submit"
                 variant="primary"
-                className="w-full cursor-pointer"
+                className="w-full cursor-pointer py-2 sm:py-2.5 text-xs sm:text-sm"
               >
                 Enviar Consulta
               </Button>
             </div>
 
-            <p className="text-center text-[11px] text-slate-400 pt-1">
-              Atención presencial y virtual en días hábiles institucionales.
-            </p>
+            <div className="pt-1 text-center">
+              <p className="text-xs text-slate-500">
+                Atención presencial y virtual en días hábiles institucionales.
+              </p>
+            </div>
           </form>
         </div>
 
         <div
-          className="divide-y divide-slate-200/80"
+          className="divide-y divide-slate-200"
           data-aos="fade-up"
           data-aos-duration="600"
           data-aos-delay="100"
+          data-aos-once="true"
         >
-          <div className="flex gap-x-5 py-5 sm:py-6 first:pt-0">
+          <div className="flex gap-x-4 sm:gap-x-6 lg:gap-x-7 py-4 sm:py-5 lg:py-6 lg:first:pt-0">
             <Mail className="shrink-0 size-5 sm:size-6 mt-1 text-brand-primary stroke-[1.8]" />
             <div className="grow min-w-0">
-              <h4 className="text-xs sm:text-sm font-semibold text-slate-800">
+              <h3 className="text-sm sm:text-base font-semibold text-slate-800">
                 Correo Institucional
-              </h4>
-              <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-slate-500 leading-relaxed">
+              </h3>
+              <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-slate-500">
                 Mesa de partes virtual y recepción de trámites académicos.
               </p>
               <a
                 href="mailto:vrinvestigacion@unp.edu.pe"
-                className="mt-1.5 sm:mt-2 inline-flex items-center gap-x-1.5 text-xs sm:text-sm font-medium text-slate-600 hover:text-brand-primary transition-colors truncate max-w-full"
+                className="mt-1 sm:mt-2 inline-flex items-center gap-x-1.5 text-xs sm:text-sm font-medium text-slate-600 hover:text-brand-primary transition-colors truncate max-w-full"
               >
                 <span className="truncate">vrinvestigacion@unp.edu.pe</span>
-                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-slate-400 group-hover:text-brand-primary" />
+                <ChevronRight className="shrink-0 size-3.5 sm:size-4 text-slate-400" />
               </a>
             </div>
           </div>
 
-          <div className="flex gap-x-5 py-5 sm:py-6">
+          <div className="flex gap-x-4 sm:gap-x-6 lg:gap-x-7 py-4 sm:py-5 lg:py-6">
             <Clock className="shrink-0 size-5 sm:size-6 mt-1 text-brand-primary stroke-[1.8]" />
             <div className="grow">
-              <h4 className="text-xs sm:text-sm font-semibold text-slate-800">
+              <h3 className="text-sm sm:text-base font-semibold text-slate-800">
                 Horario de Atención
-              </h4>
-              <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-slate-500 leading-relaxed">
+              </h3>
+              <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-slate-500">
                 Lunes a Viernes en horario de jornada continua.
               </p>
-              <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm font-medium text-slate-700">
+              <p className="mt-1 sm:mt-2 text-xs sm:text-sm font-medium text-slate-700">
                 8:00 a.m. - 3:00 p.m.
               </p>
             </div>
           </div>
 
-          <div className="flex gap-x-5 py-5 sm:py-6">
+          <div className="flex gap-x-4 sm:gap-x-6 lg:gap-x-7 py-4 sm:py-5 lg:py-6">
             <MapPin className="shrink-0 size-5 sm:size-6 mt-1 text-brand-primary stroke-[1.8]" />
             <div className="grow">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <h4 className="text-xs sm:text-sm font-semibold text-slate-800">
+                  <h3 className="text-sm sm:text-base font-semibold text-slate-800">
                     Sede Central
-                  </h4>
-                  <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-slate-500 leading-relaxed">
+                  </h3>
+                  <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-slate-500">
                     Vicerrectorado de Investigación · Campus Universitario
                   </p>
-                  <p className="mt-1 text-xs sm:text-sm text-slate-600">
+                  <p className="mt-0.5 text-xs sm:text-sm text-slate-600">
                     Edificio de la OTI, 5.° piso (Urb. Miraflores, Castilla)
                   </p>
                 </div>
@@ -226,27 +215,27 @@ export default function ContactMainSection() {
                   href="https://maps.app.goo.gl/iXFboJb9yPEkJ76g6"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shrink-0 inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-slate-600 hover:text-brand-primary transition-colors"
+                  className="shrink-0 inline-flex items-center gap-x-1 text-xs sm:text-sm font-medium text-slate-600 hover:text-brand-primary transition-colors"
                 >
                   <span>Abrir</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 hover:text-brand-primary" />
+                  <ExternalLink className="size-3.5 sm:size-4 text-slate-400" />
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="flex gap-x-5 py-5 sm:py-6 last:pb-0">
+          <div className="flex gap-x-4 sm:gap-x-6 lg:gap-x-7 py-4 sm:py-5 lg:py-6 last:pb-0">
             <Globe className="shrink-0 size-5 sm:size-6 mt-1 text-brand-primary stroke-[1.8]" />
             <div className="grow">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <h4 className="text-xs sm:text-sm font-semibold text-slate-800">
+                  <h3 className="text-sm sm:text-base font-semibold text-slate-800">
                     Portal Institucional
-                  </h4>
-                  <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-slate-500 leading-relaxed">
+                  </h3>
+                  <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-slate-500">
                     Universidad Nacional de Piura
                   </p>
-                  <p className="mt-1 text-xs sm:text-sm text-slate-600">
+                  <p className="mt-0.5 text-xs sm:text-sm text-slate-600">
                     Acceso al portal central y servicios universitarios
                   </p>
                 </div>
@@ -254,10 +243,10 @@ export default function ContactMainSection() {
                   href="https://www.unp.edu.pe/web/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shrink-0 inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-slate-600 hover:text-brand-primary transition-colors"
+                  className="shrink-0 inline-flex items-center gap-x-1 text-xs sm:text-sm font-medium text-slate-600 hover:text-brand-primary transition-colors"
                 >
                   <span>unp.edu.pe</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 hover:text-brand-primary" />
+                  <ExternalLink className="size-3.5 sm:size-4 text-slate-400" />
                 </a>
               </div>
             </div>
