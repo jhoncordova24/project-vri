@@ -8,9 +8,9 @@ export default function Contact() {
   return (
     <>
       <PageHero
-        title="Contacto"
-        subtitle="Canales oficiales de comunicación, orientación a investigadores y atención al usuario."
-        badge="Atención al Usuario"
+        title="Contacto Institucional"
+        subtitle="Canales oficiales de comunicación y orientación para investigadores, docentes y tesistas."
+        badge="Atención a la Comunidad Universitaria"
         imageSrc={tempHeroBg}
       />
       <ContactMainSection />

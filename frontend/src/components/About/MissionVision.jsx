@@ -64,7 +64,7 @@ export default function MissionVision() {
                   {item.title}
                 </h3>
 
-                <p className="text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed max-w-xl">
+                <p className="text-xs sm:text-sm lg:text-[15px] text-slate-500 leading-relaxed max-w-xl font-normal">
                   {item.description}
                 </p>
               </div>
