@@ -1,13 +1,24 @@
 import { supabase } from "../lib/supabaseClient";
 
 /**
- * Obtiene las últimas noticias registradas, limitadas por cantidad
- * y ordenadas por fecha de inicio y creación de forma descendente.
+ * Obtiene las últimas noticias registradas para el Home,
+ * trayendo exclusivamente los campos necesarios para las tarjetas.
  */
 export const getLatestNews = async (limit = 3) => {
   const { data, error } = await supabase
     .from("noticias")
-    .select("*")
+    .select(
+      `
+      id,
+      titulo,
+      categoria,
+      imagen_url,
+      modalidad,
+      fecha_inicio,
+      fecha_fin,
+      lugar
+    `,
+    )
     .order("fecha_inicio", { ascending: false, nullsFirst: false })
     .order("creado_en", { ascending: false })
     .limit(limit);
@@ -40,7 +51,7 @@ export const getNewsById = async (id) => {
 
 /**
  * Obtiene de forma paginada las noticias con opciones de filtrado
- * por categoría y búsqueda de texto en el título o contenido.
+ * por categoría y búsqueda de texto en el título.
  */
 export const getNews = async ({
   page = 1,
@@ -53,7 +64,19 @@ export const getNews = async ({
 
   let query = supabase
     .from("noticias")
-    .select("*", { count: "exact" })
+    .select(
+      `
+      id,
+      titulo,
+      categoria,
+      imagen_url,
+      modalidad,
+      fecha_inicio,
+      fecha_fin,
+      lugar
+    `,
+      { count: "exact" },
+    )
     .order("fecha_inicio", { ascending: false, nullsFirst: false })
     .order("creado_en", { ascending: false });
 
@@ -63,7 +86,7 @@ export const getNews = async ({
 
   if (search && search.trim() !== "") {
     const term = search.trim();
-    query = query.or(`titulo.ilike.%${term}%,contenido.ilike.%${term}%`);
+    query = query.ilike("titulo", `%${term}%`);
   }
 
   query = query.range(from, to);

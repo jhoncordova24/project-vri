@@ -1,15 +1,26 @@
 import { supabase } from "../lib/supabaseClient";
 
 /**
- * Obtiene la convocatoria de un año específico junto con todos sus proyectos
- * asociados, incluyendo gestores e investigadores principales vinculados.
+ * Obtiene la convocatoria de un año específico junto con sus proyectos asociados,
+ * trayendo estrictamente los datos que se muestran en el encabezado y en las tarjetas.
  */
 export async function getProjectsByYear(year) {
   const { data, error } = await supabase
     .from("convocatorias")
     .select(
       `
-      *,
+      id,
+      anio,
+      titulo,
+      reglamento_resolucion,
+      reglamento_pdf_url,
+      bases_resolucion,
+      bases_pdf_url,
+      ganadores_resolucion,
+      ganadores_pdf_url,
+      presupuesto_resolucion,
+      presupuesto_pdf_url,
+      fuente_financiamiento,
       proyectos:proyectos_investigacion (
         id,
         titulo,
@@ -17,20 +28,13 @@ export async function getProjectsByYear(year) {
         culminado,
         gestores (
           id,
-          nombres_apellidos,
-          cargo,
-          email,
-          foto_url
+          nombres_apellidos
         ),
         proyecto_investigadores (
           rol,
           investigadores (
             id,
-            nombres_apellidos,
-            email,
-            foto_url,
-            orcid_url,
-            cti_vitae_url
+            nombres_apellidos
           )
         )
       )
