@@ -16,7 +16,7 @@ export const getLatestNews = async (limit = 3) => {
       modalidad,
       fecha_inicio,
       fecha_fin,
-      lugar
+      creado_en
     `,
     )
     .order("creado_en", { ascending: false })
@@ -72,7 +72,7 @@ export const getNews = async ({
       modalidad,
       fecha_inicio,
       fecha_fin,
-      lugar
+      creado_en
     `,
       { count: "exact" },
     )

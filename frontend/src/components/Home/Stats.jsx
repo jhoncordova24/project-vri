@@ -12,7 +12,7 @@ import CountUp from "../common/CountUp";
 const stats = [
   {
     number: "40+",
-    label: "Docentes Concytec",
+    label: "Docentes Renacyt",
     icon: BadgeCheck,
   },
   {

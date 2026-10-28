@@ -1,14 +1,7 @@
 import { memo } from "react";
-import {
-  Calendar,
-  ArrowRight,
-  MapPin,
-  Video,
-  Users,
-  Images,
-} from "lucide-react";
+import { Calendar, ArrowRight, Video, Users, Images } from "lucide-react";
 import { Link } from "react-router-dom";
-import { formatEventDates } from "../../utils/formatDate";
+import { formatDate, formatEventDates } from "../../utils/formatDate";
 
 const MODALITY_CONFIG = {
   Presencial: { icon: Users, label: "Presencial" },
@@ -20,11 +13,9 @@ function NewsCard({ item }) {
   const modality = item.modalidad ? MODALITY_CONFIG[item.modalidad] : null;
   const ModalityIcon = modality?.icon;
   const galleryCount = item.noticia_imagenes?.length || 0;
-  const displayDate = formatEventDates(
-    item.fecha_inicio,
-    item.fecha_fin,
-    item.creado_en,
-  );
+  const displayDate =
+    formatEventDates(item.fecha_inicio, item.fecha_fin) ||
+    formatDate(item.creado_en);
 
   return (
     <article className="group relative bg-white rounded-2xl border border-slate-200/80 hover:border-brand-primary/40 overflow-hidden shadow-xs hover:shadow-md transition-[border-color,box-shadow] duration-300 flex flex-col justify-between">
@@ -65,18 +56,9 @@ function NewsCard({ item }) {
         </div>
 
         <div className="p-5">
-          <div className="flex items-center justify-between gap-2 text-xs text-slate-400 mb-2.5">
-            <div className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 shrink-0" />
-              <time>{displayDate}</time>
-            </div>
-
-            {item.lugar && (
-              <div className="flex items-center gap-1 text-slate-500 max-w-[50%] truncate">
-                <MapPin className="w-3 h-3 shrink-0 text-slate-400" />
-                <span className="truncate text-[11px]">{item.lugar}</span>
-              </div>
-            )}
+          <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-2.5">
+            <Calendar className="w-3.5 h-3.5 shrink-0" />
+            <time>{displayDate}</time>
           </div>
 
           <h3 className="font-bold text-slate-900 text-base group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug">
