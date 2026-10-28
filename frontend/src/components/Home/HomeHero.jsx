@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "../common/Button";
 
+import hero1 from "../../assets/home/hero-1.avif";
+import hero2 from "../../assets/home/hero-2.avif";
+import hero3 from "../../assets/home/hero-3.avif";
+
 const EASE = [0.22, 1, 0.36, 1];
 
-const heroImages = [
-  "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&w=1600&q=75",
-  "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=1600&q=75",
-  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=75",
-];
+const heroImages = [hero1, hero2, hero3];
 
 const rotatingWords = [
   "el conocimiento",
