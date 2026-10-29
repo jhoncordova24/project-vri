@@ -1,6 +1,6 @@
 import React from "react";
 import SectionContainer from "../common/SectionContainer";
-import vicerrectorImg from "../../assets/about/structure/vicerrector.webp";
+import vicerrectorImg from "../../assets/about/structure/vicerrector.avif";
 import directorDiImg from "../../assets/about/structure/director-di.webp";
 import directorBienesImg from "../../assets/about/structure/director-bienes.webp";
 import coordinadorInnovacionImg from "../../assets/about/structure/coordinador-innovacion.webp";

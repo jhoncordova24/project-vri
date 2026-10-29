@@ -5,7 +5,7 @@ import SectionTitle from "../common/SectionTitle";
 import Button from "../common/Button";
 
 import investigacionImg from "../../assets/offices/investigacion.avif";
-import bienesImg from "../../assets/offices/bienes.webp";
+import bienesImg from "../../assets/offices/bienes.avif";
 import incubadoraImg from "../../assets/offices/incubadora.avif";
 import innovacionImg from "../../assets/offices/innovacion.avif";
 
@@ -146,7 +146,7 @@ export default function FeaturesPreline() {
                         className="w-full h-auto aspect-[4/3] sm:aspect-auto sm:h-[480px] object-contain sm:object-cover object-center rounded-xl transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform"
                         src={office.image}
                         alt={office.title}
-                        loading={idx === 0 ? "eager" : "lazy"}
+                        loading="lazy"
                         decoding="async"
                         width="600"
                         height="480"

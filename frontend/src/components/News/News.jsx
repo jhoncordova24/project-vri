@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import SectionContainer from "../common/SectionContainer";
 import { useNews } from "../../hooks/news/useNews";
 import { useDebounce } from "../../hooks/common/useDebounce";
-import NewsCard from "../common/NewsCard";
+import NewsCard, { NewsCardSkeleton } from "../common/NewsCard";
 import Pagination from "../common/Pagination";
 
 const CATEGORIES = [
@@ -106,12 +106,9 @@ export default function News() {
         )}
 
         {loading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
+          <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-0 md:gap-8 py-4">
             {[1, 2, 3, 4, 5, 6].map((n) => (
-              <div
-                key={n}
-                className="h-80 bg-slate-200/60 animate-pulse rounded-2xl"
-              />
+              <NewsCardSkeleton key={n} />
             ))}
           </div>
         )}
@@ -135,7 +132,7 @@ export default function News() {
         )}
 
         {!loading && !error && news.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-0 md:gap-8">
             {news.map((item) => (
               <NewsCard key={item.id} item={item} />
             ))}
