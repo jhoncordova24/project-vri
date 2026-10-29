@@ -13,7 +13,6 @@ import SectionContainer from "../common/SectionContainer";
 export default function ProjectReview({
   resenia,
   contract,
-  contractUrl,
   modification,
   modificationUrl,
   culmination,
@@ -51,7 +50,7 @@ export default function ProjectReview({
       id: "contract",
       label: "Contrato",
       value: contract,
-      url: contractUrl,
+      url: null,
       valid: isValid(contract),
       icon: FileText,
     },

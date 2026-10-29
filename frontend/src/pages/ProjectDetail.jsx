@@ -51,7 +51,6 @@ export default function ProjectDetail() {
           <ProjectReview
             resenia={project.resenia}
             contract={project.contrato_numero}
-            contractUrl={project.contrato_pdf_url}
             modification={project.resolucion_modificacion}
             modificationUrl={project.resolucion_modificacion_pdf_url}
             culmination={project.resolucion_culminacion}

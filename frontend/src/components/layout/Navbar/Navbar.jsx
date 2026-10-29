@@ -44,11 +44,17 @@ const DESARROLLO_ITEMS = [
 ];
 
 function BrandLogo() {
+  const handleClick = (e) => {
+    e.currentTarget.blur();
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  };
+
   return (
     <NavLink
-      className="flex-none rounded-md inline-flex items-center gap-x-1.5 focus:outline-hidden focus:opacity-80"
+      className="flex-none rounded-md inline-flex items-center gap-x-1.5 focus:outline-hidden select-none [-webkit-tap-highlight-color:transparent]"
       to="/"
       aria-label="Inicio"
+      onClick={handleClick}
     >
       <span className="h-10 md:h-11 w-9 md:w-10 shrink-0 flex items-center justify-center">
         <img
