@@ -63,8 +63,9 @@ export default function ProjectFinancialProgress({
     { aprobado: 0, ejecutado: 0, gasto: 0 },
   );
 
-  const finalPresupuestoAprobado =
-    Number(presupuestoTotalAprobado) || totals.aprobado;
+  const finalPresupuestoAprobado = hasItemizedBudget
+    ? totals.aprobado
+    : Number(presupuestoTotalAprobado) || totals.aprobado;
 
   const totalSaldo = finalPresupuestoAprobado - totals.ejecutado;
   const executionPercentage =
