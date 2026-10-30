@@ -72,7 +72,7 @@ export default function HomeHero() {
   const currentSlide = heroSlides[imageIndex];
 
   return (
-    <div className="relative min-h-[500px] h-[100dvh] w-full overflow-hidden bg-slate-950">
+    <div className="relative min-h-[500px] h-[100svh] w-full overflow-hidden bg-slate-950">
       <AnimatePresence>
         <motion.div
           key={imageIndex}
@@ -87,7 +87,7 @@ export default function HomeHero() {
           }}
           exit={{ opacity: 0, transition: { duration: 1.2, ease: EASE } }}
           style={{ willChange: "opacity, transform" }}
-          className="absolute inset-0 w-full h-full pointer-events-none select-none brightness-75"
+          className="absolute inset-0 w-full h-full pointer-events-none select-none transform-gpu"
         >
           <picture className="w-full h-full block">
             <source media="(min-width: 768px)" srcSet={currentSlide.desktop} />
@@ -100,6 +100,7 @@ export default function HomeHero() {
         </motion.div>
       </AnimatePresence>
 
+      <div className="pointer-events-none absolute inset-0 bg-black/25" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-slate-950/60" />
 
       <div className="relative h-full flex items-center pt-28">
