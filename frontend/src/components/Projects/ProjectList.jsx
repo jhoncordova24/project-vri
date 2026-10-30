@@ -130,59 +130,47 @@ export default function ProjectList({ projects = [], year }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const searchableProjects = useMemo(() => {
-    return projects.map((project) => {
-      const principal =
-        project.investigadorPrincipal?.nombres_apellidos ||
-        project.proyecto_investigadores?.find(
-          (pi) => pi.rol === "Investigador Principal",
-        )?.investigadores?.nombres_apellidos ||
-        "No asignado";
+  const preparedProjects = useMemo(() => {
+    return projects
+      .map((p) => {
+        const principal =
+          p.investigadorPrincipal?.nombres_apellidos ||
+          p.proyecto_investigadores?.find(
+            (pi) => pi.rol === "Investigador Principal",
+          )?.investigadores?.nombres_apellidos ||
+          "No asignado";
 
-      const gestor =
-        project.gestor?.nombres_apellidos ||
-        project.gestores?.nombres_apellidos ||
-        null;
+        const gestor =
+          p.gestor?.nombres_apellidos || p.gestores?.nombres_apellidos || null;
 
-      const searchableBlob = normalizeText(
-        `${project.titulo} ${principal} ${gestor || ""} ${
-          project.linea_investigacion || ""
-        }`,
-      );
-
-      return {
-        ...project,
-        investigadorPrincipalNombre: principal,
-        gestorNombre: gestor,
-        _searchableBlob: searchableBlob,
-      };
-    });
+        return {
+          ...p,
+          investigadorPrincipalNombre: principal,
+          gestorNombre: gestor,
+          _blob: normalizeText(
+            `${p.titulo} ${principal} ${gestor || ""} ${p.linea_investigacion || ""}`,
+          ),
+        };
+      })
+      .sort((a, b) => collator.compare(a.titulo, b.titulo));
   }, [projects]);
 
   const filteredProjects = useMemo(() => {
     const term = normalizeText(searchTerm);
+    return term
+      ? preparedProjects.filter((p) => p._blob.includes(term))
+      : preparedProjects;
+  }, [preparedProjects, searchTerm]);
 
-    const matches = !term
-      ? searchableProjects
-      : searchableProjects.filter((p) => p._searchableBlob.includes(term));
-
-    return [...matches].sort((a, b) => collator.compare(a.titulo, b.titulo));
-  }, [searchableProjects, searchTerm]);
-
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedProjects = filteredProjects.slice(
+    offset,
+    offset + ITEMS_PER_PAGE,
+  );
   const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE) || 1;
 
-  const paginatedProjects = useMemo(() => {
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredProjects.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredProjects, currentPage]);
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
-
-  const handleClearSearch = () => {
-    setSearchTerm("");
+  const updateSearch = (value) => {
+    setSearchTerm(value);
     setCurrentPage(1);
   };
 
@@ -197,13 +185,13 @@ export default function ProjectList({ projects = [], year }) {
             type="text"
             placeholder="Buscar por título, investigador o línea..."
             value={searchTerm}
-            onChange={handleSearchChange}
+            onChange={(e) => updateSearch(e.target.value)}
             className="w-full pl-10 pr-9 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-colors shadow-xs"
           />
           {searchTerm && (
             <button
               type="button"
-              onClick={handleClearSearch}
+              onClick={() => updateSearch("")}
               className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 rounded-full"
             >
               <X className="w-3.5 h-3.5" />
@@ -220,17 +208,14 @@ export default function ProjectList({ projects = [], year }) {
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-2.5 sm:gap-3">
-          {paginatedProjects.map((project, index) => {
-            const absoluteIndex = (currentPage - 1) * ITEMS_PER_PAGE + index;
-            return (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={absoluteIndex}
-                year={year}
-              />
-            );
-          })}
+          {paginatedProjects.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={offset + index}
+              year={year}
+            />
+          ))}
         </div>
       )}
 

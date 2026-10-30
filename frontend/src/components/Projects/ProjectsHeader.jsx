@@ -59,8 +59,8 @@ export default function ProjectsHeader({
       description="Consulta resoluciones, bases, presupuestos e investigadores principales por año académico."
       className="border-b border-slate-200/80"
       action={
-        <div className="w-fit self-start md:self-auto bg-white/90 backdrop-blur-md p-1.5 sm:px-5 sm:py-3 rounded-xl sm:rounded-2xl border border-slate-200/90 shadow-xs flex items-center gap-2 sm:gap-4">
-          <span className="hidden sm:inline-block text-[11px] font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
+        <div className="w-fit self-start md:self-auto bg-white/90 backdrop-blur-md px-3 py-1.5 sm:px-5 sm:py-3 rounded-xl sm:rounded-2xl border border-slate-200/90 shadow-xs flex items-center gap-2 sm:gap-4">
+          <span className="inline-block text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
             Seleccionar Convocatoria
           </span>
 

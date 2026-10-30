@@ -2,13 +2,20 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "../common/Button";
 
-import hero1 from "../../assets/home/hero-1.avif";
-import hero2 from "../../assets/home/hero-2.avif";
-import hero3 from "../../assets/home/hero-3.avif";
+import hero1Desktop from "../../assets/home/hero-1-desktop.avif";
+import hero1Mobile from "../../assets/home/hero-1-mobile.avif";
+import hero2Desktop from "../../assets/home/hero-2-desktop.avif";
+import hero2Mobile from "../../assets/home/hero-2-mobile.avif";
+import hero3Desktop from "../../assets/home/hero-3-desktop.avif";
+import hero3Mobile from "../../assets/home/hero-3-mobile.avif";
 
 const EASE = [0.22, 1, 0.36, 1];
 
-const heroImages = [hero1, hero2, hero3];
+const heroSlides = [
+  { desktop: hero1Desktop, mobile: hero1Mobile },
+  { desktop: hero2Desktop, mobile: hero2Mobile },
+  { desktop: hero3Desktop, mobile: hero3Mobile },
+];
 
 const rotatingWords = [
   "el conocimiento",
@@ -47,26 +54,28 @@ export default function HomeHero() {
   const [imageIndex, setImageIndex] = useState(0);
 
   useEffect(() => {
-    heroImages.forEach((src) => {
-      const img = new Image();
-      img.src = src;
+    heroSlides.forEach((slide) => {
+      const imgD = new Image();
+      imgD.src = slide.desktop;
+      const imgM = new Image();
+      imgM.src = slide.mobile;
     });
   }, []);
 
   useEffect(() => {
     const id = setInterval(() => {
-      setImageIndex((i) => (i + 1) % heroImages.length);
+      setImageIndex((i) => (i + 1) % heroSlides.length);
     }, 5500);
     return () => clearInterval(id);
   }, []);
 
+  const currentSlide = heroSlides[imageIndex];
+
   return (
-    <div className="relative min-h-[500px] h-[100svh] w-full overflow-hidden bg-slate-950">
+    <div className="relative min-h-[500px] h-[100dvh] w-full overflow-hidden bg-slate-950">
       <AnimatePresence>
-        <motion.img
+        <motion.div
           key={imageIndex}
-          src={heroImages[imageIndex]}
-          alt="Vicerrectorado de Investigación"
           initial={{ opacity: 0, scale: 1 }}
           animate={{
             opacity: 0.75,
@@ -78,8 +87,17 @@ export default function HomeHero() {
           }}
           exit={{ opacity: 0, transition: { duration: 1.2, ease: EASE } }}
           style={{ willChange: "opacity, transform" }}
-          className="absolute inset-0 object-cover w-full h-full pointer-events-none select-none brightness-75"
-        />
+          className="absolute inset-0 w-full h-full pointer-events-none select-none brightness-75"
+        >
+          <picture className="w-full h-full block">
+            <source media="(min-width: 768px)" srcSet={currentSlide.desktop} />
+            <img
+              src={currentSlide.mobile}
+              alt="Vicerrectorado de Investigación"
+              className="w-full h-full object-cover"
+            />
+          </picture>
+        </motion.div>
       </AnimatePresence>
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-slate-950/60" />
