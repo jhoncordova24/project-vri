@@ -52,6 +52,27 @@ function RotatingWord() {
 
 export default function HomeHero() {
   const [imageIndex, setImageIndex] = useState(0);
+  const [heroHeight, setHeroHeight] = useState("100svh");
+
+  useEffect(() => {
+    let prevWidth = window.innerWidth;
+
+    const setHeight = () => {
+      setHeroHeight(`${window.innerHeight}px`);
+    };
+
+    setHeight();
+
+    const handleResize = () => {
+      if (window.innerWidth !== prevWidth) {
+        prevWidth = window.innerWidth;
+        setHeight();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     heroSlides.forEach((slide) => {
@@ -72,7 +93,10 @@ export default function HomeHero() {
   const currentSlide = heroSlides[imageIndex];
 
   return (
-    <div className="relative min-h-[500px] h-[100svh] w-full overflow-hidden bg-slate-950">
+    <div
+      style={{ height: heroHeight }}
+      className="relative min-h-[500px] md:!h-screen w-full overflow-hidden bg-slate-950"
+    >
       <AnimatePresence>
         <motion.div
           key={imageIndex}
